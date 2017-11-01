@@ -30,12 +30,12 @@ public class CategoryRepositoryTest {
 	@Test
 	public void covered() {
 		Category newObj = newCategory();
-		_categoryRepository.save(newObj);
+		_categoryRepository.create(newObj);
 		Category retrievedObj = _categoryRepository.get(newObj.categoryId());
 		assertFalse(retrievedObj==null);
 
 		retrievedObj.changeDescription(CHANGED_DES);
-		_categoryRepository.save(retrievedObj);
+		_categoryRepository.update(retrievedObj);
 		Category updatedObj = _categoryRepository.get(retrievedObj.categoryId());
 		assertFalse(updatedObj==null);
 		assertFalse(!updatedObj.description().equals(CHANGED_DES));
@@ -49,7 +49,7 @@ public class CategoryRepositoryTest {
 	}
 
 	private Category newCategory() {
-		Category category = _categoryFactory.create(1, "book", "This is book!");
+		Category category = _categoryFactory.category(1, "book", "This is book!");
 		return category;
 	}
 }

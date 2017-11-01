@@ -10,29 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.mystore.shop.domain.model.category.Category;
+import com.mystore.shop.domain.model.category.CategoryFactory;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryRepository;
 
-//@Service
-public class CategoryRepositorySql extends CategoryRepository {
+//@Component
+public class CategoryRepositorySql implements CategoryRepository {
+	
+	@Autowired
+	private CategoryFactory categoryFactory;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@Override
-	public void save(Category category) {
-		Category _category = get(category.categoryId());
-		if (_category != null) {
-			update(_category);
-		} else {
-			insert(_category);
-		}
-	}
-
-	private void insert(Category category) {
+	public void create(Category category) {
 		final String SQL = "INSERT INTO category(id,name,description) VALUES(?,?,?)";
 		jdbcTemplate.update(SQL, new PreparedStatementSetter() {
 			@Override
@@ -44,7 +38,7 @@ public class CategoryRepositorySql extends CategoryRepository {
 		});
 	}
 
-	private void update(Category category) {
+	public void update(Category category) {
 		final String SQL = "UPDATE category SET name=?,postnumber=? WHERE id=?";
 		jdbcTemplate.update(SQL, new PreparedStatementSetter() {
 			@Override
@@ -56,11 +50,13 @@ public class CategoryRepositorySql extends CategoryRepository {
 		});
 	}
 
+	@Override
 	public void delete(CategoryId categoryId) {
 		final String SQL = "DELETE FROM category WHERE id=?";
 		jdbcTemplate.update(SQL, categoryId.id());
 	}
 
+	@Override
 	public Category get(CategoryId categoryId) {
 		final String SQL = "SELECT * FROM category WHERE id=?";
 		List<Category> categoryList = jdbcTemplate.query(SQL, new Object[] { categoryId.id() },
@@ -91,11 +87,10 @@ public class CategoryRepositorySql extends CategoryRepository {
 	class CategoryRowMapper implements RowMapper<Category> {
 		@Override
 		public Category mapRow(ResultSet rs, int i) throws SQLException {
-			// CategoryId id = new CategoryId(rs.getLong("id"));
 			long id = rs.getLong("id");
 			String name = rs.getString("name");
 			String description = rs.getString("description");
-			Category category = rebuild(id, name, description);
+			Category category = categoryFactory.category(id, name, description);
 			return category;
 		}
 	}

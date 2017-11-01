@@ -7,15 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryRepository;
 
-//@Component
-@Service
-public class CategoryRepositoryMemory extends CategoryRepository {
+@Component
+public class CategoryRepositoryMemory implements CategoryRepository {
 
 	private static Map<CategoryId, Category> cache = new HashMap<CategoryId, Category>();
 
@@ -25,7 +22,13 @@ public class CategoryRepositoryMemory extends CategoryRepository {
 	}
 
 	@Override
-	public void save(Category category) {
+	public void create(Category category) {
+		cache.put(category.categoryId(), category);
+
+	}
+
+	@Override
+	public void update(Category category) {
 		cache.put(category.categoryId(), category);
 
 	}
