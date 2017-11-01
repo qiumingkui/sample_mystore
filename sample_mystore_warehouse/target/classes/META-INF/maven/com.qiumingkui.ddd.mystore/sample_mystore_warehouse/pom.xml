@@ -5,8 +5,7 @@
     <artifactId>sample_mystore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  <artifactId>sample_mystore_warehouse</artifactId>
+  <name>sample_mystore_warehouse</name>
   <groupId>com.qiumingkui.ddd.mystore</groupId>
-  <artifactId>sample_mystore_common</artifactId>
-  <name>sample_mystore_common</name>
-  <version>0.0.2-SNAPSHOT</version>
 </project>
