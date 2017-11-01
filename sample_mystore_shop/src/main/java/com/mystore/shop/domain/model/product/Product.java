@@ -1,23 +1,27 @@
-package com.qiumingkui.ddd.mystore.shop.domain.model.category;
+package com.mystore.shop.domain.model.product;
 
-public class Category {
+import com.mystore.common.domain.annotation.DomainEntity;
+import com.mystore.shop.domain.model.category.CategoryId;
 
-	public static CategoryValidator validator = new CategoryValidator();
-
+@DomainEntity
+public class Product{
+	
+	private ProductId _productId;
 	private CategoryId _categoryId;
-
 	private String _name;
-
 	private String _description;
 
-	public Category(CategoryId categoryId, String name, String description) {
+	public Product(ProductId productId, CategoryId categoryId, String name, String description) {
 		super();
-
+		setProductId(productId);
 		setCategoryId(categoryId);
-
 		setName(name);
-
 		setDescription(description);
+
+	}
+
+	public ProductId productId() {
+		return _productId;
 	}
 
 	public CategoryId categoryId() {
@@ -32,12 +36,8 @@ public class Category {
 		return _description;
 	}
 
-	public void changeName(String name) {
-		setName(name);
-	}
-
-	public void changeDescription(String description) {
-		setDescription(description);
+	protected void setProductId(ProductId productId) {
+		this._productId = productId;
 	}
 
 	protected void setCategoryId(CategoryId categoryId) {
@@ -45,12 +45,10 @@ public class Category {
 	}
 
 	protected void setName(String name) {
-		validator.assertName(name);
 		this._name = name;
 	}
 
 	protected void setDescription(String description) {
-		validator.assertDescription(description);
 		this._description = description;
 	}
 

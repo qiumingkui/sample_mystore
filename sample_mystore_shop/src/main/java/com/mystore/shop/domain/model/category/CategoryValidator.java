@@ -1,6 +1,6 @@
-package com.qiumingkui.ddd.mystore.shop.domain.model.category;
+package com.mystore.shop.domain.model.category;
 
-import com.qiumingkui.sample.mystore.common.AssertionConcern;
+import com.mystore.common.AssertionConcern;
 
 public final class CategoryValidator extends AssertionConcern{
 	

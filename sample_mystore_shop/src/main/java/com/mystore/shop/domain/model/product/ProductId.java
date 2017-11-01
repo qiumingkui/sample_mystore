@@ -1,6 +1,6 @@
-package com.qiumingkui.ddd.mystore.shop.domain.model.product;
+package com.mystore.shop.domain.model.product;
 
-import com.qiumingkui.sample.mystore.common.domain.annotation.DomainEntityId;
+import com.mystore.common.domain.annotation.DomainEntityId;
 
 @DomainEntityId
 public class ProductId {

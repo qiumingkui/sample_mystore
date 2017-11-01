@@ -1,4 +1,4 @@
-package com.qiumingkui.sample.mystore.common.domain.annotation;
+package com.mystore.common.domain.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

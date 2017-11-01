@@ -1,4 +1,4 @@
-package com.qiumingkui.ddd.mystore.shop.domain.model.category;
+package com.mystore.shop.domain.model.category;
 
 import java.util.List;
 

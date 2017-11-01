@@ -1,4 +1,4 @@
-package com.qiumingkui.sample.mystore.common.domain.annotation;
+package com.mystore.common.domain.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target(TYPE)
-public @interface DomainFactory {
+public @interface DomainEntity {
 
 }
