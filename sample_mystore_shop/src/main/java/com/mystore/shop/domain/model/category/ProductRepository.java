@@ -2,7 +2,7 @@ package com.mystore.shop.domain.model.category;
 
 import java.util.List;
 
-public interface CategoryRepository {
+public interface ProductRepository {
 
 	public Category get(CategoryId categoryId);
 

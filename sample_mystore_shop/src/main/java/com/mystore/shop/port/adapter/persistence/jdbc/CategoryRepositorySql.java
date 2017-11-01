@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryFactory;
 import com.mystore.shop.domain.model.category.CategoryId;
-import com.mystore.shop.domain.model.category.CategoryRepository;
+import com.mystore.shop.domain.model.category.ProductRepository;
 
 //@Component
-public class CategoryRepositorySql implements CategoryRepository {
+public class CategoryRepositorySql implements ProductRepository {
 	
 	@Autowired
 	private CategoryFactory categoryFactory;

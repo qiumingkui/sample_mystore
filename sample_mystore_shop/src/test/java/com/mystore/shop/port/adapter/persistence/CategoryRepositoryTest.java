@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryFactory;
-import com.mystore.shop.domain.model.category.CategoryRepository;
+import com.mystore.shop.domain.model.category.ProductRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,7 +25,7 @@ public class CategoryRepositoryTest {
 	private CategoryFactory _categoryFactory;
 
 	@Autowired
-	private CategoryRepository _categoryRepository;
+	private ProductRepository _categoryRepository;
 
 	@Test
 	public void covered() {

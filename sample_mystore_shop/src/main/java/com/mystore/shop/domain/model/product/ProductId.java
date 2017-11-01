@@ -2,7 +2,6 @@ package com.mystore.shop.domain.model.product;
 
 import com.mystore.common.domain.annotation.DomainEntityId;
 
-@DomainEntityId
 public class ProductId {
 
 	private long _id;

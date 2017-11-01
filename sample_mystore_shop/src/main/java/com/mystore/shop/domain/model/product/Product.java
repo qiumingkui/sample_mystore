@@ -1,11 +1,9 @@
 package com.mystore.shop.domain.model.product;
 
-import com.mystore.common.domain.annotation.DomainEntity;
 import com.mystore.shop.domain.model.category.CategoryId;
 
-@DomainEntity
-public class Product{
-	
+public class Product {
+	private static ProductValidator validator = new ProductValidator();
 	private ProductId _productId;
 	private CategoryId _categoryId;
 	private String _name;
@@ -17,7 +15,6 @@ public class Product{
 		setCategoryId(categoryId);
 		setName(name);
 		setDescription(description);
-
 	}
 
 	public ProductId productId() {
@@ -36,6 +33,14 @@ public class Product{
 		return _description;
 	}
 
+	public void changeName(String name) {
+		setName(name);
+	}
+
+	public void changeDescription(String description) {
+		setDescription(description);
+	}
+
 	protected void setProductId(ProductId productId) {
 		this._productId = productId;
 	}
@@ -45,10 +50,12 @@ public class Product{
 	}
 
 	protected void setName(String name) {
+		validator.assertName(name);
 		this._name = name;
 	}
 
 	protected void setDescription(String description) {
+		validator.assertDescription(description);
 		this._description = description;
 	}
 
