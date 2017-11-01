@@ -10,7 +10,7 @@ public class Category {
 
 	private String _description;
 
-	public Category(CategoryId categoryId, String name, String description) {
+	protected Category(CategoryId categoryId, String name, String description) {
 		super();
 
 		setCategoryId(categoryId);

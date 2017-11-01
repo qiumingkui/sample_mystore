@@ -16,8 +16,8 @@ import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryRepository;
 
-@Service
-public class JdbcCategoryRepository implements CategoryRepository {
+//@Service
+public class CategoryRepositorySql extends CategoryRepository {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -91,10 +91,11 @@ public class JdbcCategoryRepository implements CategoryRepository {
 	class CategoryRowMapper implements RowMapper<Category> {
 		@Override
 		public Category mapRow(ResultSet rs, int i) throws SQLException {
-			CategoryId id = new CategoryId(rs.getLong("id"));
+			// CategoryId id = new CategoryId(rs.getLong("id"));
+			long id = rs.getLong("id");
 			String name = rs.getString("name");
 			String description = rs.getString("description");
-			Category category = new Category(id, name, description);
+			Category category = rebuild(id, name, description);
 			return category;
 		}
 	}

@@ -2,14 +2,20 @@ package com.mystore.shop.domain.model.category;
 
 import java.util.List;
 
-public interface CategoryRepository {
+abstract public class CategoryRepository {
 
-	public Category get(CategoryId categoryId);
+	abstract public Category get(CategoryId categoryId);
 
-	public void save(Category category);
+	abstract public void save(Category category);
 
-	public void delete(CategoryId categoryId);
+	abstract public void delete(CategoryId categoryId);
 
-	List<Category> getCategoryList();
+	abstract public List<Category> getCategoryList();
+	
+	protected Category rebuild(long categoryId, String name, String description){
+		CategoryId _categoryId = new CategoryId(categoryId);
+		Category _category = new Category(_categoryId,name,description);
+		return _category;
+	} 
 
 }

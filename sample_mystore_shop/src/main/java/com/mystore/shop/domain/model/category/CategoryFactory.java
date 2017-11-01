@@ -1,5 +1,8 @@
 package com.mystore.shop.domain.model.category;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CategoryFactory {
 
 	public Category create(long categoryId, String name, String description){
