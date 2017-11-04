@@ -15,20 +15,20 @@ import com.mystore.shop.domain.model.order.SaleOrderFactory;
 @SpringBootTest
 public class SaleOrderHbTest {
 
-	@Autowired
-	private SaleOrderHb saleOrderHb ;
-	
-	@Autowired
-	private SaleOrderFactory saleOrderFactory;
-	
-	@Test
-	public void covered(){
-		
-		SaleOrder newSaleOrder = newSaleOrder();
-		saleOrderHb.save(newSaleOrder);
-	}
-	
-	private SaleOrder newSaleOrder(){
-		return saleOrderFactory.saleOrder("zhangshan", new Date());
-	}
+//	@Autowired
+//	private SaleOrderHb saleOrderHb ;
+//	
+//	@Autowired
+//	private SaleOrderFactory saleOrderFactory;
+//	
+//	@Test
+//	public void covered(){
+//		
+//		SaleOrder newSaleOrder = newSaleOrder();
+//		saleOrderHb.save(newSaleOrder);
+//	}
+//	
+//	private SaleOrder newSaleOrder(){
+//		return saleOrderFactory.saleOrder("zhangshan", new Date());
+//	}
 }

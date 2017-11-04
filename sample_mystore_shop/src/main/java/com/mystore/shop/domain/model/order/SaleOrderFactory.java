@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SaleOrderFactory {
 
-	public SaleOrder saleOrder(String username, Date orderDate) {
-		return new SaleOrder(username, orderDate);
+	public SaleOrder saleOrder(SaleOrderId saleOrderId, String username, Date orderDate) {
+		return new SaleOrder(saleOrderId, username, orderDate);
 	}
 
 }

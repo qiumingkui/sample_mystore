@@ -3,27 +3,21 @@ package com.mystore.shop.domain.model.order;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 @Entity
-public class SaleOrder implements Serializable{
-	/**
-	 * 
-	 */
+public class SaleOrder implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long _orderId;
-	
+
+	@EmbeddedId
+	private SaleOrderId _saleOrderId;
+
 	private String _username;
-	
+
 	private Date _orderDate;
-	
+
 	// private String shipAddress1;
 	// private String shipAddress2;
 	// private String shipCity;
@@ -42,19 +36,19 @@ public class SaleOrder implements Serializable{
 		super();
 	}
 
-	protected SaleOrder(String username, Date orderDate) {
-		this(null,username,orderDate);
-	}
-	
-	protected SaleOrder(Long orderId, String username, Date orderDate) {
+	// protected SaleOrder(String username, Date orderDate) {
+	// this(null, username, orderDate);
+	// }
+
+	protected SaleOrder(SaleOrderId saleOrderId, String username, Date orderDate) {
 		super();
-		this.setOrderId(orderId);
+		this.setSaleOrderId(saleOrderId);
 		this.setUsername(username);
 		this.setOrderDate(orderDate);
 	}
-	
-	public Long orderId() {
-		return this._orderId;
+
+	public SaleOrderId saleOrderId() {
+		return this._saleOrderId;
 	}
 
 	public String username() {
@@ -73,8 +67,8 @@ public class SaleOrder implements Serializable{
 		this.setOrderDate(orderDate);
 	}
 
-	protected void setOrderId(Long orderId) {
-		this._orderId = orderId;
+	protected void setSaleOrderId(SaleOrderId saleOrderId) {
+		this._saleOrderId = saleOrderId;
 	}
 
 	protected void setUsername(String username) {
