@@ -10,6 +10,10 @@ public class Category {
 
 	private String _description;
 
+	protected Category() {
+		super();
+	}
+
 	protected Category(CategoryId categoryId, String name, String description) {
 		super();
 
@@ -24,7 +28,15 @@ public class Category {
 		return _categoryId;
 	}
 
+	public CategoryId getCategoryId() {
+		return _categoryId;
+	}
+
 	public String name() {
+		return _name;
+	}
+
+	protected String getName() {
 		return _name;
 	}
 

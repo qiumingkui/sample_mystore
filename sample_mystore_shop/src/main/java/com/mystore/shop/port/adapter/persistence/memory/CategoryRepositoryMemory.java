@@ -9,10 +9,10 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
-import com.mystore.shop.domain.model.category.ProductRepository;
+import com.mystore.shop.domain.model.category.CategoryRepository;
 
-@Component
-public class CategoryRepositoryMemory implements ProductRepository {
+//@Component
+public class CategoryRepositoryMemory implements CategoryRepository {
 
 	private static Map<CategoryId, Category> cache = new HashMap<CategoryId, Category>();
 

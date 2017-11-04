@@ -13,6 +13,10 @@ public class CategoryId  {
 		return this._id;
 	}
 
+	public long getId() {
+		return this._id;
+	}
+
 	protected void setId(long id) {
 		this._id = id;
 	}

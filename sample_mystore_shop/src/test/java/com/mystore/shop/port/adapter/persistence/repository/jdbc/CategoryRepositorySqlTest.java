@@ -1,8 +1,9 @@
-package com.mystore.shop.port.adapter.persistence;
+package com.mystore.shop.port.adapter.persistence.repository.jdbc;
 
 import static org.junit.Assert.assertFalse;
 
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,11 +13,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryFactory;
-import com.mystore.shop.domain.model.category.ProductRepository;
+import com.mystore.shop.domain.model.category.CategoryRepository;
+import com.mystore.shop.port.adapter.persistence.jdbc.CategoryRepositorySql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CategoryRepositoryTest {
+public class CategoryRepositorySqlTest {
 
 	
 	private static final String CHANGED_DES = "This is changed Book!";
@@ -25,7 +27,7 @@ public class CategoryRepositoryTest {
 	private CategoryFactory _categoryFactory;
 
 	@Autowired
-	private ProductRepository _categoryRepository;
+	private CategoryRepositorySql _categoryRepository;
 
 	@Test
 	public void covered() {
@@ -49,7 +51,9 @@ public class CategoryRepositoryTest {
 	}
 
 	private Category newCategory() {
-		Category category = _categoryFactory.category(1, "book", "This is book!");
+		Random random = new Random();
+		Long id = random.nextLong();
+		Category category = _categoryFactory.category(id, "book", "This is book!");
 		return category;
 	}
 }

@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
-import com.mystore.shop.domain.model.category.ProductRepository;
+import com.mystore.shop.domain.model.category.CategoryRepository;
 
 @Service
 public class CatalogService {
 
 	@Autowired
-	private ProductRepository _categoryRepository;
+	private CategoryRepository _categoryRepository;
 
 	public List<Category> getCategoryList() {
 		return _categoryRepository.getCategoryList();

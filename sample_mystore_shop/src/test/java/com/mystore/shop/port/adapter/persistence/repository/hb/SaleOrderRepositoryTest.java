@@ -1,4 +1,4 @@
-package com.mystore.shop.port.adapter.persistence.hb;
+package com.mystore.shop.port.adapter.persistence.repository.hb;
 
 import java.util.Date;
 import java.util.Random;
@@ -13,13 +13,14 @@ import com.mystore.shop.domain.model.order.SaleOrder;
 import com.mystore.shop.domain.model.order.SaleOrderFactory;
 import com.mystore.shop.domain.model.order.SaleOrderId;
 import com.mystore.shop.domain.model.order.SaleOrderRepository;
+import com.mystore.shop.port.adapter.persistence.hb.SaleOrderRepositoryHb;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SaleOrderRepositoryTest {
 
 	@Autowired
-	private SaleOrderRepositoryHb saleOrderRepository;
+	private SaleOrderRepositoryHb saleOrderRepositoryHb;
 
 	@Autowired
 	private SaleOrderFactory saleOrderFactory;
@@ -28,15 +29,18 @@ public class SaleOrderRepositoryTest {
 	public void covered() {
 
 		SaleOrder newSaleOrder = newSaleOrder();
-		saleOrderRepository.create(newSaleOrder);
+		saleOrderRepositoryHb.create(newSaleOrder);
+
 	}
 
 	private SaleOrder newSaleOrder() {
 		// Random random = new Random();
 		// Long id = random.nextLong();
+		// SaleOrderId saleOrderId = null;
+		SaleOrderId saleOrderId = new SaleOrderId();
 		// SaleOrderId saleOrderId = new SaleOrderId(id);
 		// SaleOrderId saleOrderId = new SaleOrderId(3L);
-		SaleOrderId saleOrderId = saleOrderRepository.nextId();
+		// SaleOrderId saleOrderId = saleOrderRepositoryHb.nextId();
 		return saleOrderFactory.saleOrder(saleOrderId, "zhangshan_" + saleOrderId.id(), new Date());
 
 		// return saleOrderFactory.saleOrder("zhangshan_" + randomId, new

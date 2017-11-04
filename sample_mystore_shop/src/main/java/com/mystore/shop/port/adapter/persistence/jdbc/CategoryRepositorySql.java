@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,11 +17,11 @@ import org.springframework.stereotype.Component;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryFactory;
 import com.mystore.shop.domain.model.category.CategoryId;
-import com.mystore.shop.domain.model.category.ProductRepository;
+import com.mystore.shop.domain.model.category.CategoryRepository;
 
-//@Component
-public class CategoryRepositorySql implements ProductRepository {
-	
+@Component
+public class CategoryRepositorySql implements CategoryRepository {
+
 	@Autowired
 	private CategoryFactory categoryFactory;
 
@@ -39,7 +41,7 @@ public class CategoryRepositorySql implements ProductRepository {
 	}
 
 	public void update(Category category) {
-		final String SQL = "UPDATE category SET name=?,postnumber=? WHERE id=?";
+		final String SQL = "UPDATE category SET name=?,description=? WHERE id=?";
 		jdbcTemplate.update(SQL, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -92,6 +94,20 @@ public class CategoryRepositorySql implements ProductRepository {
 			String description = rs.getString("description");
 			Category category = categoryFactory.category(id, name, description);
 			return category;
+		}
+	}
+
+	class CategoryMapRowMapper implements RowMapper<Map<String, Object>> {
+		@Override
+		public Map<String, Object> mapRow(ResultSet rs, int i) throws SQLException {
+			long id = rs.getLong("id");
+			String name = rs.getString("name");
+			String description = rs.getString("description");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			map.put("name", name);
+			map.put("description", description);
+			return map;
 		}
 	}
 

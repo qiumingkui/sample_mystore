@@ -2,6 +2,7 @@ package com.mystore.shop.domain.model.order;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -9,7 +10,7 @@ public class SaleOrderId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private long _id;
+	private long _id = -1;
 
 	public SaleOrderId() {
 		super();

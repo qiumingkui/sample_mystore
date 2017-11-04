@@ -1,4 +1,4 @@
-package com.mystore.shop.port.adapter.persistence.hb;
+package com.mystore.shop.port.adapter.persistence.repository.hb;
 
 import java.util.Date;
 
