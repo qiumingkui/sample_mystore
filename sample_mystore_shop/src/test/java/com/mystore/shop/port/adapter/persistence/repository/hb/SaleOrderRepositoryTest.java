@@ -11,8 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.order.SaleOrder;
 import com.mystore.shop.domain.model.order.SaleOrderFactory;
-import com.mystore.shop.domain.model.order.SaleOrderId;
-import com.mystore.shop.domain.model.order.SaleOrderRepository;
 import com.mystore.shop.port.adapter.persistence.hb.SaleOrderRepositoryHb;
 
 @RunWith(SpringRunner.class)
@@ -28,8 +26,12 @@ public class SaleOrderRepositoryTest {
 	@Test
 	public void covered() {
 
-		SaleOrder newSaleOrder = newSaleOrder();
-		saleOrderRepositoryHb.create(newSaleOrder);
+		for(int i=0;i<1000;i++){
+			SaleOrder newSaleOrder = newSaleOrder();
+			saleOrderRepositoryHb.create(newSaleOrder);
+		}
+		// SaleOrder newSaleOrder = newSaleOrder();
+		// saleOrderRepositoryHb.create(newSaleOrder);
 
 	}
 
@@ -37,11 +39,11 @@ public class SaleOrderRepositoryTest {
 		// Random random = new Random();
 		// Long id = random.nextLong();
 		// SaleOrderId saleOrderId = null;
-		SaleOrderId saleOrderId = new SaleOrderId();
+		// SaleOrderId saleOrderId = new SaleOrderId();
 		// SaleOrderId saleOrderId = new SaleOrderId(id);
 		// SaleOrderId saleOrderId = new SaleOrderId(3L);
 		// SaleOrderId saleOrderId = saleOrderRepositoryHb.nextId();
-		return saleOrderFactory.saleOrder(saleOrderId, "zhangshan_" + saleOrderId.id(), new Date());
+		return saleOrderFactory.saleOrder("zhangshan_" + new Random().nextInt(), new Date());
 
 		// return saleOrderFactory.saleOrder("zhangshan_" + randomId, new
 		// Date());
