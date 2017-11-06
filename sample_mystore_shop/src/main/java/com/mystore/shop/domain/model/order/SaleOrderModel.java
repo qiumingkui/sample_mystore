@@ -6,16 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="sale_order")
+@Table(name = "sale_order")
 public class SaleOrderModel extends SaleOrderBase implements SaleOrder {
 
 	private static final long serialVersionUID = 1L;
 
-	protected SaleOrderModel() {
+	public SaleOrderModel() {
 		super();
 	}
 
-	protected SaleOrderModel(SaleOrderId saleOrderId, String username, Date orderDate) {
+	public SaleOrderModel(SaleOrderId saleOrderId, String username, Date orderDate) {
 		super();
 		this.setSaleOrderId(saleOrderId);
 		this.setUsername(username);
@@ -45,6 +45,11 @@ public class SaleOrderModel extends SaleOrderBase implements SaleOrder {
 	@Override
 	public void changeOrderDate(Date orderDate) {
 		setOrderDate(orderDate);
+	}
+
+	@Override
+	public void addSaleOrderItem(SaleOrderItem saleOrderItem) {
+		getSaleOrderItems().add(saleOrderItem);
 	}
 
 }

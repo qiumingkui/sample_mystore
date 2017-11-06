@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryRepository;

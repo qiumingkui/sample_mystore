@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryFactory;
-import com.mystore.shop.domain.model.category.CategoryRepository;
 import com.mystore.shop.port.adapter.persistence.jdbc.CategoryRepositorySql;
 
 @RunWith(SpringRunner.class)

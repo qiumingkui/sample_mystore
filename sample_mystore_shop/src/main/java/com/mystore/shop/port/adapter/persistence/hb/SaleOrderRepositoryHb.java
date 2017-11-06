@@ -26,7 +26,6 @@ public class SaleOrderRepositoryHb implements SaleOrderRepository {
 
 	@Override
 	public void create(SaleOrder saleOrder) {
-		// Assert.isTrue(!saleOrderHb.exists(saleOrder.saleOrderId()));
 		saleOrderHb.save((SaleOrderModel) saleOrder);
 	}
 

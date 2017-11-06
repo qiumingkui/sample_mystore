@@ -10,7 +10,7 @@ public class Category {
 
 	private String _description;
 
-	protected Category() {
+	public Category() {
 		super();
 	}
 

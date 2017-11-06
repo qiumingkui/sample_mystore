@@ -15,4 +15,8 @@ public interface SaleOrder extends Serializable {
 
 	public void changeOrderDate(Date orderDate);
 
+	public void addSaleOrderItem(SaleOrderItem saleOrderItem);
+
+	// public void removeSaleOrderItem()
+
 }

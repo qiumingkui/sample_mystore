@@ -28,6 +28,7 @@ public class CategoryRepositorySql implements CategoryRepository {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	@Override
 	public void create(Category category) {
 		final String SQL = "INSERT INTO category(id,name,description) VALUES(?,?,?)";
 		jdbcTemplate.update(SQL, new PreparedStatementSetter() {
@@ -40,6 +41,7 @@ public class CategoryRepositorySql implements CategoryRepository {
 		});
 	}
 
+	@Override
 	public void update(Category category) {
 		final String SQL = "UPDATE category SET name=?,description=? WHERE id=?";
 		jdbcTemplate.update(SQL, new PreparedStatementSetter() {

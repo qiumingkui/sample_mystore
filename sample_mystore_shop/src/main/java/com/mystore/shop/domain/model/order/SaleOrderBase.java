@@ -1,8 +1,13 @@
 package com.mystore.shop.domain.model.order;
 
+import java.util.Collection;
 import java.util.Date;
-
+import java.util.HashSet;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
@@ -10,45 +15,57 @@ import javax.persistence.Version;
 public class SaleOrderBase {
 
 	@Id
-	private SaleOrderId _saleOrderId;
+	private SaleOrderId saleOrderId;
 
-	private String _username;
+	private String username;
 
-	private Date _orderDate;
+	private Date orderDate;
+
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "sale_order_item", joinColumns = @JoinColumn(name = "sale_order_id"))
+	private Collection<SaleOrderItem> saleOrderItems = new HashSet<SaleOrderItem>();
 
 	@Version
 	private int concurrencyVersion;
 
-	protected SaleOrderId getSaleOrderId() {
-		return _saleOrderId;
+	public SaleOrderId getSaleOrderId() {
+		return saleOrderId;
 	}
 
-	protected String getUsername() {
-		return _username;
+	public String getUsername() {
+		return username;
 	}
 
-	protected Date getOrderDate() {
-		return _orderDate;
+	public Date getOrderDate() {
+		return orderDate;
 	}
 
-	protected int getConcurrencyVersion() {
+	public int getConcurrencyVersion() {
 		return concurrencyVersion;
 	}
 
-	protected void setSaleOrderId(SaleOrderId saleOrderId) {
-		this._saleOrderId = saleOrderId;
+	public Collection<SaleOrderItem> getSaleOrderItems() {
+		return saleOrderItems;
 	}
 
-	protected void setUsername(String username) {
-		this._username = username;
+	public void setSaleOrderId(SaleOrderId saleOrderId) {
+		this.saleOrderId = saleOrderId;
 	}
 
-	protected void setOrderDate(Date orderDate) {
-		this._orderDate = orderDate;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	protected void setConcurrencyVersion(int concurrencyVersion) {
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public void setConcurrencyVersion(int concurrencyVersion) {
 		this.concurrencyVersion = concurrencyVersion;
+	}
+
+	public void setSaleOrderItems(Collection<SaleOrderItem> saleOrderItems) {
+		this.saleOrderItems = saleOrderItems;
 	}
 
 }

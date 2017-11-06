@@ -7,6 +7,6 @@ import com.mystore.shop.domain.model.order.SaleOrderModel;
 
 public interface SaleOrderHb extends CrudRepository<SaleOrderModel, SaleOrderId> {
 
-	@Query("select max(s._saleOrderId._id) from SaleOrderModel s")
+	@Query("select max(s.saleOrderId.id) from SaleOrderModel s")
 	public Long findMaxId();
 }

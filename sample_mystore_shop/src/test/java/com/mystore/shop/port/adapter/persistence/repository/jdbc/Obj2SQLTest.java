@@ -1,14 +1,8 @@
 package com.mystore.shop.port.adapter.persistence.repository.jdbc;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
 
-import javax.persistence.Column;
-
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

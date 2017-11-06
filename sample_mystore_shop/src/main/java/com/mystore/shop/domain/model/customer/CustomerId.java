@@ -1,21 +1,21 @@
-package com.mystore.shop.domain.model.order;
+package com.mystore.shop.domain.model.customer;
 
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class SaleOrderId implements Serializable {
+public class CustomerId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private long id = -1;
 
-	public SaleOrderId() {
+	public CustomerId() {
 		super();
 	}
 
-	public SaleOrderId(Long id) {
+	public CustomerId(Long id) {
 		super();
 		this.id = id;
 	}
