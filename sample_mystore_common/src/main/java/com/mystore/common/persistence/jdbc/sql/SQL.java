@@ -22,20 +22,16 @@ public class SQL {
 		return attach(new Set(sql).toString());
 	}
 
-	public SQL INSERT(String sql) {
-		return attach(new Insert(sql).toString());
-	}
-
-	public SQL INTO(String sql) {
-		return attach(new Into(sql).toString());
+	public SQL INSERT_INTO(String sql) {
+		return attach(new InsertInto(sql).toString());
 	}
 
 	public SQL VALUES(String sql) {
 		return attach(new Values(sql).toString());
 	}
 
-	public SQL DELETE(String sql) {
-		return attach(new Delete(sql).toString());
+	public SQL DELETE_FROM(String sql) {
+		return attach(new DeleteFrom(sql).toString());
 	}
 
 	public String toString(){
