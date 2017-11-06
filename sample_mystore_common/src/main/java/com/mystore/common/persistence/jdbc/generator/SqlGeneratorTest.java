@@ -1,4 +1,4 @@
-package com.mystore.common.persistence;
+package com.mystore.common.persistence.jdbc.generator;
 
 public class SqlGeneratorTest {
 
