@@ -4,20 +4,26 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Table<T> extends HashMap<String, Column<T>> {
+public abstract class Table<T> extends HashMap<String, Column<T>> {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
 
 	// private Map<String, Column<T>> map = new HashMap<String, Column<T>>();
-
-	public void changeName(String name) {
-		this.name = name;
+	public Table() {
+		super();
+		init();
 	}
 
 	public String name() {
 		return name;
 	}
+	
+	protected void setName(String name){
+		this.name=name;
+	}
+	
+	protected abstract void init();
 
 	public Collection<Column<T>> multiPrimaryKeyCollection() {
 		Collection<Column<T>> primaryKeys = new HashSet<Column<T>>();
@@ -45,6 +51,15 @@ public class Table<T> extends HashMap<String, Column<T>> {
 		return null;
 	}
 
+	protected Column<T> add(String name, PSSetter<T> psSetter, RSSetter<T> rsSetter) {
+		Column<T> column = new Column<T>();
+		column.setName(name);
+		column.setPsSetter(psSetter);
+		column.setRsSetter(rsSetter);
+		this.put(column.name(), column);
+		return column;
+	}
+	
 	// public void put(String key,Column<T> column){
 	// map.put(key, column);
 	// }

@@ -11,14 +11,14 @@ import com.mystore.common.persistence.Column;
 
 public class JdbcHelper<T> {
 
-	public void operation(String sql, Collection<Column<T>> collection, T object,
+	public void operate(String sql, Collection<Column<T>> collection, T object,
 			JdbcTemplate jdbcTemplate) {
 		jdbcTemplate.update(sql, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				Counter counter = new Counter();
 				for (Column<T> column : collection) {
-					column.assign(ps, counter.next(), object);
+					column.fill(ps, counter.next(), object);
 				}
 			}
 		});

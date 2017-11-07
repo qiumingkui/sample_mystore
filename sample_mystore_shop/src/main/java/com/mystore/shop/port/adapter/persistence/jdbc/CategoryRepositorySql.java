@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
 import com.mystore.shop.domain.model.category.Category;
+import com.mystore.shop.domain.model.category.CategoryBase;
 import com.mystore.shop.domain.model.category.CategoryFactory;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryRepository;
@@ -27,14 +28,14 @@ import com.mystore.shop.port.adapter.persistence.repository.jdbc.JdbcHelper;
 @Component
 public class CategoryRepositorySql implements CategoryRepository {
 
-	private static final EntitySqlGenFactory<Category> entitySqlGenFactory = new EntitySqlGenFactory<Category>();
+	private static final EntitySqlGenFactory<CategoryBase> entitySqlGenFactory = new EntitySqlGenFactory<CategoryBase>();
 	private static final CategoryTable t = new CategoryTable();
 	private final String INSERT = entitySqlGenFactory.insertSqlGen().sql(t);
 	private final String DELETE = entitySqlGenFactory.deleteSqlGen().sql(t);
 	private final String UPDATE = entitySqlGenFactory.updateSqlGen().sql(t);
 	private final String SELECT = entitySqlGenFactory.selectSqlGen().sql(t);
 
-	private JdbcHelper<Category> jh = new JdbcHelper<Category>();
+	private JdbcHelper<CategoryBase> jh = new JdbcHelper<CategoryBase>();
 	@Autowired
 	private CategoryFactory categoryFactory;
 
@@ -43,36 +44,9 @@ public class CategoryRepositorySql implements CategoryRepository {
 
 	@Override
 	public void create(Category category) {
-		Collection<Column<Category>> collection = t.values();
-		jh.operation(INSERT, collection, category, jdbcTemplate);
+		Collection<Column<CategoryBase>> collection = t.values();
+		jh.operate(INSERT, collection, (CategoryBase)category, jdbcTemplate);
 	}
-
-	// public void operation(String sql, Collection<Column<Category>>
-	// collection, Category category){
-	// jdbcTemplate.update(sql, new PreparedStatementSetter() {
-	// @Override
-	// public void setValues(PreparedStatement ps) throws SQLException {
-	// Counter counter = new Counter();
-	// for (Column<Category> column : collection) {
-	// column.assign(ps, counter.next(), category);
-	// }
-	// }
-	// });
-	// }
-
-	// @Override
-	// public void create(Category category) {
-	// final String SQL = "INSERT INTO category(id,name,description)
-	// VALUES(?,?,?)";
-	// jdbcTemplate.update(SQL, new PreparedStatementSetter() {
-	// @Override
-	// public void setValues(PreparedStatement ps) throws SQLException {
-	// ps.setLong(1, category.categoryId().id());
-	// ps.setString(2, category.name());
-	// ps.setString(3, category.description());
-	// }
-	// });
-	// }
 
 	@Override
 	public void update(Category category) {

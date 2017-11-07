@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class Column<T> {
 	private String name;
 
-	private PreparedStatementParameteSetter<T> preparedStatementParameteSetter;
+	private PSSetter<T> psSetter;
 
-	private ResultSetSetter<T> resultSetSetter;
+	private RSSetter<T> rsSetter;
 
 	private boolean isPrimaryKay;
 
@@ -19,17 +19,17 @@ public class Column<T> {
 		super();
 	}
 
-	public void changeName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void changePreparedStatementParameteSetter(
-			PreparedStatementParameteSetter<T> preparedStatementParameteSetter) {
-		this.preparedStatementParameteSetter = preparedStatementParameteSetter;
+	public void setPsSetter(
+			PSSetter<T> psSetter) {
+		this.psSetter = psSetter;
 	}
 
-	public void changeResultSetSetter(ResultSetSetter<T> resultSetSetter) {
-		this.resultSetSetter = resultSetSetter;
+	public void setRsSetter(RSSetter<T> rsSetter) {
+		this.rsSetter = rsSetter;
 	}
 
 	
@@ -42,12 +42,12 @@ public class Column<T> {
 		this.isVersion = true;
 	}
 
-	public void assign(PreparedStatement ps, int index, T object) throws SQLException {
-		preparedStatementParameteSetter.execute(ps, index, object);
+	public void fill(PreparedStatement ps, int index, T object) throws SQLException {
+		psSetter.execute(ps, index, object);
 	}
 
-	public void assign(T object, ResultSet rs) throws Exception {
-		resultSetSetter.execute(object, rs);
+	public void fill(T object, ResultSet rs) throws Exception {
+		rsSetter.execute(object, rs);
 	}
 
 	public String name() {

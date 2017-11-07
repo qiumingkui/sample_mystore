@@ -1,69 +1,15 @@
 package com.mystore.shop.domain.model.category;
 
-public class Category {
+public interface Category {
 
-	public static CategoryValidator validator = new CategoryValidator();
+	public CategoryId categoryId();
 
-	private CategoryId _categoryId;
+	public String name() ;
 
-	private String _name;
+	public String description() ;
 
-	private String _description;
+	public void changeName(String name) ;
 
-	public Category() {
-		super();
-	}
-
-	protected Category(CategoryId categoryId, String name, String description) {
-		super();
-
-		setCategoryId(categoryId);
-
-		setName(name);
-
-		setDescription(description);
-	}
-
-	public CategoryId categoryId() {
-		return _categoryId;
-	}
-
-	public CategoryId getCategoryId() {
-		return _categoryId;
-	}
-
-	public String name() {
-		return _name;
-	}
-
-	protected String getName() {
-		return _name;
-	}
-
-	public String description() {
-		return _description;
-	}
-
-	public void changeName(String name) {
-		setName(name);
-	}
-
-	public void changeDescription(String description) {
-		setDescription(description);
-	}
-
-	protected void setCategoryId(CategoryId categoryId) {
-		this._categoryId = categoryId;
-	}
-
-	protected void setName(String name) {
-		validator.assertName(name);
-		this._name = name;
-	}
-
-	protected void setDescription(String description) {
-		validator.assertDescription(description);
-		this._description = description;
-	}
+	public void changeDescription(String description) ;
 
 }

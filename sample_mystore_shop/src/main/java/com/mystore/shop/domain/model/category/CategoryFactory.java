@@ -7,7 +7,7 @@ public class CategoryFactory {
 
 	public Category category(long categoryId, String name, String description){
 		CategoryId _categoryId = new CategoryId(categoryId);
-		Category _category = new Category(_categoryId,name,description);
+		Category _category = new CategoryModel(_categoryId,name,description);
 		return _category;
 	}
 }
