@@ -8,10 +8,12 @@ public class SQLTest {
 
 		String updateSql = new SQL().UPDATE("user").SET("name=?").WHERE("id=?").toString();
 		System.out.println(updateSql);
-		
+
 		String insertSql = new SQL().INSERT_INTO("user(id,name)").VALUES("(?,?)").toString();
+		// String insertSql = new SQL().INSERT_INTO(new
+		// InsertI).VALUES("(?,?)").toString();
 		System.out.println(insertSql);
-		
+
 		String deleteSql = new SQL().DELETE_FROM("user").WHERE("id=?").toString();
 		System.out.println(deleteSql);
 	}
