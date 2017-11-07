@@ -1,6 +1,14 @@
 package com.mystore.common.persistence.jdbc.sql;
 
+import com.mystore.common.persistence.jdbc.sql.condition.And;
+import com.mystore.common.persistence.jdbc.sql.condition.Equals;
+import com.mystore.common.persistence.jdbc.sql.condition.RoundBracket;
+
 public class SQL {
+
+	// question mark
+	public static final String QUESTION_MARK = "?";
+
 	private String sql = "";
 
 	public SQL SELECT(String sql) {
@@ -14,10 +22,11 @@ public class SQL {
 	public SQL WHERE(String sql) {
 		return attach(new Where(sql).toString());
 	}
-	
+
 	public SQL UPDATE(String sql) {
 		return attach(new Update(sql).toString());
 	}
+
 	public SQL SET(String sql) {
 		return attach(new Set(sql).toString());
 	}
@@ -34,11 +43,30 @@ public class SQL {
 		return attach(new DeleteFrom(sql).toString());
 	}
 
-	public String toString(){
-		return sql;
+	public String ROUND_BRACKET(String sql) {
+
+		return new RoundBracket(sql).toString();
 	}
-	
-	protected SQL attach(String sql){
+
+	public String RB(String sql) {
+		return ROUND_BRACKET(sql);
+	}
+
+	public String EQUALS(String left, String right) {
+		Equals eq = new Equals(left, right);
+		return eq.toString();
+	}
+
+	public String AND(String left, String right) {
+		And and = new And(left, right);
+		return and.toString();
+	}
+
+	public String toString() {
+		return sql.trim();
+	}
+
+	protected SQL attach(String sql) {
 		this.sql += sql;
 		return this;
 	}

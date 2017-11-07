@@ -1,14 +1,15 @@
 package com.mystore.common.persistence;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
-public class Table<V> extends HashMap<String,V> {
-
+public class Table<T> extends HashMap<String, Column<T>> {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
 
-	//	private Map<String, Column<T>> map = new HashMap<String, Column<T>>();
+	// private Map<String, Column<T>> map = new HashMap<String, Column<T>>();
 
 	public void changeName(String name) {
 		this.name = name;
@@ -16,6 +17,32 @@ public class Table<V> extends HashMap<String,V> {
 
 	public String name() {
 		return name;
+	}
+
+	public Collection<Column<T>> multiPrimaryKeyCollection() {
+		Collection<Column<T>> primaryKeys = new HashSet<Column<T>>();
+		for (Column<T> column : this.values()) {
+			if (column.isPrimaryKay())
+				primaryKeys.add(column);
+		}
+		return primaryKeys;
+	}
+
+	public Column<T> primaryKey() {
+		for (Column<T> column : this.values()) {
+			if (column.isPrimaryKay())
+				return column;
+		}
+		return null;
+	}
+
+	
+	public Column<T> version() {
+		for (Column<T> column : this.values()) {
+			if (column.isVersion())
+				return column;
+		}
+		return null;
 	}
 
 	// public void put(String key,Column<T> column){
@@ -33,6 +60,5 @@ public class Table<V> extends HashMap<String,V> {
 	// public Collection<Column<T>> values(){
 	// return map.values();
 	// }
-	
-	
+
 }

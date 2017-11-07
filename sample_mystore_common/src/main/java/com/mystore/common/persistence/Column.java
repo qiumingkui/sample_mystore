@@ -2,6 +2,7 @@ package com.mystore.common.persistence;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Column<T> {
 	private String name;
@@ -41,7 +42,7 @@ public class Column<T> {
 		this.isVersion = true;
 	}
 
-	public void assign(PreparedStatement ps, int index, T object) throws Exception {
+	public void assign(PreparedStatement ps, int index, T object) throws SQLException {
 		preparedStatementParameteSetter.execute(ps, index, object);
 	}
 

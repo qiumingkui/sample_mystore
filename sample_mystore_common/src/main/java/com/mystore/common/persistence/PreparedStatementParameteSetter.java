@@ -1,7 +1,8 @@
 package com.mystore.common.persistence;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public interface PreparedStatementParameteSetter<T> {
-	public void execute(PreparedStatement ps, int index, T object) throws Exception;
+	public void execute(PreparedStatement ps, int index, T object) throws SQLException;
 }

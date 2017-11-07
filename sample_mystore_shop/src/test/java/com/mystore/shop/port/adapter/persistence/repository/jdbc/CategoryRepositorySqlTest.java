@@ -29,7 +29,7 @@ public class CategoryRepositorySqlTest {
 	private CategoryRepositorySql _categoryRepository;
 
 	@Test
-	public void covered() {
+	public void covered() throws Exception {
 		Category newObj = newCategory();
 		_categoryRepository.create(newObj);
 		Category retrievedObj = _categoryRepository.get(newObj.categoryId());

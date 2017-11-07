@@ -7,7 +7,7 @@ public class Where extends SqlFragment {
 	public Where(String sql) {
 		super();
 		this.sql = SQL_WORD;
-		this.sql += sql;
+		this.sql += sql.trim();
 	}
 
 }

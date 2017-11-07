@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;
 
-public class CategoryTable extends Table<Column<Category>> {
+public class CategoryTable extends Table<Category> {
 
 	private static final long serialVersionUID = 1L;
 
