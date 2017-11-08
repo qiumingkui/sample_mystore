@@ -4,7 +4,7 @@ public class CategoryBase {
 
 	public static CategoryValidator validator = new CategoryValidator();
 
-	private CategoryId categoryId;
+	private CategoryId categoryId=new CategoryId();
 
 	private String name;
 
@@ -13,8 +13,6 @@ public class CategoryBase {
 	public CategoryBase() {
 		super();
 	}
-	
-	
 
 	public CategoryBase(CategoryId categoryId, String name, String description) {
 		super();
@@ -23,25 +21,20 @@ public class CategoryBase {
 		this.description = description;
 	}
 
-
-
 	public CategoryId getCategoryId() {
 		return categoryId;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
 
-
 	public void setName(String name) {
-		validator.assertName(name);
+		// validator.assertName(name);
 		this.name = name;
 	}
 
@@ -50,7 +43,7 @@ public class CategoryBase {
 	}
 
 	public void setDescription(String description) {
-		validator.assertDescription(description);
+		// validator.assertDescription(description);
 		this.description = description;
 	}
 

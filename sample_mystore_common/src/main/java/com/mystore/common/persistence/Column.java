@@ -42,11 +42,11 @@ public class Column<T> {
 		this.isVersion = true;
 	}
 
-	public void fill(PreparedStatement ps, int index, T object) throws SQLException {
+	public void fill(PreparedStatement ps, int index, T object) throws Exception {
 		psSetter.execute(ps, index, object);
 	}
 
-	public void fill(T object, ResultSet rs) throws Exception {
+	public void fill(T object, ResultSet rs) throws Exception   {
 		rsSetter.execute(object, rs);
 	}
 

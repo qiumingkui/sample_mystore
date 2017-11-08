@@ -19,7 +19,6 @@ import com.mystore.shop.port.adapter.persistence.jdbc.CategoryRepositorySql;
 @SpringBootTest
 public class CategoryRepositorySqlTest {
 
-	
 	private static final String CHANGED_DES = "This is changed Book!";
 
 	@Autowired
@@ -33,20 +32,32 @@ public class CategoryRepositorySqlTest {
 		Category newObj = newCategory();
 		_categoryRepository.create(newObj);
 		Category retrievedObj = _categoryRepository.get(newObj.categoryId());
-		assertFalse(retrievedObj==null);
+		assertFalse(retrievedObj == null);
 
 		retrievedObj.changeDescription(CHANGED_DES);
 		_categoryRepository.update(retrievedObj);
 		Category updatedObj = _categoryRepository.get(retrievedObj.categoryId());
-		assertFalse(updatedObj==null);
+		assertFalse(updatedObj == null);
 		assertFalse(!updatedObj.description().equals(CHANGED_DES));
-		
+
 		List<Category> list = _categoryRepository.getCategoryList();
-		assertFalse(list.size()<=0);
+		assertFalse(list.size() <= 0);
 		Category firstObj = list.get(0);
-		assertFalse(firstObj==null);
+		assertFalse(firstObj == null);
 		assertFalse(!updatedObj.description().equals(CHANGED_DES));
-		
+
+	}
+
+	@Test
+	public void del() throws Exception {
+		Category newObj = newCategory();
+		_categoryRepository.create(newObj);
+		Category retrievedObj = _categoryRepository.get(newObj.categoryId());
+		assertFalse(retrievedObj == null);
+
+		_categoryRepository.delete(retrievedObj.categoryId());
+		Category deletedObj = _categoryRepository.get(retrievedObj.categoryId());
+		assertFalse(deletedObj != null);
 	}
 
 	private Category newCategory() {

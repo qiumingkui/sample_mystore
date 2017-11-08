@@ -14,11 +14,11 @@ public class CatalogService {
 	@Autowired
 	private CategoryRepository _categoryRepository;
 
-	public List<Category> getCategoryList() {
+	public List<Category> getCategoryList() throws Exception {
 		return _categoryRepository.getCategoryList();
 	}
 
-	public Category getCategory(long categoryId) {
+	public Category getCategory(long categoryId) throws Exception {
 		CategoryId _categoryId = new CategoryId(categoryId);
 		return _categoryRepository.get(_categoryId);
 	}

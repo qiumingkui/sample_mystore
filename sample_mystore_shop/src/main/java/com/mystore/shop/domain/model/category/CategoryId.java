@@ -4,6 +4,10 @@ public class CategoryId  {
 
 	private long _id;
 
+	public CategoryId() {
+		super();
+	}
+
 	public CategoryId(long id) {
 		super();
 		this._id = id;

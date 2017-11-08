@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CategoryRepository {
 
-	public Category get(CategoryId categoryId);
+	public Category get(CategoryId categoryId) throws Exception;
 
 	public void create(Category category);
 
@@ -12,6 +12,6 @@ public interface CategoryRepository {
 
 	public void delete(CategoryId categoryId);
 
-	public List<Category> getCategoryList();
+	public List<Category> getCategoryList() throws Exception;
 
 }
