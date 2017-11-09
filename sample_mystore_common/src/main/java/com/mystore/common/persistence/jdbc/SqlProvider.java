@@ -1,4 +1,4 @@
-package com.mystore.shop.port.adapter.persistence.repository.jdbc;
+package com.mystore.common.persistence.jdbc;
 
 import com.mystore.common.persistence.Table;
 

@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
+import com.mystore.common.persistence.jdbc.Counter;
 
 @Component
 public class DBUtiles<T> {

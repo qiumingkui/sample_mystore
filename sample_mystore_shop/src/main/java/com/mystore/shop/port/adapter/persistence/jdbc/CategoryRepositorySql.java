@@ -4,15 +4,14 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
-import com.mystore.common.persistence.Table;
+import com.mystore.common.persistence.jdbc.Counter;
+import com.mystore.common.persistence.jdbc.EntitySqlProviderFactory;
 import com.mystore.common.persistence.jdbc.sql.InsertIntoContents;
 import com.mystore.common.persistence.jdbc.sql.SQL;
 import com.mystore.common.persistence.jdbc.sql.SelectContents;
@@ -24,10 +23,6 @@ import com.mystore.shop.domain.model.category.CategoryFactory;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryRepository;
 import com.mystore.shop.domain.model.category.CategoryTable;
-import com.mystore.shop.port.adapter.persistence.repository.jdbc.EntitySqlProviderFactory;
-import com.mystore.shop.port.adapter.persistence.repository.jdbc.SqlProvider;
-import com.mystore.shop.port.adapter.persistence.repository.jdbc.CategoryRepositorySqlTest;
-import com.mystore.shop.port.adapter.persistence.repository.jdbc.Counter;
 import com.mystore.shop.port.adapter.persistence.repository.jdbc.DBUtiles;
 
 @Component

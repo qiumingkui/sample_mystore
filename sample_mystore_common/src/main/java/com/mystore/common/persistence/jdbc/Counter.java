@@ -1,4 +1,4 @@
-package com.mystore.shop.port.adapter.persistence.repository.jdbc;
+package com.mystore.common.persistence.jdbc;
 
 public class Counter {
 	private int i = 0;
