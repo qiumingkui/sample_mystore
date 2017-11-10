@@ -28,7 +28,7 @@ public abstract class JdbcCurdDao<T, K> {
 		SQL = replaceSql(SQL, "columnNames", new InsertIntoContents<T>(columns).toString());
 		SQL = replaceSql(SQL, "columnValues", new ValuesContents<T>(columns).toString());
 
-		jdbcTemplate.update(SQL, psSetter(columns, object));
+		jdbcTemplate.update(SQL, providePsSetter(columns, object));
 	}
 
 	public T find(T object) {
@@ -41,8 +41,11 @@ public abstract class JdbcCurdDao<T, K> {
 		SQL = replaceSql(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
 
-		List<T> list = jdbcTemplate.query(SQL, new ObjectPreparedStatementSetter(pssColumns, object),
-				new ObjectRowMapper<T>(sqlColumns));
+		// List<T> list = jdbcTemplate.query(SQL, new
+		// ObjectPreparedStatementSetter(pssColumns, object),
+		// new ObjectRowMapper<T>(sqlColumns));
+		List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns, object), new ObjectRowMapper<T>(sqlColumns));
+
 		return list.size() > 0 ? (T) (list.get(0)) : null;
 	}
 
@@ -59,7 +62,9 @@ public abstract class JdbcCurdDao<T, K> {
 		SQL = replaceSql(SQL, "table", table.name());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
 
-		List<T> keyList = jdbcTemplate.query(SQL, new Object[] {}, new ObjectRowMapper<T>(columns));
+		// List<T> keyList = jdbcTemplate.query(SQL, new Object[] {}, new
+		// ObjectRowMapper<T>(columns));
+		List<T> keyList = jdbcTemplate.query(SQL, new ObjectRowMapper<T>(columns));
 		List<T> list = new ArrayList<T>();
 		for (T objectWithKey : keyList) {
 			list.add(findById(fetchKey(objectWithKey)));
@@ -82,7 +87,7 @@ public abstract class JdbcCurdDao<T, K> {
 		SQL = replaceSql(SQL, "setContents", new UpdateSetContents<T>(sqlColumns).toString());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
 
-		jdbcTemplate.update(SQL, psSetter(pssColumns, object));
+		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}
 
 	public void delete(T object) {
@@ -93,7 +98,7 @@ public abstract class JdbcCurdDao<T, K> {
 		SQL = replaceSql(SQL, "table", table.name());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
 
-		jdbcTemplate.update(SQL, psSetter(pssColumns, object));
+		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}
 
 	public void deleteById(K key) {
@@ -115,9 +120,14 @@ public abstract class JdbcCurdDao<T, K> {
 		return _sql;
 	}
 
-	protected PreparedStatementSetter psSetter(Collection<Column<T>> columns, T object) {
+	protected PreparedStatementSetter providePsSetter(Collection<Column<T>> columns, T object) {
 		PreparedStatementSetter setter = new ObjectPreparedStatementSetter(columns, object);
 		return setter;
+	}
+	
+	protected RowMapper<T> provideRowMapper(Collection<Column<T>> columns){
+		RowMapper<T> rowMapper = new ObjectRowMapper<T>(columns);
+		return rowMapper;
 	}
 
 	abstract protected T produceObject(K key);
