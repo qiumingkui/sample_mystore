@@ -1,10 +1,14 @@
 package com.mystore.shop.domain.model.category;
 
-public class CategoryBase {
+import java.io.Serializable;
+
+public class CategoryBase implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public static CategoryValidator validator = new CategoryValidator();
 
-	private CategoryId categoryId=new CategoryId();
+	private CategoryId categoryId = new CategoryId();
 
 	private String name;
 

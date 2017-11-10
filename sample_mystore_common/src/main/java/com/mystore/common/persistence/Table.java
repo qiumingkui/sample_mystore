@@ -51,7 +51,7 @@ public abstract class Table<T> extends HashMap<String, Column<T>> {
 		return null;
 	}
 
-	protected Column<T> add(String name, PSSetter<T> psSetter, RSSetter<T> rsSetter) {
+	protected Column<T> add(String name, Column2PsValueSetter<T> psSetter, Rs2ColumnValueSetter<T> rsSetter) {
 		Column<T> column = new Column<T>();
 		column.setName(name);
 		column.setPsSetter(psSetter);

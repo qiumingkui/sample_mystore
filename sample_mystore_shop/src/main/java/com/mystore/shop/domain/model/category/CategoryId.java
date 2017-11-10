@@ -1,7 +1,11 @@
 package com.mystore.shop.domain.model.category;
 
-public class CategoryId  {
+import java.io.Serializable;
 
+public class CategoryId  implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private long _id;
 
 	public CategoryId() {

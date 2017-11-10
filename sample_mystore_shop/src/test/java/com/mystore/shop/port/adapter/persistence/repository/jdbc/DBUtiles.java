@@ -28,7 +28,7 @@ public class DBUtiles<T> {
 				Counter counter = new Counter();
 				for (Column<T> column : collection) {
 					try {
-						column.fill(ps, counter.next(), object);
+						column.fillPsByObj(ps, counter.next(), object);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -55,7 +55,7 @@ public class DBUtiles<T> {
 
 				for (Column<T> column : collection) {
 					try {
-						column.fill(object, rs);
+						column.fillKey(object, rs);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

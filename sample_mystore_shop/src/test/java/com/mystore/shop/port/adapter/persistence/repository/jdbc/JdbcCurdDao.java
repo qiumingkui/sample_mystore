@@ -10,17 +10,18 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
-
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;
 import com.mystore.common.persistence.jdbc.Counter;
 import com.mystore.common.persistence.jdbc.sql.SqlFragment;
 
-public class JdbcCurdDao<T, K> {
+public abstract class JdbcCurdDao<T, K> {
 
 	protected Table<T> table;
 
-	protected Class<T> clazz;
+	// protected Class<T> clazz;
+
+	// protected Class<K> keyClazz;
 
 	protected JdbcTemplate jdbcTemplate;
 
@@ -32,29 +33,56 @@ public class JdbcCurdDao<T, K> {
 		SQL = replaceSql(SQL, "columnNames", new InsertIntoContents<T>(columns).toString());
 		SQL = replaceSql(SQL, "columnValues", new ValuesContents<T>(columns).toString());
 
-		jdbcTemplate.update(SQL, pss(columns, object));
+		jdbcTemplate.update(SQL, psSetter(columns, object));
 	}
 
-	public T find(K key) {
-		Collection<Column<T>> columns = table.values();
+	public T find(T object) {
+		Collection<Column<T>> sqlColumns = table.values();
+		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
+		pssColumns.add(table.primaryKey());
 
 		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{pk}=?";
 		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "columnNames", new SelectContents<T>(columns).toString());
+		SQL = replaceSql(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
 
-		List<T> list = jdbcTemplate.query(SQL, new Object[] { key }, new ColumnRowMapper<T>(columns));
+		List<T> list = jdbcTemplate.query(SQL, new ObjectPreparedStatementSetter(pssColumns, object),
+				new ObjectRowMapper<T>(sqlColumns));
 		return list.size() > 0 ? (T) (list.get(0)) : null;
 	}
 
+	public T findById(K key) {
+		T object = produceObject(key);
+		return find(object);
+	}
+
+	// public T findOneById(K key) {
+	// Collection<Column<T>> columns = table.values();
+	//
+	// String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{pk}=?";
+	// SQL = replaceSql(SQL, "table", table.name());
+	// SQL = replaceSql(SQL, "columnNames", new
+	// SelectContents<T>(columns).toString());
+	// SQL = replaceSql(SQL, "pk", table.primaryKey().name());
+	//
+	// List<T> list = jdbcTemplate.query(SQL, new Object[] { key }, new
+	// ObjectRowMapper<T>(columns));
+	// return list.size() > 0 ? (T) (list.get(0)) : null;
+	// }
+
 	public List<T> findAll() {
-		Collection<Column<T>> columns = table.values();
+		Collection<Column<T>> columns = new ArrayList<Column<T>>();
+		columns.add(table.primaryKey());
 
-		String SQL = "SELECT #{columnNames} FROM #{table}";
+		String SQL = "SELECT #{pk} FROM #{table}";
 		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "columnNames", new SelectContents<T>(columns).toString());
+		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
 
-		List<T> list = jdbcTemplate.query(SQL, new Object[] {}, new ColumnRowMapper<T>(columns));
+		List<T> keyList = jdbcTemplate.query(SQL, new Object[] {}, new ObjectRowMapper<T>(columns));
+		List<T> list = new ArrayList<T>();
+		for (T objectWithKey : keyList) {
+			list.add(findById(fetchKey(objectWithKey)));
+		}
 		return list;
 	}
 
@@ -73,16 +101,48 @@ public class JdbcCurdDao<T, K> {
 		SQL = replaceSql(SQL, "setContents", new UpdateSetContents<T>(sqlColumns).toString());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
 
-		jdbcTemplate.update(SQL, pss(pssColumns, object));
+		jdbcTemplate.update(SQL, psSetter(pssColumns, object));
 	}
 
-	public void delete(K key) {
+	public void delete(T object) {
+		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
+		pssColumns.add(table.primaryKey());
+
 		String SQL = "DELETE FROM #{table} WHERE #{pk}=?";
 		SQL = replaceSql(SQL, "table", table.name());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
 
-		jdbcTemplate.update(SQL, key);
+		jdbcTemplate.update(SQL, psSetter(pssColumns, object));
 	}
+
+	public void deleteById(K key) {
+		T object = produceObject(key);
+		delete(object);
+	}
+
+	// private T produceObjct(){
+	// T object = null;
+	// try {
+	// object = (T) clazz.newInstance();
+	// } catch (InstantiationException | IllegalAccessException e) {
+	// e.printStackTrace();
+	// }
+	// return object;
+	// }
+	//
+	// private T produceObjct(K key){
+	// T object =produceObjct();
+	// fillObjectByKey(object, key);
+	// return object;
+	// }
+
+	// public void deleteById(K key) {
+	// String SQL = "DELETE FROM #{table} WHERE #{pk}=?";
+	// SQL = replaceSql(SQL, "table", table.name());
+	// SQL = replaceSql(SQL, "pk", table.primaryKey().name());
+	//
+	// jdbcTemplate.update(SQL, key);
+	// }
 
 	protected Collection<Column<T>> filtColumns(Collection<Column<T>> source, ColumnsFilter<T> filter) {
 		Collection<Column<T>> target = new ArrayList<Column<T>>();
@@ -98,35 +158,59 @@ public class JdbcCurdDao<T, K> {
 		return _sql;
 	}
 
-	protected PreparedStatementSetter pss(Collection<Column<T>> columns, T object) {
-		PreparedStatementSetter setter = new ColumnPreparedStatementSetter(columns, object);
+	protected PreparedStatementSetter psSetter(Collection<Column<T>> columns, T object) {
+		PreparedStatementSetter setter = new ObjectPreparedStatementSetter(columns, object);
 		return setter;
 	}
+
+	abstract protected T produceObject(K key);
+
+	abstract protected T produceObject();
+
+	abstract protected K fetchKey(T object);
 
 	interface ColumnsFilter<T> {
 		void doFilt(Collection<Column<T>> target, Column<T> column);
 	}
 
-	class ColumnRowMapper<T> implements RowMapper<T> {
+	// class KeyRowMapper implements RowMapper<K> {
+	// @Override
+	// public K mapRow(ResultSet rs, int rowNum) throws SQLException {
+	// K key = null;
+	//
+	// try {
+	// key = (K) keyClazz.newInstance();
+	// } catch (InstantiationException e) {
+	// e.printStackTrace();
+	// } catch (IllegalAccessException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// try {
+	// table.primaryKey().fillKey(key, rs);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	//
+	// return (K) key;
+	// }
+	// }
+
+	class ObjectRowMapper<T> implements RowMapper<T> {
 		private Collection<Column<T>> columns;
 
-		public ColumnRowMapper(Collection<Column<T>> columns) {
+		public ObjectRowMapper(Collection<Column<T>> columns) {
 			super();
 			this.columns = columns;
 		}
 
 		@Override
 		public T mapRow(ResultSet rs, int rowNum) throws SQLException {
-			T object = null;
-			try {
-				object = (T) clazz.newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
+			T object = (T) produceObject();
 
 			for (Column<T> column : columns) {
 				try {
-					column.fill(object, rs);
+					column.fillObj(object, rs);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -135,12 +219,91 @@ public class JdbcCurdDao<T, K> {
 		}
 	}
 
-	class ColumnPreparedStatementSetter implements PreparedStatementSetter {
+	// class KeyRowMapper<T> implements RowMapper<T> {
+	// private Collection<Column<T>> columns;
+	//
+	// public KeyRowMapper(Collection<Column<T>> columns) {
+	// super();
+	// this.columns = columns;
+	// }
+	//
+	// @Override
+	// public T mapRow(ResultSet rs, int rowNum) throws SQLException {
+	// T object = null;
+	// try {
+	// object = (T) clazz.newInstance();
+	// } catch (InstantiationException | IllegalAccessException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// for (Column<T> column : columns) {
+	// try {
+	// rs.getO
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// return object;
+	// }
+	// }
+
+	// class KeyPreparedStatementSetter implements PreparedStatementSetter {
+	//
+	// private Column<T> column;
+	//
+	// private Object key;
+	//
+	// public KeyPreparedStatementSetter(Column<T> column, Object key) {
+	// super();
+	// this.column = column;
+	// this.key = key;
+	// }
+	//
+	// @Override
+	// public void setValues(PreparedStatement ps) throws SQLException {
+	// try {
+	// column.fillPsByKey(ps, 0, key);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	//
+	// }
+
+	// class KeyRowMapper<T> implements RowMapper<T> {
+	// private Collection<Column<T>> columns;
+	//
+	// public KeyRowMapper(Collection<Column<T>> columns) {
+	// super();
+	// this.columns = columns;
+	// }
+	//
+	// @Override
+	// public T mapRow(ResultSet rs, int rowNum) throws SQLException {
+	// T object = null;
+	// try {
+	// object = (T) clazz.newInstance();
+	// } catch (InstantiationException | IllegalAccessException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// for (Column<T> column : columns) {
+	// try {
+	// rs.getO
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// return object;
+	// }
+	// }
+
+	class ObjectPreparedStatementSetter implements PreparedStatementSetter {
 
 		private Collection<Column<T>> _columns;
 		private T _object;
 
-		public ColumnPreparedStatementSetter(Collection<Column<T>> _columns, T _object) {
+		public ObjectPreparedStatementSetter(Collection<Column<T>> _columns, T _object) {
 			super();
 			this._columns = _columns;
 			this._object = _object;
@@ -151,7 +314,7 @@ public class JdbcCurdDao<T, K> {
 			Counter counter = new Counter();
 			for (Column<T> column : _columns) {
 				try {
-					column.fill(ps, counter.next(), _object);
+					column.fillPsByObj(ps, counter.next(), _object);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -199,7 +199,7 @@ public class CategoryRepositorySql implements CategoryRepository {
 			Counter counter = new Counter();
 			for (Column<CategoryBase> column : columns) {
 				try {
-					column.fill(ps, counter.next(), categoryBase);
+					column.fillPsByObj(ps, counter.next(), categoryBase);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

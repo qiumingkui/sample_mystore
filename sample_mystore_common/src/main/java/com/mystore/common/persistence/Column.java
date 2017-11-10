@@ -7,9 +7,13 @@ import java.sql.SQLException;
 public class Column<T> {
 	private String name;
 
-	private PSSetter<T> psSetter;
+	private Column2PsValueSetter<T> psSetter;
 
-	private RSSetter<T> rsSetter;
+	private Rs2ColumnValueSetter<T> rsSetter;
+
+	private KeyRSSetter keyRsSetter;
+	
+	private KeyPSSetter keyPsSetter;
 
 	private boolean isPrimaryKay;
 
@@ -23,17 +27,22 @@ public class Column<T> {
 		this.name = name;
 	}
 
-	public void setPsSetter(
-			PSSetter<T> psSetter) {
+	public void setPsSetter(Column2PsValueSetter<T> psSetter) {
 		this.psSetter = psSetter;
 	}
 
-	public void setRsSetter(RSSetter<T> rsSetter) {
+	public void setRsSetter(Rs2ColumnValueSetter<T> rsSetter) {
 		this.rsSetter = rsSetter;
 	}
 
-	
-	
+	public void setKeyPsSetter(KeyPSSetter keyPsSetter) {
+		this.keyPsSetter = keyPsSetter;
+	}
+
+	public void setKeyRsSetter(KeyRSSetter keyRsSetter) {
+		this.keyRsSetter = keyRsSetter;
+	}
+
 	public void setPrimaryKay() {
 		this.isPrimaryKay = true;
 	}
@@ -42,14 +51,22 @@ public class Column<T> {
 		this.isVersion = true;
 	}
 
-	public void fill(PreparedStatement ps, int index, T object) throws Exception {
+	public void fillPsByObj(PreparedStatement ps, int index, T object) throws Exception {
 		psSetter.execute(ps, index, object);
 	}
 
-	public void fill(T object, ResultSet rs) throws Exception   {
+	public void fillObj(T object, ResultSet rs) throws Exception {
 		rsSetter.execute(object, rs);
 	}
 
+	public void fillKey(Object key, ResultSet rs) throws Exception {
+		keyRsSetter.execute(key, rs);
+	}
+
+	public void fillPsByKey(PreparedStatement ps, int index, Object key) throws Exception {
+		keyPsSetter.execute(ps, index, key);
+	}
+	
 	public String name() {
 		return name;
 	}

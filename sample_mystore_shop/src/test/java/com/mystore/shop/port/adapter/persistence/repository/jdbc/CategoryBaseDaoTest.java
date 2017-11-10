@@ -17,7 +17,7 @@ import com.mystore.shop.domain.model.category.CategoryFactory;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CategoryDaoTest {
+public class CategoryBaseDaoTest {
 
 	private static final String CHANGED_DES = "This is changed Book!";
 
@@ -25,22 +25,22 @@ public class CategoryDaoTest {
 	private CategoryFactory _categoryFactory;
 
 	@Autowired
-	private CategoryDao _categoryDao;
+	private CategoryBaseDao _categoryBaseDao;
 
 	@Test
 	public void covered() throws Exception {
 		CategoryBase newObj = newCategory();
-		_categoryDao.insert(newObj);
-		CategoryBase retrievedObj = _categoryDao.find(newObj.getCategoryId().getId());
+		_categoryBaseDao.insert(newObj);
+		CategoryBase retrievedObj = _categoryBaseDao.findById(newObj.getCategoryId());
 		assertFalse(retrievedObj == null);
 
 		retrievedObj.setDescription(CHANGED_DES);
-		_categoryDao.update(retrievedObj);
-		CategoryBase updatedObj = _categoryDao.find(retrievedObj.getCategoryId().getId());
+		_categoryBaseDao.update(retrievedObj);
+		CategoryBase updatedObj = _categoryBaseDao.findById(retrievedObj.getCategoryId());
 		assertFalse(updatedObj == null);
 		assertFalse(!updatedObj.getDescription().equals(CHANGED_DES));
 
-		List<CategoryBase> list = _categoryDao.findAll();
+		List<CategoryBase> list = _categoryBaseDao.findAll();
 		assertFalse(list.size() <= 0);
 		CategoryBase firstObj = list.get(0);
 		assertFalse(firstObj == null);
@@ -51,12 +51,12 @@ public class CategoryDaoTest {
 	@Test
 	public void del() throws Exception {
 		CategoryBase newObj = newCategory();
-		_categoryDao.insert(newObj);
-		CategoryBase retrievedObj = _categoryDao.find(newObj.getCategoryId().getId());
+		_categoryBaseDao.insert(newObj);
+		CategoryBase retrievedObj = _categoryBaseDao.findById(newObj.getCategoryId());
 		assertFalse(retrievedObj == null);
 
-		_categoryDao.delete(retrievedObj.getCategoryId().getId());
-		CategoryBase deletedObj = _categoryDao.find(retrievedObj.getCategoryId().getId());
+		_categoryBaseDao.deleteById(retrievedObj.getCategoryId());
+		CategoryBase deletedObj = _categoryBaseDao.findById(retrievedObj.getCategoryId());
 		assertFalse(deletedObj != null);
 	}
 

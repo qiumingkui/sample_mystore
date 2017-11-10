@@ -19,6 +19,9 @@ public class CategoryTable extends Table<CategoryBase> {
 							category.getCategoryId().getId()),
 					(CategoryBase category, ResultSet rs) -> category.getCategoryId().setId(rs.getLong("id")));
 			id.setPrimaryKay();
+			id.setKeyRsSetter((Object key, ResultSet rs) -> ((CategoryId) key).setId(rs.getLong("id")));
+			id.setKeyPsSetter(
+					(PreparedStatement ps, int index, Object key) -> ps.setLong(index, ((CategoryId) key).getId()));
 
 			Column<CategoryBase> name = add("name",
 					(PreparedStatement ps, int index, CategoryBase category) -> ps.setString(index, category.getName()),
