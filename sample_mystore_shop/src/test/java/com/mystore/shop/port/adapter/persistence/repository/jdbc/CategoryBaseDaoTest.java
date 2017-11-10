@@ -15,7 +15,7 @@ import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryBase;
 import com.mystore.shop.domain.model.category.CategoryFactory;
 import com.mystore.shop.domain.model.category.CategoryId;
-import com.mystore.shop.port.adapter.persistence.jdbc.CategoryBaseDao;
+import com.mystore.shop.port.adapter.persistence.jdbc.CategoryBaseSql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,7 +27,7 @@ public class CategoryBaseDaoTest {
 	private CategoryFactory _categoryFactory;
 
 	@Autowired
-	private CategoryBaseDao _categoryBaseDao;
+	private CategoryBaseSql _categoryBaseDao;
 
 	@Test
 	public void test() throws Exception {

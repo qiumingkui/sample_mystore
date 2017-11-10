@@ -10,9 +10,9 @@ import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryTable;
 
 @Component
-public class CategoryBaseDao extends JdbcCurdDao<CategoryBase, CategoryId> {
+public class CategoryBaseSql extends JdbcCurdDao<CategoryBase, CategoryId> {
 
-	public CategoryBaseDao() {
+	public CategoryBaseSql() {
 		super();
 		super.table = new CategoryTable();
 	}

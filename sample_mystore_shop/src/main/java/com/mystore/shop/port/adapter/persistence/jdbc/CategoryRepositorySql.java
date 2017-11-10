@@ -18,32 +18,32 @@ public class CategoryRepositorySql implements CategoryRepository {
 	private CategoryFactory categoryFactory;
 
 	@Autowired
-	private CategoryBaseDao categoryBaseDao;
+	private CategoryBaseSql categoryBaseSql;
 
 	@Override
 	public void create(Category category) {
-		categoryBaseDao.insert((CategoryBase) category);
+		categoryBaseSql.insert((CategoryBase) category);
 	}
 
 	@Override
 	public void update(Category category) {
-		categoryBaseDao.update((CategoryBase) category);
+		categoryBaseSql.update((CategoryBase) category);
 	}
 
 	@Override
 	public void delete(CategoryId categoryId) {
-		categoryBaseDao.deleteById(categoryId);
+		categoryBaseSql.deleteById(categoryId);
 	}
 
 	@Override
 	public List<Category> getCategoryList() throws Exception {
-		List<CategoryBase> categoryBaseList = categoryBaseDao.findAll();
+		List<CategoryBase> categoryBaseList = categoryBaseSql.findAll();
 		return categoryFactory.categoryList(categoryBaseList);
 	}
 
 	@Override
 	public Category get(CategoryId categoryId) throws Exception {
-		CategoryBase categoryBase = categoryBaseDao.findById(categoryId);
+		CategoryBase categoryBase = categoryBaseSql.findById(categoryId);
 		return categoryFactory.category(categoryBase);
 	}
 

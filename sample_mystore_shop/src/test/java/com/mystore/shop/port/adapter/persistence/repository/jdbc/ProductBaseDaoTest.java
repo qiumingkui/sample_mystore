@@ -15,7 +15,7 @@ import com.mystore.shop.domain.model.product.Product;
 import com.mystore.shop.domain.model.product.ProductBase;
 import com.mystore.shop.domain.model.product.ProductFactory;
 import com.mystore.shop.domain.model.product.ProductId;
-import com.mystore.shop.port.adapter.persistence.jdbc.ProductBaseDao;
+import com.mystore.shop.port.adapter.persistence.jdbc.ProductBaseSql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,7 +27,7 @@ public class ProductBaseDaoTest {
 	private ProductFactory _productFactory;
 
 	@Autowired
-	private ProductBaseDao _productBaseDao;
+	private ProductBaseSql _productBaseDao;
 
 	@Test
 	public void test() throws Exception {

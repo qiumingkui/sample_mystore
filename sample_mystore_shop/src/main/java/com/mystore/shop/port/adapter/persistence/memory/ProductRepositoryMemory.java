@@ -1,6 +1,8 @@
 package com.mystore.shop.port.adapter.persistence.memory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -8,7 +10,7 @@ import com.mystore.shop.domain.model.product.Product;
 import com.mystore.shop.domain.model.product.ProductId;
 import com.mystore.shop.domain.model.product.ProductRepository;
 
-@Component
+//@Component
 public class ProductRepositoryMemory implements ProductRepository {
 
 	private static Map<ProductId, Product> cache = new HashMap<ProductId, Product>();
@@ -34,5 +36,11 @@ public class ProductRepositoryMemory implements ProductRepository {
 	public void delete(ProductId productId) {
 		cache.remove(productId);
 
+	}
+
+	@Override
+	public List<Product> getProductList() throws Exception {
+		List<Product> list = new ArrayList<Product>(cache.values());
+		return list;
 	}
 }

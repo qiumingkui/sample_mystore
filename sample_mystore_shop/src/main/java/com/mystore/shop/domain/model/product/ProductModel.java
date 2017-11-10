@@ -6,6 +6,13 @@ public class ProductModel extends ProductBase implements Product{
 
 	private static final long serialVersionUID = 1L;
 
+	
+	
+	public ProductModel() {
+		super();
+	}
+
+
 	public ProductModel(ProductId productId, CategoryId categoryId, String name, String description) {
 		super();
 		setProductId(productId);

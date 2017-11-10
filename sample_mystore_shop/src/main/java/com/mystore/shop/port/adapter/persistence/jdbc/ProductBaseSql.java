@@ -10,9 +10,9 @@ import com.mystore.shop.domain.model.product.ProductId;
 import com.mystore.shop.domain.model.product.ProductTable;
 
 @Component
-public class ProductBaseDao extends JdbcCurdDao<ProductBase, ProductId> {
+public class ProductBaseSql extends JdbcCurdDao<ProductBase, ProductId> {
 
-	public ProductBaseDao() {
+	public ProductBaseSql() {
 		super();
 		super.table = new ProductTable();
 	}

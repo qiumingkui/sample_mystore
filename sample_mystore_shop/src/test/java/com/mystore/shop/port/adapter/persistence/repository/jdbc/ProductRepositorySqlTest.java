@@ -1,4 +1,4 @@
-package com.mystore.shop.port.adapter.persistence;
+package com.mystore.shop.port.adapter.persistence.repository.jdbc;
 
 import static org.junit.Assert.assertFalse;
 
@@ -15,10 +15,11 @@ import com.mystore.shop.domain.model.product.ProductBase;
 import com.mystore.shop.domain.model.product.ProductFactory;
 import com.mystore.shop.domain.model.product.ProductId;
 import com.mystore.shop.domain.model.product.ProductRepository;
+import com.mystore.shop.port.adapter.persistence.jdbc.ProductRepositorySql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductRepositoryTest {
+public class ProductRepositorySqlTest {
 
 	private static final String CHANGED_DES = "This is changed english Book!";
 
@@ -26,20 +27,24 @@ public class ProductRepositoryTest {
 	private ProductFactory _productFactory;
 
 	@Autowired
-	private ProductRepository _productRepository;
+	private ProductRepositorySql _productRepositorySql;
 
 	@Test
-	public void covered() {
+	public void test() throws Exception {
 		Product newObj = newProduct();
-		_productRepository.create(newObj);
-		Product retrievedObj = _productRepository.get(newObj.productId());
+		_productRepositorySql.create(newObj);
+		Product retrievedObj = _productRepositorySql.get(newObj.productId());
 		assertFalse(retrievedObj == null);
 
 		retrievedObj.changeDescription(CHANGED_DES);
-		_productRepository.update(retrievedObj);
-		Product updatedObj = _productRepository.get(retrievedObj.productId());
+		_productRepositorySql.update(retrievedObj);
+		Product updatedObj = _productRepositorySql.get(retrievedObj.productId());
 		assertFalse(updatedObj == null);
 		assertFalse(!updatedObj.description().equals(CHANGED_DES));
+
+		_productRepositorySql.delete(retrievedObj.productId());
+		Product deletedObj = _productRepositorySql.get(retrievedObj.productId());
+		assertFalse(deletedObj != null);
 
 	}
 
