@@ -23,7 +23,8 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
-import com.mystore.shop.domain.model.productitem.ProductItemId;
+
+import com.mystore.shop.domain.model.product.ProductItemId;
 
 @Embeddable
 public class SaleOrderItem implements Serializable {

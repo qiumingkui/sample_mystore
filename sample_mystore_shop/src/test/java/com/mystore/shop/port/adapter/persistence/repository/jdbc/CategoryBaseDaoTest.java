@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryBase;
 import com.mystore.shop.domain.model.category.CategoryFactory;
+import com.mystore.shop.domain.model.category.CategoryId;
+import com.mystore.shop.port.adapter.persistence.jdbc.CategoryBaseDao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +30,7 @@ public class CategoryBaseDaoTest {
 	private CategoryBaseDao _categoryBaseDao;
 
 	@Test
-	public void covered() throws Exception {
+	public void test() throws Exception {
 		CategoryBase newObj = newCategory();
 		_categoryBaseDao.insert(newObj);
 		CategoryBase retrievedObj = _categoryBaseDao.findById(newObj.getCategoryId());
@@ -46,24 +48,29 @@ public class CategoryBaseDaoTest {
 		assertFalse(firstObj == null);
 		assertFalse(!updatedObj.getDescription().equals(CHANGED_DES));
 
-	}
-
-	@Test
-	public void del() throws Exception {
-		CategoryBase newObj = newCategory();
-		_categoryBaseDao.insert(newObj);
-		CategoryBase retrievedObj = _categoryBaseDao.findById(newObj.getCategoryId());
-		assertFalse(retrievedObj == null);
-
 		_categoryBaseDao.deleteById(retrievedObj.getCategoryId());
 		CategoryBase deletedObj = _categoryBaseDao.findById(retrievedObj.getCategoryId());
 		assertFalse(deletedObj != null);
 	}
 
+	// @Test
+	// public void del() throws Exception {
+	// CategoryBase newObj = newCategory();
+	// _categoryBaseDao.insert(newObj);
+	// CategoryBase retrievedObj =
+	// _categoryBaseDao.findById(newObj.getCategoryId());
+	// assertFalse(retrievedObj == null);
+	//
+	// _categoryBaseDao.deleteById(retrievedObj.getCategoryId());
+	// CategoryBase deletedObj =
+	// _categoryBaseDao.findById(retrievedObj.getCategoryId());
+	// assertFalse(deletedObj != null);
+	// }
+
 	private CategoryBase newCategory() {
 		Random random = new Random();
 		Long id = random.nextLong();
-		Category category = _categoryFactory.category(id, "book", "This is book!");
+		Category category = _categoryFactory.category(new CategoryId(id), "book", "This is book!");
 		return (CategoryBase) category;
 	}
 }

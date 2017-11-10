@@ -11,10 +11,10 @@ public class Column<T> {
 
 	private Rs2ColumnValueSetter<T> rsSetter;
 
-	private KeyRSSetter keyRsSetter;
-	
-	private KeyPSSetter keyPsSetter;
-
+	// private KeyRSSetter keyRsSetter;
+	//
+	// private KeyPSSetter keyPsSetter;
+	//
 	private boolean isPrimaryKay;
 
 	private boolean isVersion;
@@ -35,13 +35,13 @@ public class Column<T> {
 		this.rsSetter = rsSetter;
 	}
 
-	public void setKeyPsSetter(KeyPSSetter keyPsSetter) {
-		this.keyPsSetter = keyPsSetter;
-	}
-
-	public void setKeyRsSetter(KeyRSSetter keyRsSetter) {
-		this.keyRsSetter = keyRsSetter;
-	}
+	// public void setKeyPsSetter(KeyPSSetter keyPsSetter) {
+	// this.keyPsSetter = keyPsSetter;
+	// }
+	//
+	// public void setKeyRsSetter(KeyRSSetter keyRsSetter) {
+	// this.keyRsSetter = keyRsSetter;
+	// }
 
 	public void setPrimaryKay() {
 		this.isPrimaryKay = true;
@@ -51,7 +51,7 @@ public class Column<T> {
 		this.isVersion = true;
 	}
 
-	public void fillPsByObj(PreparedStatement ps, int index, T object) throws Exception {
+	public void fillPs(PreparedStatement ps, int index, T object) throws Exception {
 		psSetter.execute(ps, index, object);
 	}
 
@@ -59,14 +59,15 @@ public class Column<T> {
 		rsSetter.execute(object, rs);
 	}
 
-	public void fillKey(Object key, ResultSet rs) throws Exception {
-		keyRsSetter.execute(key, rs);
-	}
+	// public void fillKey(Object key, ResultSet rs) throws Exception {
+	// keyRsSetter.execute(key, rs);
+	// }
+	//
+	// public void fillPsByKey(PreparedStatement ps, int index, Object key)
+	// throws Exception {
+	// keyPsSetter.execute(ps, index, key);
+	// }
 
-	public void fillPsByKey(PreparedStatement ps, int index, Object key) throws Exception {
-		keyPsSetter.execute(ps, index, key);
-	}
-	
 	public String name() {
 		return name;
 	}

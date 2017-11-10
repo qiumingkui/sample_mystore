@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryFactory;
+import com.mystore.shop.domain.model.category.CategoryId;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -48,7 +49,7 @@ public class Obj2SQLTest {
 	private Category newCategory() {
 		Random random = new Random();
 		Long id = random.nextLong();
-		Category category = _categoryFactory.category(id, "book", "This is book!");
+		Category category = _categoryFactory.category(new CategoryId(id), "book", "This is book!");
 		return category;
 	}
 }

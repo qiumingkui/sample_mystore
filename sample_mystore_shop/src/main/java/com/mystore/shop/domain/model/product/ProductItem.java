@@ -1,8 +1,6 @@
-package com.mystore.shop.domain.model.productitem;
+package com.mystore.shop.domain.model.product;
 
 import java.math.BigDecimal;
-
-import com.mystore.shop.domain.model.product.ProductId;
 
 public class ProductItem {
 

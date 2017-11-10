@@ -2,19 +2,19 @@ package com.mystore.shop.domain.model.product;
 
 public class ProductId {
 
-	private long _id;
+	private long id;
 
 	public ProductId(long id) {
 		super();
 		setId(id);
 	}
 
-	public long id() {
-		return _id;
+	public long getId() {
+		return id;
 	}
 
 	protected void setId(long id) {
-		this._id = id;
+		this.id = id;
 	}
 
 }

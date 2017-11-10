@@ -2,7 +2,7 @@ package com.mystore.shop.domain.model.cart;
 
 import java.math.BigDecimal;
 
-import com.mystore.shop.domain.model.productitem.ProductItemId;
+import com.mystore.shop.domain.model.product.ProductItemId;
 
 public class CartItem {
 

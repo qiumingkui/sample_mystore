@@ -1,4 +1,4 @@
-package com.mystore.shop.port.adapter.persistence.repository.jdbc;
+package com.mystore.common.persistence.jdbc;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,16 +12,11 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;
-import com.mystore.common.persistence.jdbc.Counter;
 import com.mystore.common.persistence.jdbc.sql.SqlFragment;
 
 public abstract class JdbcCurdDao<T, K> {
 
 	protected Table<T> table;
-
-	// protected Class<T> clazz;
-
-	// protected Class<K> keyClazz;
 
 	protected JdbcTemplate jdbcTemplate;
 
@@ -55,20 +50,6 @@ public abstract class JdbcCurdDao<T, K> {
 		T object = produceObject(key);
 		return find(object);
 	}
-
-	// public T findOneById(K key) {
-	// Collection<Column<T>> columns = table.values();
-	//
-	// String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{pk}=?";
-	// SQL = replaceSql(SQL, "table", table.name());
-	// SQL = replaceSql(SQL, "columnNames", new
-	// SelectContents<T>(columns).toString());
-	// SQL = replaceSql(SQL, "pk", table.primaryKey().name());
-	//
-	// List<T> list = jdbcTemplate.query(SQL, new Object[] { key }, new
-	// ObjectRowMapper<T>(columns));
-	// return list.size() > 0 ? (T) (list.get(0)) : null;
-	// }
 
 	public List<T> findAll() {
 		Collection<Column<T>> columns = new ArrayList<Column<T>>();
@@ -120,30 +101,6 @@ public abstract class JdbcCurdDao<T, K> {
 		delete(object);
 	}
 
-	// private T produceObjct(){
-	// T object = null;
-	// try {
-	// object = (T) clazz.newInstance();
-	// } catch (InstantiationException | IllegalAccessException e) {
-	// e.printStackTrace();
-	// }
-	// return object;
-	// }
-	//
-	// private T produceObjct(K key){
-	// T object =produceObjct();
-	// fillObjectByKey(object, key);
-	// return object;
-	// }
-
-	// public void deleteById(K key) {
-	// String SQL = "DELETE FROM #{table} WHERE #{pk}=?";
-	// SQL = replaceSql(SQL, "table", table.name());
-	// SQL = replaceSql(SQL, "pk", table.primaryKey().name());
-	//
-	// jdbcTemplate.update(SQL, key);
-	// }
-
 	protected Collection<Column<T>> filtColumns(Collection<Column<T>> source, ColumnsFilter<T> filter) {
 		Collection<Column<T>> target = new ArrayList<Column<T>>();
 		for (Column<T> column : source) {
@@ -173,29 +130,6 @@ public abstract class JdbcCurdDao<T, K> {
 		void doFilt(Collection<Column<T>> target, Column<T> column);
 	}
 
-	// class KeyRowMapper implements RowMapper<K> {
-	// @Override
-	// public K mapRow(ResultSet rs, int rowNum) throws SQLException {
-	// K key = null;
-	//
-	// try {
-	// key = (K) keyClazz.newInstance();
-	// } catch (InstantiationException e) {
-	// e.printStackTrace();
-	// } catch (IllegalAccessException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// try {
-	// table.primaryKey().fillKey(key, rs);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	//
-	// return (K) key;
-	// }
-	// }
-
 	class ObjectRowMapper<T> implements RowMapper<T> {
 		private Collection<Column<T>> columns;
 
@@ -219,85 +153,6 @@ public abstract class JdbcCurdDao<T, K> {
 		}
 	}
 
-	// class KeyRowMapper<T> implements RowMapper<T> {
-	// private Collection<Column<T>> columns;
-	//
-	// public KeyRowMapper(Collection<Column<T>> columns) {
-	// super();
-	// this.columns = columns;
-	// }
-	//
-	// @Override
-	// public T mapRow(ResultSet rs, int rowNum) throws SQLException {
-	// T object = null;
-	// try {
-	// object = (T) clazz.newInstance();
-	// } catch (InstantiationException | IllegalAccessException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// for (Column<T> column : columns) {
-	// try {
-	// rs.getO
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// return object;
-	// }
-	// }
-
-	// class KeyPreparedStatementSetter implements PreparedStatementSetter {
-	//
-	// private Column<T> column;
-	//
-	// private Object key;
-	//
-	// public KeyPreparedStatementSetter(Column<T> column, Object key) {
-	// super();
-	// this.column = column;
-	// this.key = key;
-	// }
-	//
-	// @Override
-	// public void setValues(PreparedStatement ps) throws SQLException {
-	// try {
-	// column.fillPsByKey(ps, 0, key);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	//
-	// }
-
-	// class KeyRowMapper<T> implements RowMapper<T> {
-	// private Collection<Column<T>> columns;
-	//
-	// public KeyRowMapper(Collection<Column<T>> columns) {
-	// super();
-	// this.columns = columns;
-	// }
-	//
-	// @Override
-	// public T mapRow(ResultSet rs, int rowNum) throws SQLException {
-	// T object = null;
-	// try {
-	// object = (T) clazz.newInstance();
-	// } catch (InstantiationException | IllegalAccessException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// for (Column<T> column : columns) {
-	// try {
-	// rs.getO
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// return object;
-	// }
-	// }
-
 	class ObjectPreparedStatementSetter implements PreparedStatementSetter {
 
 		private Collection<Column<T>> _columns;
@@ -314,7 +169,7 @@ public abstract class JdbcCurdDao<T, K> {
 			Counter counter = new Counter();
 			for (Column<T> column : _columns) {
 				try {
-					column.fillPsByObj(ps, counter.next(), _object);
+					column.fillPs(ps, counter.next(), _object);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

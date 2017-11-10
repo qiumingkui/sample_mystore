@@ -9,21 +9,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryFactory {
 
-	public Category category(long categoryId, String name, String description){
-		CategoryId _categoryId = new CategoryId(categoryId);
-		Category _category = new CategoryModel(_categoryId,name,description);
+	// public Category category(long categoryId, String name, String
+	// description) {
+	// CategoryId _categoryId = new CategoryId(categoryId);
+	// Category _category = new CategoryModel(_categoryId, name, description);
+	// return _category;
+	// }
+
+	public Category category(CategoryId categoryId, String name, String description) {
+		Category _category = new CategoryModel(categoryId, name, description);
 		return _category;
 	}
-	
-	public Category category(CategoryBase categoryBase){
+
+	@SuppressWarnings("unused")
+	public Category category(CategoryBase categoryBase) {
 		CategoryModel categoryModel = new CategoryModel();
+		if (categoryBase == null)
+			return null;
 		BeanUtils.copyProperties(categoryBase, categoryModel);
 		return categoryModel;
 	}
-	
-	public List<Category> categoryList(List<CategoryBase> categoryBaseList){
+
+	public List<Category> categoryList(List<CategoryBase> categoryBaseList) {
 		List<Category> categoryList = new ArrayList<Category>();
-		for(CategoryBase base:categoryBaseList){
+		for (CategoryBase base : categoryBaseList) {
 			categoryList.add(category(base));
 		}
 		return categoryList;

@@ -1,9 +1,10 @@
-package com.mystore.shop.port.adapter.persistence.repository.jdbc;
+package com.mystore.shop.port.adapter.persistence.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.mystore.common.persistence.jdbc.JdbcCurdDao;
 import com.mystore.shop.domain.model.category.CategoryBase;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryTable;

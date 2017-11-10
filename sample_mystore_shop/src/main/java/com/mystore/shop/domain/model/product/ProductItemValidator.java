@@ -1,4 +1,4 @@
-package com.mystore.shop.domain.model.productitem;
+package com.mystore.shop.domain.model.product;
 
 import com.mystore.common.AssertionConcern;
 
