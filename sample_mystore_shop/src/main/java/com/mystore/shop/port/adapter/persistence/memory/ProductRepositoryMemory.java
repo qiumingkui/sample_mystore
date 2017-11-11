@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
 import com.mystore.shop.domain.model.product.Product;
 import com.mystore.shop.domain.model.product.ProductId;
 import com.mystore.shop.domain.model.product.ProductRepository;

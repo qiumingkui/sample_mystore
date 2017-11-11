@@ -11,10 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.product.Product;
-import com.mystore.shop.domain.model.product.ProductBase;
 import com.mystore.shop.domain.model.product.ProductFactory;
 import com.mystore.shop.domain.model.product.ProductId;
-import com.mystore.shop.domain.model.product.ProductRepository;
 import com.mystore.shop.port.adapter.persistence.jdbc.ProductRepositorySql;
 
 @RunWith(SpringRunner.class)

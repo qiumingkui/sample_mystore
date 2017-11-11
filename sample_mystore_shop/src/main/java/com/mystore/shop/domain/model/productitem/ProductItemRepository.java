@@ -11,7 +11,7 @@ public interface ProductItemRepository {
 
 	public void delete(ProductItemId productItemId);
 	
-	public Product get(ProductItemId productItemId) throws Exception ;
+	public ProductItem get(ProductItemId productItemId) throws Exception ;
 
 	public List<ProductItem> getProductItemList() throws Exception;
 

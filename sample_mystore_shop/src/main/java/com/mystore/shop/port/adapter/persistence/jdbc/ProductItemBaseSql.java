@@ -17,6 +17,7 @@ public class ProductItemBaseSql extends JdbcCurdDao<ProductItemBase, ProductItem
 		this.table= new ProductItemTable();
 	}
 
+	@Override
 	@Autowired
 	protected void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate=jdbcTemplate;

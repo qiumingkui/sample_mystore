@@ -20,28 +20,34 @@ public class ProductModel extends ProductBase implements Product{
 	}
 
 
+	@Override
 	public ProductId productId() {
 		return getProductId();
 	}
 
 
+	@Override
 	public CategoryId categoryId() {
 		return getCategoryId();
 	}
 
 	
+	@Override
 	public String name() {
 		return getName();
 	}
 
+	@Override
 	public String description() {
 		return getDescription();
 	}
 
+	@Override
 	public void changeName(String name) {
 		setName(name);
 	}
 
+	@Override
 	public void changeDescription(String description) {
 		setDescription(description);
 	}

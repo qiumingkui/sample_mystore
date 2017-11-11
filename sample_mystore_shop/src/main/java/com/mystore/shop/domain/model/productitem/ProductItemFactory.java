@@ -27,7 +27,7 @@ public class ProductItemFactory {
 		return productItemModel;
 	}
 
-	public List<ProductItem> productListItem(List<ProductItemBase> productItemBaseList) {
+	public List<ProductItem> productItemList(List<ProductItemBase> productItemBaseList) {
 		List<ProductItem> productItemList = new ArrayList<ProductItem>();
 		for (ProductItemBase base : productItemBaseList) {
 			productItemList.add(productItem(base));

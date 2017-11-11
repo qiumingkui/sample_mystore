@@ -10,6 +10,7 @@ public class CategoryTable extends Table<CategoryBase> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void init() {
 		try {
 			setName("category");

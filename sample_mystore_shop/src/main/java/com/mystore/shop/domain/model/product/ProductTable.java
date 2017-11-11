@@ -10,6 +10,7 @@ public class ProductTable extends Table<ProductBase> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void init() {
 		try {
 			setName("product");

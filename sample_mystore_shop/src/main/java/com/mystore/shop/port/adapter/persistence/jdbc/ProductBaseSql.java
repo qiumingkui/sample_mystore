@@ -12,6 +12,7 @@ import com.mystore.shop.domain.model.product.ProductTable;
 @Component
 public class ProductBaseSql extends JdbcCurdDao<ProductBase, ProductId> {
 
+	@Override
 	@Autowired
 	protected void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
