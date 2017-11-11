@@ -5,8 +5,6 @@ import com.mystore.shop.domain.model.category.CategoryId;
 public class ProductModel extends ProductBase implements Product{
 
 	private static final long serialVersionUID = 1L;
-
-	
 	
 	public ProductModel() {
 		super();

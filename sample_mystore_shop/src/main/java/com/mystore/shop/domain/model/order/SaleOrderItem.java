@@ -24,7 +24,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 
-import com.mystore.shop.domain.model.product.ProductItemId;
+import com.mystore.shop.domain.model.productitem.ProductItemId;
 
 @Embeddable
 public class SaleOrderItem implements Serializable {

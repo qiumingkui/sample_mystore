@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 
 import com.mystore.shop.domain.model.customer.CustomerId;
-import com.mystore.shop.domain.model.product.ProductItemId;
+import com.mystore.shop.domain.model.productitem.ProductItemId;
 
 public interface Cart {
 

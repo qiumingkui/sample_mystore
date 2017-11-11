@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.mystore.shop.domain.model.order.SaleOrder;
 import com.mystore.shop.domain.model.order.SaleOrderFactory;
 import com.mystore.shop.domain.model.order.SaleOrderItem;
-import com.mystore.shop.domain.model.product.ProductItemId;
+import com.mystore.shop.domain.model.productitem.ProductItemId;
 import com.mystore.shop.port.adapter.persistence.hb.SaleOrderRepositoryHb;
 
 @RunWith(SpringRunner.class)

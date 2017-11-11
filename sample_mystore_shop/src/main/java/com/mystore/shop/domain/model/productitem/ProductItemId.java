@@ -1,4 +1,4 @@
-package com.mystore.shop.domain.model.product;
+package com.mystore.shop.domain.model.productitem;
 
 import javax.persistence.Embeddable;
 

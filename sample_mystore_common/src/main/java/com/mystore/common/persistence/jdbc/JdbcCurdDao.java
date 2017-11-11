@@ -20,6 +20,11 @@ public abstract class JdbcCurdDao<T, K> {
 
 	protected JdbcTemplate jdbcTemplate;
 
+	public JdbcCurdDao() {
+		super();
+		init();
+	}
+
 	public void insert(T object) {
 		Collection<Column<T>> columns = table.values();
 
@@ -106,6 +111,16 @@ public abstract class JdbcCurdDao<T, K> {
 		delete(object);
 	}
 
+	abstract protected void init();
+	
+	abstract protected void setJdbcTemplate(JdbcTemplate jdbcTemplate);
+
+	abstract protected T produceObject(K key);
+
+	abstract protected T produceObject();
+
+	abstract protected K fetchKey(T object);
+
 	protected Collection<Column<T>> filtColumns(Collection<Column<T>> source, ColumnsFilter<T> filter) {
 		Collection<Column<T>> target = new ArrayList<Column<T>>();
 		for (Column<T> column : source) {
@@ -129,12 +144,6 @@ public abstract class JdbcCurdDao<T, K> {
 		RowMapper<T> rowMapper = new ObjectRowMapper<T>(columns);
 		return rowMapper;
 	}
-
-	abstract protected T produceObject(K key);
-
-	abstract protected T produceObject();
-
-	abstract protected K fetchKey(T object);
 
 	interface ColumnsFilter<T> {
 		void doFilt(Collection<Column<T>> target, Column<T> column);

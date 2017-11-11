@@ -12,14 +12,14 @@ import com.mystore.shop.domain.model.product.ProductTable;
 @Component
 public class ProductBaseSql extends JdbcCurdDao<ProductBase, ProductId> {
 
-	public ProductBaseSql() {
-		super();
-		super.table = new ProductTable();
+	@Autowired
+	protected void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@Autowired
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	@Override
+	protected void init() {
+		this.table=new ProductTable();
 	}
 
 	@Override
