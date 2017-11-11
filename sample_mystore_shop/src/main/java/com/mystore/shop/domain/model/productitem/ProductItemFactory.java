@@ -18,7 +18,6 @@ public class ProductItemFactory {
 		return productItem;
 	}
 	
-	@SuppressWarnings("unused")
 	public ProductItem productItem(ProductItemBase productItemBase) {
 		ProductItemModel productItemModel = new ProductItemModel();
 		if (productItemBase == null)

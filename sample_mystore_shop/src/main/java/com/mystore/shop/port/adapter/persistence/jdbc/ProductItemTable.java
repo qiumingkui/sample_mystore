@@ -11,6 +11,7 @@ import com.mystore.shop.domain.model.productitem.ProductItemId;
 public class ProductItemTable extends Table<ProductItemBase> {
 	private static final long serialVersionUID = 1L;
 	
+	public static final String TABLENAME="productitem";
 	public static final String ID = "id";
 	public static final String PRODUCTID = "productid";
 	public static final String LISTPRICE = "listprice";
@@ -20,7 +21,7 @@ public class ProductItemTable extends Table<ProductItemBase> {
 	@Override
 	protected void init() {
 		try {
-			setName("productitem");
+			setName(TABLENAME);
 
 			add(ID, (PreparedStatement ps, int index, ProductItemBase productItemBase) -> ps.setLong(index,
 					productItemBase.getProductItemId().getId()),

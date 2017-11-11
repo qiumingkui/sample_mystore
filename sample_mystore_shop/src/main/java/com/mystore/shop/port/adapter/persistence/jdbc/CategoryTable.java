@@ -3,7 +3,6 @@ package com.mystore.shop.port.adapter.persistence.jdbc;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;
 import com.mystore.shop.domain.model.category.CategoryBase;
 import com.mystore.shop.domain.model.category.CategoryId;
@@ -12,6 +11,7 @@ public class CategoryTable extends Table<CategoryBase> {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String TABLENAME="category";
 	public static final String ID = "id";
 	public static final String NAME = "name";
 	public static final String DESCRIPTION = "description";
@@ -19,7 +19,7 @@ public class CategoryTable extends Table<CategoryBase> {
 	@Override
 	protected void init() {
 		try {
-			setName("category");
+			setName(TABLENAME);
 
 			add(ID, (PreparedStatement ps, int index, CategoryBase category) -> ps.setLong(index,
 					category.getCategoryId().getId()),

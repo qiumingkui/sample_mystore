@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.product.ProductId;
 import com.mystore.shop.domain.model.productitem.ProductItem;
-import com.mystore.shop.domain.model.productitem.ProductItemBase;
 import com.mystore.shop.domain.model.productitem.ProductItemFactory;
 import com.mystore.shop.domain.model.productitem.ProductItemId;
 import com.mystore.shop.port.adapter.persistence.jdbc.ProductItemRepositorySql;
