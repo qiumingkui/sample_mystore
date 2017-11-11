@@ -19,7 +19,7 @@ import com.mystore.shop.port.adapter.persistence.jdbc.ProductBaseSql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductBaseDaoTest {
+public class ProductBaseSqlTest {
 
 	private static final String CHANGED_DES = "This is changed Book!";
 
@@ -27,29 +27,29 @@ public class ProductBaseDaoTest {
 	private ProductFactory _productFactory;
 
 	@Autowired
-	private ProductBaseSql _productBaseDao;
+	private ProductBaseSql _productBaseSql;
 
 	@Test
 	public void test() throws Exception {
 		ProductBase newObj = newProduct();
-		_productBaseDao.insert(newObj);
-		ProductBase retrievedObj = _productBaseDao.findById(newObj.getProductId());
+		_productBaseSql.insert(newObj);
+		ProductBase retrievedObj = _productBaseSql.findOneById(newObj.getProductId());
 		assertFalse(retrievedObj == null);
 
 		retrievedObj.setDescription(CHANGED_DES);
-		_productBaseDao.update(retrievedObj);
-		ProductBase updatedObj = _productBaseDao.findById(retrievedObj.getProductId());
+		_productBaseSql.update(retrievedObj);
+		ProductBase updatedObj = _productBaseSql.findOneById(retrievedObj.getProductId());
 		assertFalse(updatedObj == null);
 		assertFalse(!updatedObj.getDescription().equals(CHANGED_DES));
 
-		List<ProductBase> list = _productBaseDao.findAll();
+		List<ProductBase> list = _productBaseSql.findAll();
 		assertFalse(list.size() <= 0);
 		ProductBase firstObj = list.get(0);
 		assertFalse(firstObj == null);
 		assertFalse(!updatedObj.getDescription().equals(CHANGED_DES));
 
-		_productBaseDao.deleteById(retrievedObj.getProductId());
-		ProductBase deletedObj = _productBaseDao.findById(retrievedObj.getProductId());
+		_productBaseSql.deleteById(retrievedObj.getProductId());
+		ProductBase deletedObj = _productBaseSql.findOneById(retrievedObj.getProductId());
 		assertFalse(deletedObj != null);
 	}
 

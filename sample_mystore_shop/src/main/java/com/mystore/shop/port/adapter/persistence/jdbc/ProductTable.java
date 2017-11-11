@@ -1,10 +1,12 @@
-package com.mystore.shop.domain.model.product;
+package com.mystore.shop.port.adapter.persistence.jdbc;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;
+import com.mystore.shop.domain.model.product.ProductBase;
+import com.mystore.shop.domain.model.product.ProductId;
 
 public class ProductTable extends Table<ProductBase> {
 

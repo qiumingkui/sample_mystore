@@ -21,8 +21,7 @@ import com.mystore.shop.port.adapter.persistence.jdbc.ProductItemBaseSql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductItemBaseDaoTest {
-
+public class ProductItemBaseSqlTest {
 
 	private static final int CHANGED_QUANTITY = 9999;
 
@@ -30,29 +29,32 @@ public class ProductItemBaseDaoTest {
 	private ProductItemFactory _productItemFactory;
 
 	@Autowired
-	private ProductItemBaseSql _productItemBaseDao;
+	private ProductItemBaseSql _productItemBaseSql;
 
 	@Test
 	public void test() throws Exception {
 		ProductItemBase newObj = newProductItem();
-		_productItemBaseDao.insert(newObj);
-		ProductItemBase retrievedObj = _productItemBaseDao.findById(newObj.getProductItemId());
+		_productItemBaseSql.insert(newObj);
+		ProductItemBase retrievedObj = _productItemBaseSql.findOneById(newObj.getProductItemId());
 		assertFalse(retrievedObj == null);
 
 		retrievedObj.setQuantity(CHANGED_QUANTITY);
-		_productItemBaseDao.update(retrievedObj);
-		ProductItemBase updatedObj = _productItemBaseDao.findById(retrievedObj.getProductItemId());
+		_productItemBaseSql.update(retrievedObj);
+		ProductItemBase updatedObj = _productItemBaseSql.findOneById(retrievedObj.getProductItemId());
 		assertFalse(updatedObj == null);
 		assertFalse(!(updatedObj.getQuantity()==CHANGED_QUANTITY));
 
-		List<ProductItemBase> list = _productItemBaseDao.findAll();
+		List<ProductItemBase> list = _productItemBaseSql.findAll();
 		assertFalse(list.size() <= 0);
 		ProductItemBase firstObj = list.get(0);
 		assertFalse(firstObj == null);
 		assertFalse(!(updatedObj.getQuantity()==CHANGED_QUANTITY));
 
-		_productItemBaseDao.deleteById(retrievedObj.getProductItemId());
-		ProductItemBase deletedObj = _productItemBaseDao.findById(retrievedObj.getProductItemId());
+		List<ProductItemBase> equelsProductIdList=_productItemBaseSql.findAllByProductId(retrievedObj.getProductId());
+		assertFalse(equelsProductIdList.size() <= 0);
+		
+		_productItemBaseSql.deleteById(retrievedObj.getProductItemId());
+		ProductItemBase deletedObj = _productItemBaseSql.findOneById(retrievedObj.getProductItemId());
 		assertFalse(deletedObj != null);
 	}
 

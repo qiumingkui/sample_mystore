@@ -1,10 +1,12 @@
-package com.mystore.shop.domain.model.productitem;
+package com.mystore.shop.port.adapter.persistence.jdbc;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.mystore.common.persistence.Table;
 import com.mystore.shop.domain.model.product.ProductId;
+import com.mystore.shop.domain.model.productitem.ProductItemBase;
+import com.mystore.shop.domain.model.productitem.ProductItemId;
 
 public class ProductItemTable extends Table<ProductItemBase> {
 	private static final long serialVersionUID = 1L;

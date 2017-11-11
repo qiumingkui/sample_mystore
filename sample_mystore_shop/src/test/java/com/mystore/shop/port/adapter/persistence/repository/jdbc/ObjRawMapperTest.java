@@ -1,6 +1,6 @@
 package com.mystore.shop.port.adapter.persistence.repository.jdbc;
 
-import com.mystore.shop.domain.model.category.CategoryTable;
+import com.mystore.shop.port.adapter.persistence.jdbc.CategoryTable;
 
 public class ObjRawMapperTest {
 

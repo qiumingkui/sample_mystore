@@ -19,53 +19,47 @@ import com.mystore.shop.port.adapter.persistence.jdbc.CategoryBaseSql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CategoryBaseDaoTest {
+public class CategoryBaseSqlTest {
 
 	private static final String CHANGED_DES = "This is changed Book!";
+
+	private static final String BOOK = "book";
+	private static final String PEN = "pen";
 
 	@Autowired
 	private CategoryFactory _categoryFactory;
 
 	@Autowired
-	private CategoryBaseSql _categoryBaseDao;
+	private CategoryBaseSql _categoryBaseSql;
 
 	@Test
 	public void test() throws Exception {
 		CategoryBase newObj = newCategory();
-		_categoryBaseDao.insert(newObj);
-		CategoryBase retrievedObj = _categoryBaseDao.findById(newObj.getCategoryId());
+		_categoryBaseSql.insert(newObj);
+		CategoryBase retrievedObj = _categoryBaseSql.findOneById(newObj.getCategoryId());
 		assertFalse(retrievedObj == null);
 
 		retrievedObj.setDescription(CHANGED_DES);
-		_categoryBaseDao.update(retrievedObj);
-		CategoryBase updatedObj = _categoryBaseDao.findById(retrievedObj.getCategoryId());
+		_categoryBaseSql.update(retrievedObj);
+		CategoryBase updatedObj = _categoryBaseSql.findOneById(retrievedObj.getCategoryId());
 		assertFalse(updatedObj == null);
 		assertFalse(!updatedObj.getDescription().equals(CHANGED_DES));
 
-		List<CategoryBase> list = _categoryBaseDao.findAll();
+		List<CategoryBase> likeNameList = _categoryBaseSql.findAllByNameLike(BOOK);
+		assertFalse(likeNameList.size() <= 0);
+		likeNameList = _categoryBaseSql.findAllByNameLike(PEN);
+		assertFalse(likeNameList.size() > 0);
+
+		List<CategoryBase> list = _categoryBaseSql.findAll();
 		assertFalse(list.size() <= 0);
 		CategoryBase firstObj = list.get(0);
 		assertFalse(firstObj == null);
 		assertFalse(!updatedObj.getDescription().equals(CHANGED_DES));
 
-		_categoryBaseDao.deleteById(retrievedObj.getCategoryId());
-		CategoryBase deletedObj = _categoryBaseDao.findById(retrievedObj.getCategoryId());
+		_categoryBaseSql.deleteById(retrievedObj.getCategoryId());
+		CategoryBase deletedObj = _categoryBaseSql.findOneById(retrievedObj.getCategoryId());
 		assertFalse(deletedObj != null);
 	}
-
-	// @Test
-	// public void del() throws Exception {
-	// CategoryBase newObj = newCategory();
-	// _categoryBaseDao.insert(newObj);
-	// CategoryBase retrievedObj =
-	// _categoryBaseDao.findById(newObj.getCategoryId());
-	// assertFalse(retrievedObj == null);
-	//
-	// _categoryBaseDao.deleteById(retrievedObj.getCategoryId());
-	// CategoryBase deletedObj =
-	// _categoryBaseDao.findById(retrievedObj.getCategoryId());
-	// assertFalse(deletedObj != null);
-	// }
 
 	private CategoryBase newCategory() {
 		Random random = new Random();

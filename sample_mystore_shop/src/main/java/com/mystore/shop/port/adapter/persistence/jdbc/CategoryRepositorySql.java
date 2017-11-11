@@ -36,14 +36,14 @@ public class CategoryRepositorySql implements CategoryRepository {
 	}
 
 	@Override
-	public List<Category> getCategoryList() throws Exception {
+	public List<Category> getList() throws Exception {
 		List<CategoryBase> categoryBaseList = categoryBaseSql.findAll();
 		return categoryFactory.categoryList(categoryBaseList);
 	}
 
 	@Override
 	public Category get(CategoryId categoryId) throws Exception {
-		CategoryBase categoryBase = categoryBaseSql.findById(categoryId);
+		CategoryBase categoryBase = categoryBaseSql.findOneById(categoryId);
 		return categoryFactory.category(categoryBase);
 	}
 

@@ -15,6 +15,6 @@ public interface ProductRepository {
 	
 	public Product get(ProductId productId) throws Exception ;
 
-	public List<Product> getProductList() throws Exception;
+	public List<Product> getList() throws Exception;
 
 }

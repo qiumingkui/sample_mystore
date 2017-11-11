@@ -36,14 +36,14 @@ public class ProductRepositorySql implements ProductRepository {
 	}
 
 	@Override
-	public List<Product> getProductList() throws Exception {
+	public List<Product> getList() throws Exception {
 		List<ProductBase> productBaseList = productBaseSql.findAll();
 		return productFactory.productList(productBaseList);
 	}
 
 	@Override
 	public Product get(ProductId productId) throws Exception {
-		ProductBase productBase = productBaseSql.findById(productId);
+		ProductBase productBase = productBaseSql.findOneById(productId);
 		return productFactory.product(productBase);
 	}
 

@@ -1,19 +1,44 @@
 package com.mystore.shop.port.adapter.persistence.jdbc;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.jdbc.JdbcCurdDao;
 import com.mystore.shop.domain.model.category.CategoryBase;
 import com.mystore.shop.domain.model.category.CategoryId;
-import com.mystore.shop.domain.model.category.CategoryTable;
 
 @Component
 public class CategoryBaseSql extends JdbcCurdDao<CategoryBase, CategoryId> {
 
-	@Override
+	public List<CategoryBase> findAllByNameLike(String nameValue) {
+		List<CategoryId> categoryIds = findAllIdByNameLike(nameValue);
+		List<CategoryBase> categoryBases = findAll(categoryIds);
+		return categoryBases;
+	}
+
+	public List<CategoryId> findAllIdByNameLike(String name) {
+		Collection<Column<CategoryBase>> rsColumns = new ArrayList<Column<CategoryBase>>();
+		rsColumns.add(table.primaryKey());
+
+		String SQL = "SELECT #{pk} FROM #{table} WHERE #{name} LIKE ?";
+		SQL = replaceSql(SQL, "table", table.name());
+		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
+		SQL = replaceSql(SQL, "name", table.get(CategoryTable.NAME).name());
+
+		List<CategoryBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { "%" + name + "%" },
+				provideRowMapper(rsColumns));
+
+		return fetchKeyList(objectWithKeyList);
+	}
+
 	@Autowired
+	@Override
 	protected void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}

@@ -39,7 +39,7 @@ public class CategoryRepositoryMemory implements CategoryRepository {
 	}
 
 	@Override
-	public List<Category> getCategoryList() {
+	public List<Category> getList() {
 	  Collection<Category> collection =	cache.values();
 	  List<Category> list = new ArrayList<Category>(collection);
 	  return list;

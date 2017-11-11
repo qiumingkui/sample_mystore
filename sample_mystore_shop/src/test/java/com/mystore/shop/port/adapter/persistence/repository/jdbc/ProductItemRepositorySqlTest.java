@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.product.ProductId;
 import com.mystore.shop.domain.model.productitem.ProductItem;
+import com.mystore.shop.domain.model.productitem.ProductItemBase;
 import com.mystore.shop.domain.model.productitem.ProductItemFactory;
 import com.mystore.shop.domain.model.productitem.ProductItemId;
 import com.mystore.shop.port.adapter.persistence.jdbc.ProductItemRepositorySql;
@@ -43,16 +44,19 @@ public class ProductItemRepositorySqlTest {
 		assertFalse(updatedObj == null);
 		assertFalse(!(updatedObj.quantity() == CHANGED_QUANTITY));
 
-		List<ProductItem> list = _productItemRepositorySql.getProductItemList();
+		List<ProductItem> equelsProductIdList = _productItemRepositorySql
+				.getListByProductId(retrievedObj.productId());
+		assertFalse(equelsProductIdList.size() <= 0);
+
+		List<ProductItem> list = _productItemRepositorySql.getItemList();
 		assertFalse(list.size() <= 0);
 		ProductItem firstObj = list.get(0);
 		assertFalse(firstObj == null);
 		assertFalse(!(updatedObj.quantity() == CHANGED_QUANTITY));
 
-		// _productItemRepositorySql.delete(retrievedObj.productItemId());
-		// ProductItem deletedObj =
-		// _productItemRepositorySql.get(retrievedObj.productItemId());
-		// assertFalse(deletedObj != null);
+		_productItemRepositorySql.delete(retrievedObj.productItemId());
+		ProductItem deletedObj = _productItemRepositorySql.get(retrievedObj.productItemId());
+		assertFalse(deletedObj != null);
 	}
 
 	private ProductItem newProductItem() {

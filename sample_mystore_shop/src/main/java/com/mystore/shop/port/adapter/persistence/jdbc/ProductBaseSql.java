@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import com.mystore.common.persistence.jdbc.JdbcCurdDao;
 import com.mystore.shop.domain.model.product.ProductBase;
 import com.mystore.shop.domain.model.product.ProductId;
-import com.mystore.shop.domain.model.product.ProductTable;
 
 @Component
 public class ProductBaseSql extends JdbcCurdDao<ProductBase, ProductId> {

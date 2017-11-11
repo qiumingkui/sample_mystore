@@ -38,7 +38,7 @@ public class ProductRepositoryMemory implements ProductRepository {
 	}
 
 	@Override
-	public List<Product> getProductList() throws Exception {
+	public List<Product> getList() throws Exception {
 		List<Product> list = new ArrayList<Product>(cache.values());
 		return list;
 	}

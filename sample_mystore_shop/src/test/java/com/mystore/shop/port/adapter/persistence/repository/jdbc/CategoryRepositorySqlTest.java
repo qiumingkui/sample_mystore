@@ -41,7 +41,7 @@ public class CategoryRepositorySqlTest {
 		assertFalse(updatedObj == null);
 		assertFalse(!updatedObj.description().equals(CHANGED_DES));
 
-		List<Category> list = _categoryRepository.getCategoryList();
+		List<Category> list = _categoryRepository.getList();
 		assertFalse(list.size() <= 0);
 		Category firstObj = list.get(0);
 		assertFalse(firstObj == null);

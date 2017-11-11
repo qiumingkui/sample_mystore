@@ -36,7 +36,7 @@ public abstract class JdbcCurdDao<T, K> {
 		jdbcTemplate.update(SQL, providePsSetter(columns, object));
 	}
 
-	public T find(T object) {
+	public T findOne(T object) {
 		Collection<Column<T>> sqlColumns = table.values();
 		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
 		pssColumns.add(table.primaryKey());
@@ -54,9 +54,9 @@ public abstract class JdbcCurdDao<T, K> {
 		return list.size() > 0 ? (T) (list.get(0)) : null;
 	}
 
-	public T findById(K key) {
+	public T findOneById(K key) {
 		T object = produceObject(key);
-		return find(object);
+		return findOne(object);
 	}
 
 	public List<T> findAll() {
@@ -69,10 +69,21 @@ public abstract class JdbcCurdDao<T, K> {
 
 		// List<T> keyList = jdbcTemplate.query(SQL, new Object[] {}, new
 		// ObjectRowMapper<T>(columns));
-		List<T> keyList = jdbcTemplate.query(SQL, new ObjectRowMapper<T>(columns));
+		// List<T> keyList = jdbcTemplate.query(SQL, new
+		// ObjectRowMapper<T>(columns));
+		List<T> objectWithKeyList = jdbcTemplate.query(SQL, provideRowMapper(columns));
+
 		List<T> list = new ArrayList<T>();
-		for (T objectWithKey : keyList) {
-			list.add(findById(fetchKey(objectWithKey)));
+		for (T objectWithKey : objectWithKeyList) {
+			list.add(findOneById(fetchKey(objectWithKey)));
+		}
+		return list;
+	}
+	
+	public List<T> findAll(List<K> keys){
+		List<T> list = new ArrayList<T>();
+		for(K key:keys){
+			list.add(findOneById(key));
 		}
 		return list;
 	}
@@ -112,7 +123,7 @@ public abstract class JdbcCurdDao<T, K> {
 	}
 
 	abstract protected void init();
-	
+
 	abstract protected void setJdbcTemplate(JdbcTemplate jdbcTemplate);
 
 	abstract protected T produceObject(K key);
@@ -120,6 +131,14 @@ public abstract class JdbcCurdDao<T, K> {
 	abstract protected T produceObject();
 
 	abstract protected K fetchKey(T object);
+	
+	protected List<K> fetchKeyList(List<T> objects){
+		List<K> keys = new ArrayList<K>();
+		for(T object:objects){
+			keys.add(fetchKey(object));
+		}
+		return keys;
+	}
 
 	protected Collection<Column<T>> filtColumns(Collection<Column<T>> source, ColumnsFilter<T> filter) {
 		Collection<Column<T>> target = new ArrayList<Column<T>>();
@@ -139,8 +158,8 @@ public abstract class JdbcCurdDao<T, K> {
 		PreparedStatementSetter setter = new ObjectPreparedStatementSetter(columns, object);
 		return setter;
 	}
-	
-	protected RowMapper<T> provideRowMapper(Collection<Column<T>> columns){
+
+	protected RowMapper<T> provideRowMapper(Collection<Column<T>> columns) {
 		RowMapper<T> rowMapper = new ObjectRowMapper<T>(columns);
 		return rowMapper;
 	}
