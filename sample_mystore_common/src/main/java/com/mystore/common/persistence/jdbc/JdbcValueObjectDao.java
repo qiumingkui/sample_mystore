@@ -6,29 +6,36 @@ import java.util.List;
 
 import com.mystore.common.persistence.Column;
 
-public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T>{
+public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T> {
 
 	public JdbcValueObjectDao() {
 		super();
 		init();
 	}
 
-	public List<T> findAllByFK(FK fk) {
+	public List<T> findAll(T object) {
 		Collection<Column<T>> sqlColumns = table.columns();
 		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
-		pssColumns.add(table.primaryKey());
+		pssColumns.add(table.foreignKey());
 
-		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{pk}=?";
+		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{fk}=?";
 		SQL = replaceSql(SQL, "table", table.name());
 		SQL = replaceSql(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
-		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
+		SQL = replaceSql(SQL, "fk", table.foreignKey().name());
 
-		List<T> list = jdbcTemplate.query(SQL, new Object[]{fk}, new ObjectRowMapper<T>(sqlColumns));
+		List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns, object), provideRowMapper(sqlColumns));
 
 		return list;
 	}
 
-	
+	public List<T> findAllByFK(FK fk) {
+
+		T object = produceObject(fk);
+		List<T> list = findAll(object);
+
+		return list;
+	}
+
 	public void insert(T object) {
 		Collection<Column<T>> columns = table.columns();
 
@@ -40,18 +47,22 @@ public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T>{
 		jdbcTemplate.update(SQL, providePsSetter(columns, object));
 	}
 
-	
-	
-	public void deleteByEntityId(FK fk) {
+	public void delete(T object) {
 		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
-		pssColumns.add(table.primaryKey());
+		pssColumns.add(table.foreignKey());
 
 		String SQL = "DELETE FROM #{table} WHERE #{fk}=?";
 		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "fk", table.primaryKey().name());
+		SQL = replaceSql(SQL, "fk", table.foreignKey().name());
 
-		jdbcTemplate.update(SQL, new Object[]{fk});
+		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}
 
+	public void deleteByFK(FK fk) {
+		T object = produceObject(fk);
+		delete(object);
+	}
+
+	abstract protected T produceObject(FK fk);
 
 }

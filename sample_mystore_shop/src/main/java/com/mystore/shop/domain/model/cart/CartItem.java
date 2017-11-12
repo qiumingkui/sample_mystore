@@ -6,24 +6,35 @@ import com.mystore.shop.domain.model.productitem.ProductItemId;
 
 public class CartItem {
 
+	private CartId cartId;
+
+	private ProductItemId productItemId;
+
 	private int quantity;
 
 	private BigDecimal unitPrice;
 
 	private BigDecimal total;
 
-	private ProductItemId productItemId;
-
 	public CartItem() {
 		super();
 	}
 
-	public CartItem(int quantity, BigDecimal unitPrice, BigDecimal total, ProductItemId productItemId) {
+	public CartItem(CartId cartId, ProductItemId productItemId, int quantity, BigDecimal unitPrice, BigDecimal total) {
 		super();
+		this.cartId = cartId;
+		this.productItemId = productItemId;
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
 		this.total = total;
-		this.productItemId = productItemId;
+	}
+
+	public CartId getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(CartId cartId) {
+		this.cartId = cartId;
 	}
 
 	public int getQuantity() {
