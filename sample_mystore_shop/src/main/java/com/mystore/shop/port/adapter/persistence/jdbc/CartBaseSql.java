@@ -9,13 +9,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
-import com.mystore.common.persistence.jdbc.JdbcCurdDao;
+import com.mystore.common.persistence.jdbc.JdbcEntityDao;
 import com.mystore.shop.domain.model.cart.CartBase;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.customer.CustomerId;
 
 @Component
-public class CartBaseSql extends JdbcCurdDao<CartBase, CartId> {
+public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
 
 	public List<CartBase> findAllByCustomerId(CustomerId customerId) {
 		List<CartId> cartIds = findAllIdByNameLike(customerId);

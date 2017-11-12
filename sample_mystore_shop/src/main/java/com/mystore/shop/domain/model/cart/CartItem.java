@@ -14,11 +14,11 @@ public class CartItem {
 
 	private ProductItemId productItemId;
 
-	protected CartItem() {
+	public CartItem() {
 		super();
 	}
 
-	protected CartItem(int quantity, BigDecimal unitPrice, BigDecimal total, ProductItemId productItemId) {
+	public CartItem(int quantity, BigDecimal unitPrice, BigDecimal total, ProductItemId productItemId) {
 		super();
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;

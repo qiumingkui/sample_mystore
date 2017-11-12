@@ -9,12 +9,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
-import com.mystore.common.persistence.jdbc.JdbcCurdDao;
+import com.mystore.common.persistence.jdbc.JdbcEntityDao;
 import com.mystore.shop.domain.model.category.CategoryBase;
 import com.mystore.shop.domain.model.category.CategoryId;
 
 @Component
-public class CategoryBaseSql extends JdbcCurdDao<CategoryBase, CategoryId> {
+public class CategoryBaseSql extends JdbcEntityDao<CategoryBase, CategoryId> {
 
 	public List<CategoryBase> findAllByNameLike(String nameValue) {
 		List<CategoryId> categoryIds = findAllIdByNameLike(nameValue);

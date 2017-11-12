@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.mystore.common.persistence.jdbc.JdbcCurdDao;
+import com.mystore.common.persistence.jdbc.JdbcEntityDao;
 import com.mystore.shop.domain.model.product.ProductBase;
 import com.mystore.shop.domain.model.product.ProductId;
 
 @Component
-public class ProductBaseSql extends JdbcCurdDao<ProductBase, ProductId> {
+public class ProductBaseSql extends JdbcEntityDao<ProductBase, ProductId> {
 
 	@Override
 	@Autowired
