@@ -29,7 +29,7 @@ public class CategoryBaseSql extends JdbcEntityDao<CategoryBase, CategoryId> {
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{name} LIKE ?";
 		SQL = replaceSql(SQL, "table", table.name());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
-		SQL = replaceSql(SQL, "name", table.get(CategoryTable.NAME).name());
+		SQL = replaceSql(SQL, "name", table.column(CategoryTable.NAME).name());
 
 		List<CategoryBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { "%" + name + "%" },
 				provideRowMapper(rsColumns));

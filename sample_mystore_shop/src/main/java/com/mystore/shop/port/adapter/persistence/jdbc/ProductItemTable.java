@@ -27,7 +27,7 @@ public class ProductItemTable extends Table<ProductItemBase> {
 					productItemBase.getProductItemId().getId()),
 					(ProductItemBase productItemBase, ResultSet rs) -> productItemBase
 							.setProductItemId(new ProductItemId(rs.getLong(ID))));
-			get(ID).setPrimaryKay();
+			setPrimaryKay(ID);
 			
 			add(PRODUCTID,
 					(PreparedStatement ps, int index, ProductItemBase productItemBase) -> ps.setLong(index,

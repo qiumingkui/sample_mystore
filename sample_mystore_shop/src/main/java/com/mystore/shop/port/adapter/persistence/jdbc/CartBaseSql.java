@@ -30,7 +30,7 @@ public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{customerid}=?";
 		SQL = replaceSql(SQL, "table", table.name());
 		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
-		SQL = replaceSql(SQL, "customerid", table.get(CartTable.CUSTOMERID).name());
+		SQL = replaceSql(SQL, "customerid", table.column(CartTable.CUSTOMERID).name());
 
 		List<CartBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { customerId.getId() },
 				provideRowMapper(rsColumns));

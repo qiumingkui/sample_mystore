@@ -7,14 +7,14 @@ public class ObjRawMapperTest {
 	public static void main(String[] args) throws Exception {
 		CategoryTable categoryTable = new CategoryTable();
 		out(categoryTable.name());
-		out(categoryTable.get("id").name());
-		out(categoryTable.get("name").name());
-		out(categoryTable.get("description").name());
-		out(categoryTable.keySet().toString());
+		out(categoryTable.column("id").name());
+		out(categoryTable.column("name").name());
+		out(categoryTable.column("description").name());
+		// out(categoryTable.keySet().toString());
 	}
 
-	private static void out(String str){
+	private static void out(String str) {
 		System.out.println(str);
 	}
-	
+
 }

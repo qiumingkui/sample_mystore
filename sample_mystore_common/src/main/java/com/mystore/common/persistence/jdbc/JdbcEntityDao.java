@@ -14,7 +14,7 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T>{
 	}
 
 	public void insert(T object) {
-		Collection<Column<T>> columns = table.values();
+		Collection<Column<T>> columns = table.columns();
 
 		String SQL = "INSERT INTO #{table} (#{columnNames}) VALUES(#{columnValues})";
 		SQL = replaceSql(SQL, "table", table.name());
@@ -25,7 +25,7 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T>{
 	}
 
 	public T findOne(T object) {
-		Collection<Column<T>> sqlColumns = table.values();
+		Collection<Column<T>> sqlColumns = table.columns();
 		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
 		pssColumns.add(table.primaryKey());
 
@@ -77,7 +77,7 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T>{
 	}
 
 	public void update(T object) {
-		Collection<Column<T>> sqlColumns = filtColumns(table.values(),
+		Collection<Column<T>> sqlColumns = filtColumns(table.columns(),
 				(Collection<Column<T>> target, Column<T> column) -> {
 					if ((!column.isPrimaryKay()) && (!column.isVersion()))
 						target.add(column);

@@ -24,7 +24,7 @@ public class CategoryTable extends Table<CategoryBase> {
 			add(ID, (PreparedStatement ps, int index, CategoryBase category) -> ps.setLong(index,
 					category.getCategoryId().getId()),
 					(CategoryBase category, ResultSet rs) -> category.setCategoryId(new CategoryId(rs.getLong(ID))));
-			get(ID).setPrimaryKay();
+			setPrimaryKay(ID);
 			// id.setPrimaryKay();
 
 			add(NAME,

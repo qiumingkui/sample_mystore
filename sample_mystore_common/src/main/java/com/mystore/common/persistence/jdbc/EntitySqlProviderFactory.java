@@ -16,7 +16,7 @@ public class EntitySqlProviderFactory<T> {
 	public SqlProviderPair<T> insertSqlProviderPair() {
 		SqlProvider<T> sqlProvider = (Table<T> t) -> {
 			Collection<Column<T>> collection = new ArrayList<Column<T>>();
-			collection.addAll(t.values());
+			collection.addAll(t.columns());
 
 			InsertIntoContents<T> insertIntoContents = new InsertIntoContents<T>(t.name(), collection);
 			ValuesContents<T> valuesContents = new ValuesContents<T>(collection);
@@ -28,7 +28,7 @@ public class EntitySqlProviderFactory<T> {
 
 		CollectionProvider<T> collectionProvider = (Table<T> t) -> {
 			Collection<Column<T>> insertCollection = new ArrayList<Column<T>>();
-			insertCollection.addAll(t.values());
+			insertCollection.addAll(t.columns());
 			return insertCollection;
 		};
 
@@ -44,7 +44,7 @@ public class EntitySqlProviderFactory<T> {
 
 		SqlProvider<T> sqlProvider = (Table<T> t) -> {
 			SQL ql = new SQL();
-			Collection<Column<T>> updateSetCollection = filt(t.values(), updateSetFilter);
+			Collection<Column<T>> updateSetCollection = filt(t.columns(), updateSetFilter);
 			SetContents<T> setContents = new SetContents<T>(updateSetCollection);
 
 			String updateSql = ql.UPDATE(t.name()).SET(setContents.toString())
@@ -55,7 +55,7 @@ public class EntitySqlProviderFactory<T> {
 
 		CollectionProvider<T> collectionProvider = (Table<T> t) -> {
 			Collection<Column<T>> updateCollection = new ArrayList<Column<T>>();
-			Collection<Column<T>> updateSetCollection = filt(t.values(), updateSetFilter);
+			Collection<Column<T>> updateSetCollection = filt(t.columns(), updateSetFilter);
 			updateCollection.addAll(updateSetCollection);
 			updateCollection.add(t.primaryKey());
 			return updateCollection;
@@ -83,7 +83,7 @@ public class EntitySqlProviderFactory<T> {
 	public SqlProviderPair<T> selectSqlProviderPair() {
 		SqlProvider<T> sqlProvider = (Table<T> t) -> {
 			SQL ql = new SQL();
-			SelectContents<T> selectContents = new SelectContents<T>(t.values());
+			SelectContents<T> selectContents = new SelectContents<T>(t.columns());
 			String selectSql = ql.SELECT(selectContents.toString()).FROM(t.name())
 					.WHERE(ql.EQUALS(t.primaryKey().name(), SQL.QUESTION_MARK)).toString();
 			return selectSql;
@@ -91,7 +91,7 @@ public class EntitySqlProviderFactory<T> {
 
 		CollectionProvider<T> collectionProvider = (Table<T> t) -> {
 			Collection<Column<T>> selectCollection = new ArrayList<Column<T>>();
-			selectCollection.addAll(t.values());
+			selectCollection.addAll(t.columns());
 			selectCollection.add(t.primaryKey());
 			return selectCollection;
 		};

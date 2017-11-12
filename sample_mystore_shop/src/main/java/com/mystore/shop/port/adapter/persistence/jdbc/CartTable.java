@@ -24,7 +24,7 @@ public class CartTable extends Table<CartBase> {
 			add(ID, (PreparedStatement ps, int index, CartBase cart) -> ps.setLong(index,
 					cart.getCartId().getId()),
 					(CartBase cart, ResultSet rs) -> cart.setCartId(new CartId(rs.getLong(ID))));
-			get(ID).setPrimaryKay();
+			setPrimaryKay(ID);
 
 			
 			add(CUSTOMERID, (PreparedStatement ps, int index, CartBase cart) -> ps.setLong(index,
