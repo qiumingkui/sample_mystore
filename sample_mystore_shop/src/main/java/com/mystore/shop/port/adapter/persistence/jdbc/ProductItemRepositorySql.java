@@ -43,7 +43,7 @@ public class ProductItemRepositorySql implements ProductItemRepository {
 	}
 
 	@Override
-	public List<ProductItem> getItemList() throws Exception {
+	public List<ProductItem> getList() throws Exception {
 		List<ProductItemBase> productItemBases = productItemBaseSql.findAll();
 		return productItemFactory.productItemList(productItemBases);
 	}

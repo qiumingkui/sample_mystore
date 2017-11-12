@@ -47,7 +47,7 @@ public class ProductItemRepositorySqlTest {
 				.getListByProductId(retrievedObj.productId());
 		assertFalse(equelsProductIdList.size() <= 0);
 
-		List<ProductItem> list = _productItemRepositorySql.getItemList();
+		List<ProductItem> list = _productItemRepositorySql.getList();
 		assertFalse(list.size() <= 0);
 		ProductItem firstObj = list.get(0);
 		assertFalse(firstObj == null);

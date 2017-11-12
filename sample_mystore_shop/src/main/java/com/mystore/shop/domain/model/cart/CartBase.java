@@ -17,7 +17,7 @@ public class CartBase implements Serializable {
 
 	private BigDecimal total;
 
-	protected CartBase(CustomerId customerId, CartId cartId, Collection<CartItem> cartItems, BigDecimal total) {
+	public CartBase(CustomerId customerId, CartId cartId, Collection<CartItem> cartItems, BigDecimal total) {
 		super();
 		this.customerId = customerId;
 		this.cartId = cartId;
@@ -25,7 +25,7 @@ public class CartBase implements Serializable {
 		this.total = total;
 	}
 
-	protected CartBase() {
+	public CartBase() {
 		super();
 	}
 

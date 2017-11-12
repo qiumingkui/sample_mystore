@@ -13,7 +13,7 @@ public interface ProductItemRepository {
 	
 	public ProductItem get(ProductItemId productItemId) throws Exception ;
 
-	public List<ProductItem> getItemList() throws Exception;
+	public List<ProductItem> getList() throws Exception;
 
 	public List<ProductItem> getListByProductId(ProductId productId) throws Exception;
 

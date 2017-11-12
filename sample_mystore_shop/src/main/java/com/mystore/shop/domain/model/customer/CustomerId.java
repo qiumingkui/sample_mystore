@@ -20,7 +20,7 @@ public class CustomerId implements Serializable {
 		this.id = id;
 	}
 
-	public long id() {
+	public long getId() {
 		return this.id;
 	}
 
