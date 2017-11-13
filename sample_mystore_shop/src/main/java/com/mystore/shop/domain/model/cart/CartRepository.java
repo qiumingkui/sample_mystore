@@ -2,9 +2,9 @@ package com.mystore.shop.domain.model.cart;
 
 import java.util.List;
 
-public interface CartRepository {
+import com.mystore.shop.domain.model.customer.CustomerId;
 
-	public Cart get(CartId cartId) throws Exception;
+public interface CartRepository {
 
 	public void create(Cart cart);
 
@@ -12,6 +12,10 @@ public interface CartRepository {
 
 	public void delete(CartId cartId);
 
-	public List<Cart> getList() throws Exception;
+	public Cart get(CartId cartId) ;
+
+	public Cart getByCustomerId(CustomerId customerId);
+
+	public List<Cart> getList() ;
 
 }

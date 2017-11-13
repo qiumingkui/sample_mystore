@@ -18,12 +18,12 @@ import com.mystore.shop.domain.model.customer.CustomerId;
 public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
 
 	public List<CartBase> findAllByCustomerId(CustomerId customerId) {
-		List<CartId> cartIds = findAllIdByNameLike(customerId);
+		List<CartId> cartIds = findAllIdByCustomerId(customerId);
 		List<CartBase> cartBases = findAll(cartIds);
 		return cartBases;
 	}
 
-	public List<CartId> findAllIdByNameLike(CustomerId customerId) {
+	public List<CartId> findAllIdByCustomerId(CustomerId customerId) {
 		Collection<Column<CartBase>> rsColumns = new ArrayList<Column<CartBase>>();
 		rsColumns.add(table.primaryKey());
 

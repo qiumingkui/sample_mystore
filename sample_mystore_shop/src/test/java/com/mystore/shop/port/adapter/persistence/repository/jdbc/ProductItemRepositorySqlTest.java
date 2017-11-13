@@ -62,8 +62,8 @@ public class ProductItemRepositorySqlTest {
 		Random random = new Random();
 		Long id = random.nextLong();
 		Long productId = random.nextLong();
-		ProductItem category = _productItemFactory.productItem(new ProductItemId(id), new ProductId(productId),
+		ProductItem productItem = _productItemFactory.productItem(new ProductItemId(id), new ProductId(productId),
 				new BigDecimal(15), new BigDecimal(10), 100);
-		return category;
+		return productItem;
 	}
 }

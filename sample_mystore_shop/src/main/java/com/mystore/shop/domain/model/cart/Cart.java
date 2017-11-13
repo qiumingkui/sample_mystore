@@ -14,11 +14,15 @@ public interface Cart {
 
 	public Collection<CartItem> cartItems();
 
+	public CartItem cartItem(ProductItemId productItemId);
+
 	public BigDecimal total();
 
-	public void increase(ProductItemId productItemId, int increaseNumber);
+	public void addCartItem(CartItem cartItem);
 
-	public void decrease(ProductItemId productItemId,int decreaseNumber);
+	public void removeCartItem(ProductItemId productItemId);
 
-	public void remove(ProductItemId productItemId);
+	public void increaseCartItem(ProductItemId productItemId, int increaseNumber);
+
+	public void decreaseCartItem(ProductItemId productItemId,int decreaseNumber);
 }

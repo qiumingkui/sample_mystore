@@ -2,6 +2,7 @@ package com.mystore.shop.domain.model.cart;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import com.mystore.shop.domain.model.customer.CustomerId;
 
@@ -13,7 +14,7 @@ public class CartBase implements Serializable {
 
 	private CartId cartId;
 
-	private Collection<CartItem> cartItems;
+	private Collection<CartItem> cartItems = new ArrayList<CartItem>();
 
 	private BigDecimal total;
 

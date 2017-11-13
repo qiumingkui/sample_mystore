@@ -17,7 +17,6 @@ import com.mystore.shop.domain.model.cart.CartBase;
 import com.mystore.shop.domain.model.cart.CartFactory;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.customer.CustomerId;
-import com.mystore.shop.domain.model.product.ProductId;
 import com.mystore.shop.port.adapter.persistence.jdbc.CartBaseSql;
 
 @RunWith(SpringRunner.class)

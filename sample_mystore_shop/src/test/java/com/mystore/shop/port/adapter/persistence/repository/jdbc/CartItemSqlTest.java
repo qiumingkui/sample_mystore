@@ -26,7 +26,7 @@ public class CartItemSqlTest {
 
 	@Test
 	public void test() throws Exception {
-		CartItem newObj = newCart();
+		CartItem newObj = newCartItem();
 		_cartItemSql.insert(newObj);
 
 		List<CartItem> list = _cartItemSql.findAllByFK(newObj.getCartId());
@@ -40,7 +40,7 @@ public class CartItemSqlTest {
 		assertFalse(deletedList.size() > 0);
 	}
 
-	private CartItem newCart() {
+	private CartItem newCartItem() {
 		Random random = new Random();
 		Long cartId = random.nextLong();
 		Long piId = random.nextLong();

@@ -3,6 +3,8 @@ package com.mystore.shop.domain.model.cart;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import org.springframework.util.Assert;
+
 import com.mystore.shop.domain.model.customer.CustomerId;
 import com.mystore.shop.domain.model.productitem.ProductItemId;
 
@@ -34,22 +36,52 @@ public class CartModel extends CartBase implements Cart {
 	}
 
 	@Override
+	public CartItem cartItem(ProductItemId productItemId) {
+		Collection<CartItem> cartItems = getCartItems();
+		for (CartItem cartItem : cartItems) {
+			if (cartItem.getProductItemId().equals(productItemId)) {
+				return cartItem;
+			}
+		}
+		return null;
+	}
+
+	@Override
 	public BigDecimal total() {
 		return getTotal();
 	}
 
 	@Override
-	public void increase(ProductItemId productItemId, int increaseNumber) {
+	public void addCartItem(CartItem cartItem) {
+		Assert.isTrue(cartItem(cartItem.getProductItemId()) == null);
+
+		calculateCartItemTotal(cartItem);
+		this.cartItems().add(cartItem);
+
+		calculateCartTotal();
+	}
+
+	@Override
+	public void removeCartItem(ProductItemId productItemId) {
+		CartItem cartItem = cartItem(productItemId);
+		getCartItems().remove(cartItem);
+
+		calculateCartTotal();
+	}
+
+	@Override
+	public void increaseCartItem(ProductItemId productItemId, int increaseNumber) {
 		CartItem cartItem = cartItem(productItemId);
 		if (cartItem != null) {
 			int quantity = cartItem.getQuantity();
 			quantity += increaseNumber;
 			cartItem.setQuantity(quantity);
 		}
+		calculateCartTotal();
 	}
 
 	@Override
-	public void decrease(ProductItemId productItemId, int decreaseNumber) {
+	public void decreaseCartItem(ProductItemId productItemId, int decreaseNumber) {
 		CartItem cartItem = cartItem(productItemId);
 		if (cartItem != null) {
 			int quantity = cartItem.getQuantity();
@@ -60,23 +92,25 @@ public class CartModel extends CartBase implements Cart {
 			}
 			cartItem.setQuantity(quantity);
 		}
-
+		calculateCartTotal();
 	}
 
-	@Override
-	public void remove(ProductItemId productItemId) {
-		CartItem cartItem = cartItem(productItemId);
-		getCartItems().remove(cartItem);
+	private void calculateCartItemTotal(CartItem cartItem) {
+		BigDecimal total = cartItem.getUnitPrice().multiply(new BigDecimal(cartItem.getQuantity()));
+		cartItem.setTotal(total);
 	}
 
-	private CartItem cartItem(ProductItemId productItemId) {
-		Collection<CartItem> cartItems = getCartItems();
+	private void calculateCartTotal() {
+		BigDecimal total = new BigDecimal(0);
+		Collection<CartItem> cartItems = this.getCartItems();
 		for (CartItem cartItem : cartItems) {
-			if (cartItem.getProductItemId().equals(productItemId)) {
-				return cartItem;
-			}
-			;
+
+			calculateCartItemTotal(cartItem);
+
+			BigDecimal cartItemTotal = cartItem.getTotal();
+
+			total = total.add(cartItemTotal);
 		}
-		return null;
+		this.setTotal(total);
 	}
 }
