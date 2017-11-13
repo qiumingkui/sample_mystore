@@ -9,7 +9,7 @@ public interface SaleOrderRepository {
 	public void update(SaleOrder saleOrder);
 
 	public void delete(SaleOrderId saleOrderId);
-	
-	public SaleOrderId nextId();
+
+	// public SaleOrderId nextId();
 
 }

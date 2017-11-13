@@ -2,11 +2,6 @@ package com.mystore.shop.domain.model.order;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "sale_order")
 public class SaleOrderModel extends SaleOrderBase implements SaleOrder {
 
 	private static final long serialVersionUID = 1L;

@@ -5,17 +5,17 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class SaleOrderId implements Serializable {
+public class SaleOrderItemId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private long id = -1;
 
-	public SaleOrderId() {
+	public SaleOrderItemId() {
 		super();
 	}
 
-	public SaleOrderId(Long id) {
+	public SaleOrderItemId(Long id) {
 		super();
 		this.id = id;
 	}

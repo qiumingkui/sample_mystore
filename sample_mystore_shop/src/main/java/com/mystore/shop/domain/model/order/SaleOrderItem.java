@@ -18,75 +18,18 @@ package com.mystore.shop.domain.model.order;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-
 import com.mystore.shop.domain.model.productitem.ProductItemId;
 
-@Embeddable
-public class SaleOrderItem implements Serializable {
+public interface SaleOrderItem extends  Serializable {
 
-	private static final long serialVersionUID = -1L;
+	public SaleOrderItemId saleOrderItemId();
 
-	private int quantity;
+	public int quantity();
 
-	private BigDecimal unitPrice;
+	public BigDecimal unitPrice() ;
 
-	private BigDecimal total;
+	public BigDecimal total() ;
 
-	@Embedded
-	@AttributeOverrides(@AttributeOverride(column = @Column(name = "product_item_id"), name = "id"))
-	private ProductItemId productItemId;
-
-	public SaleOrderItem() {
-		super();
-	}
-
-	public SaleOrderItem(int quantity, BigDecimal unitPrice, BigDecimal total, ProductItemId productItemId) {
-		super();
-		this.quantity = quantity;
-		this.unitPrice = unitPrice;
-		this.total = total;
-		this.productItemId = productItemId;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public BigDecimal getUnitPrice() {
-		return unitPrice;
-	}
-
-	public void setUnitPrice(BigDecimal unitPrice) {
-		this.unitPrice = unitPrice;
-	}
-
-	public BigDecimal getTotal() {
-		return total;
-	}
-
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public ProductItemId getProductItemId() {
-		return productItemId;
-	}
-
-	public void setProductItemId(ProductItemId productItemId) {
-		this.productItemId = productItemId;
-	}
+	public ProductItemId productItemId() ;
 
 }
