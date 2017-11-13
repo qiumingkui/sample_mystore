@@ -18,7 +18,7 @@ public class CartItemTable extends Table<CartItem> {
 	@Override
 	protected void init() {
 		try {
-			setName(TABLENAME);
+			setTableName(TABLENAME);
 
 			add(CARTID,
 					(PreparedStatement ps, int index, CartItem cartItem) -> ps.setLong(index,

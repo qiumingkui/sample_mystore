@@ -19,7 +19,7 @@ public class CategoryTable extends Table<CategoryBase> {
 	@Override
 	protected void init() {
 		try {
-			setName(TABLENAME);
+			setTableName(TABLENAME);
 
 			add(ID, (PreparedStatement ps, int index, CategoryBase category) -> ps.setLong(index,
 					category.getCategoryId().getId()),

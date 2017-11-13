@@ -9,8 +9,6 @@ import com.mystore.shop.domain.model.product.ProductId;
 
 public class ProductTable extends Table<ProductBase> {
 
-	private static final long serialVersionUID = 1L;
-
 	public static final String TABLENAME = "product";
 	public static final String ID = "id";
 	public static final String NAME = "name";
@@ -19,7 +17,7 @@ public class ProductTable extends Table<ProductBase> {
 	@Override
 	protected void init() {
 		try {
-			setName(TABLENAME);
+			setTableName(TABLENAME);
 
 			add(ID, (PreparedStatement ps, int index, ProductBase product) -> ps.setLong(index,
 					product.getProductId().getId()),

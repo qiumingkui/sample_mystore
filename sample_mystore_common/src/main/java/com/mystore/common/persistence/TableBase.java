@@ -23,7 +23,7 @@ public abstract class TableBase<T> {
 		return values;
 	}
 
-	protected void setName(String name) {
+	protected void setTableName(String name) {
 		this.name = name;
 	}
 

@@ -11,9 +11,9 @@ public class SaleOrderItemModel extends SaleOrderItemBase implements SaleOrderIt
 		super();
 	}
 
-	public SaleOrderItemModel(SaleOrderItemId saleOrderItemId, int quantity, BigDecimal unitPrice, BigDecimal total,
-			ProductItemId productItemId) {
-		super(saleOrderItemId, quantity, unitPrice, total, productItemId);
+	public SaleOrderItemModel(SaleOrderItemId saleOrderItemId, SaleOrderId saleOrderId, ProductItemId productItemId,
+			int quantity, BigDecimal unitPrice, BigDecimal total) {
+		super(saleOrderItemId, saleOrderId, productItemId, quantity, unitPrice, total);
 	}
 
 	@Override

@@ -20,8 +20,8 @@ public class SaleOrderFactory {
 		return new SaleOrderModel(saleOrderId, username, orderDate);
 	}
 
-	public SaleOrderItem saleOrderItem(SaleOrderItemId saleOrderItemId, int quantity, BigDecimal unitPrice,
-			BigDecimal total, ProductItemId productItemId) {
-		return new SaleOrderItemModel(saleOrderItemId, quantity, unitPrice, total, productItemId);
+	public SaleOrderItem saleOrderItem(SaleOrderItemId saleOrderItemId, SaleOrderId saleOrderId,
+			ProductItemId productItemId, int quantity, BigDecimal unitPrice, BigDecimal total) {
+		return new SaleOrderItemModel(saleOrderItemId, saleOrderId, productItemId, quantity, unitPrice, total);
 	}
 }

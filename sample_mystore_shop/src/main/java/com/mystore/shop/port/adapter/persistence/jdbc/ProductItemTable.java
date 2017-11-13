@@ -21,7 +21,7 @@ public class ProductItemTable extends Table<ProductItemBase> {
 	@Override
 	protected void init() {
 		try {
-			setName(TABLENAME);
+			setTableName(TABLENAME);
 
 			add(ID, (PreparedStatement ps, int index, ProductItemBase productItemBase) -> ps.setLong(index,
 					productItemBase.getProductItemId().getId()),

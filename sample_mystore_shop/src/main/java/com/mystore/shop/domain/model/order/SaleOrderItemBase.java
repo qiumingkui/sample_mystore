@@ -7,26 +7,29 @@ import com.mystore.shop.domain.model.productitem.ProductItemId;
 public class SaleOrderItemBase {
 	private SaleOrderItemId saleOrderItemId;
 
+	private SaleOrderId saleOrderId;
+
+	private ProductItemId productItemId;
+
 	private int quantity;
 
 	private BigDecimal unitPrice;
 
 	private BigDecimal total;
 
-	private ProductItemId productItemId;
-
 	public SaleOrderItemBase() {
 		super();
 	}
 
-	public SaleOrderItemBase(SaleOrderItemId saleOrderItemId, int quantity, BigDecimal unitPrice, BigDecimal total,
-			ProductItemId productItemId) {
+	public SaleOrderItemBase(SaleOrderItemId saleOrderItemId, SaleOrderId saleOrderId, ProductItemId productItemId,
+			int quantity, BigDecimal unitPrice, BigDecimal total) {
 		super();
-		setSaleOrderItemId(saleOrderItemId);
-		setQuantity(quantity);
-		setUnitPrice(unitPrice);
-		setTotal(total);
-		setProductItemId(productItemId);
+		this.saleOrderItemId = saleOrderItemId;
+		this.saleOrderId = saleOrderId;
+		this.productItemId = productItemId;
+		this.quantity = quantity;
+		this.unitPrice = unitPrice;
+		this.total = total;
 	}
 
 	public SaleOrderItemId getSaleOrderItemId() {
@@ -35,6 +38,22 @@ public class SaleOrderItemBase {
 
 	public void setSaleOrderItemId(SaleOrderItemId saleOrderItemId) {
 		this.saleOrderItemId = saleOrderItemId;
+	}
+
+	public SaleOrderId getSaleOrderId() {
+		return saleOrderId;
+	}
+
+	public void setSaleOrderId(SaleOrderId saleOrderId) {
+		this.saleOrderId = saleOrderId;
+	}
+
+	public ProductItemId getProductItemId() {
+		return productItemId;
+	}
+
+	public void setProductItemId(ProductItemId productItemId) {
+		this.productItemId = productItemId;
 	}
 
 	public int getQuantity() {
@@ -59,13 +78,5 @@ public class SaleOrderItemBase {
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
-	}
-
-	public ProductItemId getProductItemId() {
-		return productItemId;
-	}
-
-	public void setProductItemId(ProductItemId productItemId) {
-		this.productItemId = productItemId;
 	}
 }

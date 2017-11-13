@@ -9,8 +9,6 @@ import com.mystore.shop.domain.model.customer.CustomerId;
 
 public class CartTable extends Table<CartBase> {
 
-	private static final long serialVersionUID = 1L;
-
 	public static final String TABLENAME="cart";
 	public static final String ID = "id";
 	public static final String CUSTOMERID = "customerid";
@@ -19,7 +17,7 @@ public class CartTable extends Table<CartBase> {
 	@Override
 	protected void init() {
 		try {
-			setName(TABLENAME);
+			setTableName(TABLENAME);
 
 			add(ID, (PreparedStatement ps, int index, CartBase cart) -> ps.setLong(index,
 					cart.getCartId().getId()),
