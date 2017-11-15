@@ -43,16 +43,6 @@ public class SaleOrderItemSqlTest {
 		assertFalse(updatedObj == null);
 		assertFalse(!(updatedObj.getQuantity()==CHANGED_QUANTITY));
 
-		// List<SaleOrderItemBase> list = saleOrderItemBaseSql.findAll();
-		// assertFalse(list.size() <= 0);
-		// SaleOrderItemBase firstObj = list.get(0);
-		// assertFalse(firstObj == null);
-		// assertFalse(!(updatedObj.getQuantity()==CHANGED_QUANTITY));
-		//
-		// List<SaleOrderItemBase>
-		// equelsProductIdList=saleOrderItemBaseSql.findAllByProductId(retrievedObj.getProductId());
-		// assertFalse(equelsProductIdList.size() <= 0);
-		
 		saleOrderItemBaseSql.deleteById(retrievedObj.getSaleOrderItemId());
 		SaleOrderItemBase deletedObj = saleOrderItemBaseSql.findOneById(retrievedObj.getSaleOrderItemId());
 		assertFalse(deletedObj != null);

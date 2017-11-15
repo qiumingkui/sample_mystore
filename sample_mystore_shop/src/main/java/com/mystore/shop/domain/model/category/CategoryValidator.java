@@ -1,6 +1,6 @@
 package com.mystore.shop.domain.model.category;
 
-import com.mystore.common.AssertionConcern;
+import com.mystore.common.util.AssertionConcern;
 
 public final class CategoryValidator extends AssertionConcern{
 	
