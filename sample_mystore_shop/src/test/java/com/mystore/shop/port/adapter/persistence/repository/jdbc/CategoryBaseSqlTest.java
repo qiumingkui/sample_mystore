@@ -65,6 +65,6 @@ public class CategoryBaseSqlTest {
 		Random random = new Random();
 		Long id = random.nextLong();
 		Category category = _categoryFactory.category(new CategoryId(id), "book", "This is book!");
-		return (CategoryBase) category;
+		return category.categoryBase();
 	}
 }

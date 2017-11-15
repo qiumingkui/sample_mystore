@@ -22,28 +22,35 @@ public class CategoryRepositorySql implements CategoryRepository {
 
 	@Override
 	public void create(Category category) {
-		categoryBaseSql.insert((CategoryBase) category);
+		
+		categoryBaseSql.insert(category.categoryBase());
 	}
 
 	@Override
 	public void update(Category category) {
-		categoryBaseSql.update((CategoryBase) category);
+		
+		categoryBaseSql.update( category.categoryBase());
 	}
 
 	@Override
 	public void delete(CategoryId categoryId) {
+		
 		categoryBaseSql.deleteById(categoryId);
 	}
 
 	@Override
 	public List<Category> getList() throws Exception {
+		
 		List<CategoryBase> categoryBaseList = categoryBaseSql.findAll();
+		
 		return categoryFactory.categoryList(categoryBaseList);
 	}
 
 	@Override
 	public Category get(CategoryId categoryId) throws Exception {
+		
 		CategoryBase categoryBase = categoryBaseSql.findOneById(categoryId);
+		
 		return categoryFactory.category(categoryBase);
 	}
 

@@ -12,4 +12,6 @@ public interface Category {
 
 	public void changeDescription(String description) ;
 
+	public CategoryBase categoryBase();
+
 }

@@ -1,40 +1,53 @@
 package com.mystore.shop.domain.model.category;
 
-public class CategoryModel extends CategoryBase implements Category{
+public class CategoryModel implements Category {
 
 	public static CategoryValidator validator = new CategoryValidator();
 
-	public CategoryModel() {
-		super();
-	}	
+	private CategoryBase categoryBase;
 
-	public CategoryModel(CategoryId categoryId, String name, String description) {
-		super(categoryId, name, description);
+	protected CategoryModel() {
+		super();
+	}
+
+	protected CategoryModel(CategoryBase categoryBase) {
+		super();
+		this.categoryBase = categoryBase;
+	}
+
+	protected CategoryModel(CategoryId categoryId, String name, String description) {
+		super();
+		this.categoryBase = new CategoryBase(categoryId, name, description);
 	}
 
 	@Override
 	public CategoryId categoryId() {
-		return getCategoryId();
+		return categoryBase.getCategoryId();
 	}
 
 	@Override
 	public String name() {
-		return getName();
+		return categoryBase.getName();
 	}
 
 	@Override
 	public String description() {
-		return getDescription();
+		return categoryBase.getDescription();
 	}
 
 	@Override
 	public void changeName(String name) {
-		setName(name);
+		categoryBase.setName(name);
 	}
 
 	@Override
 	public void changeDescription(String description) {
-		setDescription(description);
+		categoryBase.setDescription(description);
+	}
+
+	@Override
+	public CategoryBase categoryBase() {
+		return categoryBase;
 	}
 
 }

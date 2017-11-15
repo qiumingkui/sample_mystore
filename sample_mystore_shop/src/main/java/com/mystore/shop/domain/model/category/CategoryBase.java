@@ -37,13 +37,13 @@ public class CategoryBase implements Serializable {
 		return description;
 	}
 
+	public void setCategoryId(CategoryId categoryId) {
+		this.categoryId = categoryId;
+	}
+
 	public void setName(String name) {
 		// validator.assertName(name);
 		this.name = name;
-	}
-
-	public void setCategoryId(CategoryId categoryId) {
-		this.categoryId = categoryId;
 	}
 
 	public void setDescription(String description) {
