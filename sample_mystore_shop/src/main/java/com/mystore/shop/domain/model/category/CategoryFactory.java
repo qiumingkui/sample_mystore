@@ -1,9 +1,6 @@
 package com.mystore.shop.domain.model.category;
 
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import com.mystore.common.dynamicproxy.EntityProxyHandler;
@@ -16,28 +13,6 @@ public class CategoryFactory {
 		Category category = newProxyInstance(new CategoryModel(categoryId, name, description));
 
 		return category;
-	}
-
-	public Category category(CategoryBase categoryBase) {
-
-		if (categoryBase == null)
-			return null;
-
-		Category category = newProxyInstance(new CategoryModel(categoryBase));
-
-		return category;
-	}
-
-	public List<Category> categoryList(List<CategoryBase> categoryBaseList) {
-
-		List<Category> categoryList = new ArrayList<Category>();
-
-		for (CategoryBase base : categoryBaseList) {
-
-			categoryList.add(category(base));
-		}
-
-		return categoryList;
 	}
 
 	private Category newProxyInstance(Category category) {

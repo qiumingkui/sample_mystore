@@ -1,53 +1,46 @@
 package com.mystore.shop.domain.model.category;
 
-public class CategoryModel implements Category {
+public class CategoryModel extends CategoryBase implements Category {
+
+	private static final long serialVersionUID = 1L;
 
 	public static CategoryValidator validator = new CategoryValidator();
 
-	private CategoryBase categoryBase;
-
-	protected CategoryModel() {
-		super();
-	}
-
-	protected CategoryModel(CategoryBase categoryBase) {
-		super();
-		this.categoryBase = categoryBase;
-	}
-
 	protected CategoryModel(CategoryId categoryId, String name, String description) {
+
 		super();
-		this.categoryBase = new CategoryBase(categoryId, name, description);
+
+		this.setCategoryId(categoryId);
+
+		this.setName(name);
+
+		this.setDescription(description);
 	}
 
 	@Override
 	public CategoryId categoryId() {
-		return categoryBase.getCategoryId();
+
+		return this.getCategoryId();
 	}
 
 	@Override
 	public String name() {
-		return categoryBase.getName();
+		return this.getName();
 	}
 
 	@Override
 	public String description() {
-		return categoryBase.getDescription();
+		return this.getDescription();
 	}
 
 	@Override
 	public void changeName(String name) {
-		categoryBase.setName(name);
+		this.setName(name);
 	}
 
 	@Override
 	public void changeDescription(String description) {
-		categoryBase.setDescription(description);
-	}
-
-	@Override
-	public CategoryBase categoryBase() {
-		return categoryBase;
+		this.setDescription(description);
 	}
 
 }

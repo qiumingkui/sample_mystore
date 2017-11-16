@@ -1,5 +1,6 @@
 package com.mystore.shop.port.adapter.persistence.jdbc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,36 +23,68 @@ public class CategoryRepositorySql implements CategoryRepository {
 
 	@Override
 	public void create(Category category) {
-		
-		categoryBaseSql.insert(category.categoryBase());
+
+		categoryBaseSql.insert(translate(category));
 	}
 
 	@Override
 	public void update(Category category) {
-		
-		categoryBaseSql.update( category.categoryBase());
+
+		categoryBaseSql.update(translate(category));
 	}
 
 	@Override
 	public void delete(CategoryId categoryId) {
-		
+
 		categoryBaseSql.deleteById(categoryId);
 	}
 
 	@Override
 	public List<Category> getList() throws Exception {
-		
+
 		List<CategoryBase> categoryBaseList = categoryBaseSql.findAll();
-		
-		return categoryFactory.categoryList(categoryBaseList);
+
+		return translateList(categoryBaseList);
 	}
 
 	@Override
 	public Category get(CategoryId categoryId) throws Exception {
-		
+
 		CategoryBase categoryBase = categoryBaseSql.findOneById(categoryId);
-		
-		return categoryFactory.category(categoryBase);
+
+		return translate(categoryBase);
 	}
 
+	private List<Category> translateList(List<CategoryBase> categoryBaseList) {
+
+		List<Category> categoryList = new ArrayList<Category>();
+
+		for (CategoryBase base : categoryBaseList) {
+
+			categoryList.add(translate(base));
+		}
+
+		return categoryList;
+	}
+
+	private CategoryBase translate(Category category) {
+
+		if (category == null)
+			return null;
+
+		CategoryBase categoryBase = new CategoryBase(category.categoryId(), category.name(), category.description());
+
+		return categoryBase;
+	}
+
+	private Category translate(CategoryBase categoryBase) {
+
+		if (categoryBase == null)
+			return null;
+
+		Category category = categoryFactory.category(categoryBase.getCategoryId(), categoryBase.getName(),
+				categoryBase.getDescription());
+
+		return category;
+	}
 }

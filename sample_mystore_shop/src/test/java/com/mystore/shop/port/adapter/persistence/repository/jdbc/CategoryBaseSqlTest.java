@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryBase;
-import com.mystore.shop.domain.model.category.CategoryFactory;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.port.adapter.persistence.jdbc.CategoryBaseSql;
 
@@ -26,8 +24,6 @@ public class CategoryBaseSqlTest {
 	private static final String BOOK = "book";
 	private static final String PEN = "pen";
 
-	@Autowired
-	private CategoryFactory _categoryFactory;
 
 	@Autowired
 	private CategoryBaseSql _categoryBaseSql;
@@ -64,7 +60,7 @@ public class CategoryBaseSqlTest {
 	private CategoryBase newCategory() {
 		Random random = new Random();
 		Long id = random.nextLong();
-		Category category = _categoryFactory.category(new CategoryId(id), "book", "This is book!");
-		return category.categoryBase();
+		CategoryBase categoryBase = new CategoryBase(new CategoryId(id), "book", "This is book!");
+		return categoryBase;
 	}
 }
