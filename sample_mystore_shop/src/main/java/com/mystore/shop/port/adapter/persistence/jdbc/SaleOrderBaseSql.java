@@ -2,13 +2,11 @@ package com.mystore.shop.port.adapter.persistence.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.jdbc.JdbcEntityDao;
 import com.mystore.shop.domain.model.order.SaleOrderBase;
 import com.mystore.shop.domain.model.order.SaleOrderId;
 
-@Component
 public class SaleOrderBaseSql extends JdbcEntityDao<SaleOrderBase, SaleOrderId> {
 
 	@Override

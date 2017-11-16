@@ -57,7 +57,7 @@ public class SaleOrderItemTable extends Table<SaleOrderItemBase> {
 		this.add(TOTAL,
 				(PreparedStatement ps, int index, SaleOrderItemBase saleOrderItem) -> ps.setBigDecimal(index,
 						saleOrderItem.getTotal()),
-				(SaleOrderItemBase saleOrderItem, ResultSet rs) -> saleOrderItem.setTotal(rs.getBigDecimal(TOTAL)));
+				(SaleOrderItemBase saleOrderItem, ResultSet rs) -> saleOrderItem.setTotal(new BigDecimal(TOTAL)));
 
 	}
 

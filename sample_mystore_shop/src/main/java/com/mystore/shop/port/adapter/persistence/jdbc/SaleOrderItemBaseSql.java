@@ -2,13 +2,11 @@ package com.mystore.shop.port.adapter.persistence.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.jdbc.JdbcEntityDao;
 import com.mystore.shop.domain.model.order.SaleOrderItemBase;
 import com.mystore.shop.domain.model.order.SaleOrderItemId;
 
-@Component
 public class SaleOrderItemBaseSql extends JdbcEntityDao<SaleOrderItemBase, SaleOrderItemId> {
 
 	@Override
@@ -36,7 +34,8 @@ public class SaleOrderItemBaseSql extends JdbcEntityDao<SaleOrderItemBase, SaleO
 
 	@Override
 	protected SaleOrderItemBase produceObject() {
-		return new SaleOrderItemBase();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

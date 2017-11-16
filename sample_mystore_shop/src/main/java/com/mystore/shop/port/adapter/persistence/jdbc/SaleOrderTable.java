@@ -11,7 +11,7 @@ import com.mystore.shop.domain.model.order.SaleOrderId;
 public class SaleOrderTable extends Table<SaleOrderBase> {
 
 	public static final String TABLENAME = "saleorder";
-	public static final String ID = "id";
+	public static final String ID = "saleorderid";
 	public static final String USERNAME = "username";
 	public static final String ORDERDATE = "orderdate";
 
