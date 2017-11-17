@@ -1,5 +1,9 @@
 package com.mystore.shop.domain.model.category;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
+
 public class CategoryModel extends CategoryBase implements Category {
 
 	private static final long serialVersionUID = 1L;
@@ -43,4 +47,16 @@ public class CategoryModel extends CategoryBase implements Category {
 		this.setDescription(description);
 	}
 
+	@Override
+	public CategoryBase categoryBase() {
+		CategoryBase categoryBase = new CategoryBase();
+		try {
+			BeanUtils.copyProperties(categoryBase, this);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return categoryBase;
+	}
 }

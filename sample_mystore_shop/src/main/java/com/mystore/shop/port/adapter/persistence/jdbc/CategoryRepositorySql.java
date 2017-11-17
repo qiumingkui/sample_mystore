@@ -24,13 +24,13 @@ public class CategoryRepositorySql implements CategoryRepository {
 	@Override
 	public void create(Category category) {
 
-		categoryBaseSql.insert(translate(category));
+		categoryBaseSql.insert(category.categoryBase());
 	}
 
 	@Override
 	public void update(Category category) {
 
-		categoryBaseSql.update(translate(category));
+		categoryBaseSql.update(category.categoryBase());
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class CategoryRepositorySql implements CategoryRepository {
 
 		CategoryBase categoryBase = categoryBaseSql.findOneById(categoryId);
 
-		return translate(categoryBase);
+		return category(categoryBase);
 	}
 
 	private List<Category> translateList(List<CategoryBase> categoryBaseList) {
@@ -61,23 +61,13 @@ public class CategoryRepositorySql implements CategoryRepository {
 
 		for (CategoryBase base : categoryBaseList) {
 
-			categoryList.add(translate(base));
+			categoryList.add(category(base));
 		}
 
 		return categoryList;
 	}
 
-	private CategoryBase translate(Category category) {
-
-		if (category == null)
-			return null;
-
-		CategoryBase categoryBase = new CategoryBase(category.categoryId(), category.name(), category.description());
-
-		return categoryBase;
-	}
-
-	private Category translate(CategoryBase categoryBase) {
+	private Category category(CategoryBase categoryBase) {
 
 		if (categoryBase == null)
 			return null;

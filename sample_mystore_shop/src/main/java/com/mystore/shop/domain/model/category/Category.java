@@ -4,12 +4,13 @@ public interface Category {
 
 	public CategoryId categoryId();
 
-	public String name() ;
+	public String name();
 
-	public String description() ;
+	public String description();
 
-	public void changeName(String name) ;
+	public void changeName(String name);
 
-	public void changeDescription(String description) ;
+	public void changeDescription(String description);
 
+	public CategoryBase categoryBase();
 }
