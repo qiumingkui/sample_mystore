@@ -1,4 +1,4 @@
-package com.mystore.common.dynamicproxy;
+package com.mystore.common.aop;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

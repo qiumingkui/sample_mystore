@@ -33,7 +33,7 @@ public abstract class JdbcBaseDao<T> {
 		return target;
 	}
 
-	protected String replaceSql(String sql, String target, String replacement) {
+	protected String sqlSetting(String sql, String target, String replacement) {
 		String _sql = sql;
 		_sql = _sql.replace("#{" + target + "}", replacement);
 		return _sql;

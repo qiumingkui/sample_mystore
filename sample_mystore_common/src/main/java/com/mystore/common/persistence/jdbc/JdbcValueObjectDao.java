@@ -19,9 +19,9 @@ public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T> {
 		pssColumns.add(table.foreignKey());
 
 		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{fk}=?";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
-		SQL = replaceSql(SQL, "fk", table.foreignKey().name());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
+		SQL = sqlSetting(SQL, "fk", table.foreignKey().name());
 
 		List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns, object), provideRowMapper(sqlColumns));
 
@@ -40,9 +40,9 @@ public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T> {
 		Collection<Column<T>> columns = table.columns();
 
 		String SQL = "INSERT INTO #{table} (#{columnNames}) VALUES(#{columnValues})";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "columnNames", new InsertIntoContents<T>(columns).toString());
-		SQL = replaceSql(SQL, "columnValues", new ValuesContents<T>(columns).toString());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "columnNames", new InsertIntoContents<T>(columns).toString());
+		SQL = sqlSetting(SQL, "columnValues", new ValuesContents<T>(columns).toString());
 
 		jdbcTemplate.update(SQL, providePsSetter(columns, object));
 	}
@@ -52,8 +52,8 @@ public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T> {
 		pssColumns.add(table.foreignKey());
 
 		String SQL = "DELETE FROM #{table} WHERE #{fk}=?";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "fk", table.foreignKey().name());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "fk", table.foreignKey().name());
 
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}

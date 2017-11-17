@@ -28,9 +28,9 @@ public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
 		rsColumns.add(table.primaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{customerid}=?";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
-		SQL = replaceSql(SQL, "customerid", table.column(CartTable.CUSTOMERID).name());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "customerid", table.column(CartTable.CUSTOMERID).name());
 
 		List<CartBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { customerId.getId() },
 				provideRowMapper(rsColumns));

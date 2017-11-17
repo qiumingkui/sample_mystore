@@ -17,9 +17,9 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
 		Collection<Column<T>> columns = table.columns();
 
 		String SQL = "INSERT INTO #{table} (#{columnNames}) VALUES(#{columnValues})";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "columnNames", new InsertIntoContents<T>(columns).toString());
-		SQL = replaceSql(SQL, "columnValues", new ValuesContents<T>(columns).toString());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "columnNames", new InsertIntoContents<T>(columns).toString());
+		SQL = sqlSetting(SQL, "columnValues", new ValuesContents<T>(columns).toString());
 
 		jdbcTemplate.update(SQL, providePsSetter(columns, object));
 	}
@@ -30,9 +30,9 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
 		pssColumns.add(table.primaryKey());
 
 		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{pk}=?";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
-		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
 
 		List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns, object), new ObjectRowMapper<T>(sqlColumns));
 
@@ -81,8 +81,8 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
 		columns.add(table.primaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table}";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
 
 		List<T> list = jdbcTemplate.query(SQL, provideRowMapper(columns));
 
@@ -104,9 +104,9 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
 		pssColumns.add(table.primaryKey());
 
 		String SQL = "UPDATE #{table} SET #{setContents} WHERE #{pk}=?";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "setContents", new UpdateSetContents<T>(sqlColumns).toString());
-		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "setContents", new UpdateSetContents<T>(sqlColumns).toString());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
 
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}
@@ -116,8 +116,8 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
 		pssColumns.add(table.primaryKey());
 
 		String SQL = "DELETE FROM #{table} WHERE #{pk}=?";
-		SQL = replaceSql(SQL, "table", table.name());
-		SQL = replaceSql(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
 
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}

@@ -3,7 +3,7 @@ package com.mystore.shop.domain.model.category;
 import java.lang.reflect.Proxy;
 import org.springframework.stereotype.Component;
 
-import com.mystore.common.dynamicproxy.EntityProxyHandler;
+import com.mystore.common.aop.EntityProxyHandler;
 
 @Component
 public class CategoryFactory {

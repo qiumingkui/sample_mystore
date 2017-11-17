@@ -9,8 +9,6 @@ import com.mystore.shop.domain.model.category.CategoryId;
 
 public class CategoryTable extends Table<CategoryBase> {
 
-	private static final long serialVersionUID = 1L;
-
 	public static final String TABLENAME="category";
 	public static final String ID = "id";
 	public static final String NAME = "name";
