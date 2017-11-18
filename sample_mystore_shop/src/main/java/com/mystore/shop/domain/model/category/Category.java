@@ -1,16 +1,76 @@
 package com.mystore.shop.domain.model.category;
 
-public interface Category {
+import java.io.Serializable;
 
-	public CategoryId categoryId();
+public class Category implements Serializable {
 
-	public String name();
+	private static final long serialVersionUID = 1L;
 
-	public String description();
+	protected CategoryId categoryId;
 
-	public void changeName(String name);
+	protected String name;
 
-	public void changeDescription(String description);
+	protected String description;
 
-	public CategoryBase categoryBase();
+	public static CategoryValidator validator = new CategoryValidator();
+
+	protected Category() {
+		super();
+	}
+
+	protected Category(CategoryId categoryId, String name, String description) {
+
+		super();
+
+		this.setCategoryId(categoryId);
+
+		this.setName(name);
+
+		this.setDescription(description);
+	}
+
+	public CategoryId categoryId() {
+
+		return this.getCategoryId();
+	}
+
+	public String name() {
+		return this.getName();
+	}
+
+	public String description() {
+		return this.getDescription();
+	}
+
+	public void changeName(String name) {
+		this.setName(name);
+	}
+
+	public void changeDescription(String description) {
+		this.setDescription(description);
+	}
+
+	protected CategoryId getCategoryId() {
+		return categoryId;
+	}
+
+	protected void setCategoryId(CategoryId categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	protected String getName() {
+		return name;
+	}
+
+	protected void setName(String name) {
+		this.name = name;
+	}
+
+	protected String getDescription() {
+		return description;
+	}
+
+	protected void setDescription(String description) {
+		this.description = description;
+	}
 }

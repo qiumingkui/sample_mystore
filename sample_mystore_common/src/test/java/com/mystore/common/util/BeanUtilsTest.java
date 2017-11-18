@@ -1,5 +1,6 @@
 package com.mystore.common.util;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -18,7 +19,15 @@ public class BeanUtilsTest {
 		User user = null;
 
 		try {
-			user = ConstructorUtils.invokeConstructor(User.class, null);
+
+			// Constructor<User> constructor=
+			// ConstructorUtils.getAccessibleConstructor(User.class, null);
+			//
+			// user = ConstructorUtils.invokeConstructor(User.class, null);
+
+			Constructor<User> constructor = User.class.getDeclaredConstructor(null);
+			// constructor.setAccessible(true);
+			user = constructor.newInstance(null);
 
 			Assert.isTrue(user != null);
 

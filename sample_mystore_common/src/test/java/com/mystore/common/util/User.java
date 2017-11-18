@@ -6,6 +6,10 @@ public class User {
 
 	private String name;
 
+	protected User() {
+		super();
+	}
+
 	public UserId getUserId() {
 		return userId;
 	}
