@@ -15,6 +15,7 @@ public class CategoryFactory {
 		return category;
 	}
 
+
 	private Category newProxyInstance(Category category) {
 
 		if (category == null)

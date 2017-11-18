@@ -12,15 +12,16 @@ import com.mystore.shop.domain.model.category.CategoryId;
 
 public class CategoryFactoryTest {
 
-	private CategoryFactory categoryFactory=new CategoryFactory();
-	
+	private CategoryFactory categoryFactory = new CategoryFactory();
+
 	@Test
-	public void cateory(){
+	public void cateory() {
 		Category category = newCategory();
-		assertTrue(category!=null);
+		assertTrue(category != null);
 		assertTrue(category.name().equals("book"));
+
 	}
-	
+
 	private Category newCategory() {
 		Random random = new Random();
 		Long id = random.nextLong();

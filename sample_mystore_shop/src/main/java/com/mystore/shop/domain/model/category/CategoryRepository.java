@@ -13,5 +13,5 @@ public interface CategoryRepository {
 	public void delete(CategoryId categoryId);
 
 	public List<Category> getList() throws Exception;
-
+	
 }

@@ -10,6 +10,10 @@ public class CategoryModel extends CategoryBase implements Category {
 
 	public static CategoryValidator validator = new CategoryValidator();
 
+	public CategoryModel() {
+		super();
+	}
+
 	protected CategoryModel(CategoryId categoryId, String name, String description) {
 
 		super();
