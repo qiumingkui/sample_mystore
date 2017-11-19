@@ -34,7 +34,7 @@ public class ProductItemBaseSql extends JdbcEntityDao<ProductItemBase, ProductIt
 
 		List<ProductItemBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { productId.getId() },
 				provideRowMapper(rsColumns));
-		return fetchKeyList(objectWithKeyList);
+		return fetchIdList(objectWithKeyList);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class ProductItemBaseSql extends JdbcEntityDao<ProductItemBase, ProductIt
 	}
 
 	@Override
-	protected ProductItemId fetchKey(ProductItemBase object) {
+	protected ProductItemId fetchID(ProductItemBase object) {
 		ProductItemId productItemId = object.getProductItemId();
 		return productItemId;
 	}

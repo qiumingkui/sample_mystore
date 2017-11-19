@@ -15,7 +15,7 @@ public class CatalogService {
 	private CategoryRepository _categoryRepository;
 
 	public List<Category> getCategoryList() throws Exception {
-		return _categoryRepository.getList();
+		return _categoryRepository.list();
 	}
 
 	public Category getCategory(long categoryId) throws Exception {

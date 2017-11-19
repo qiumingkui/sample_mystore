@@ -35,7 +35,7 @@ public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
 		List<CartBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { customerId.getId() },
 				provideRowMapper(rsColumns));
 
-		return fetchKeyList(objectWithKeyList);
+		return fetchIdList(objectWithKeyList);
 	}
 
 	@Autowired
@@ -63,7 +63,7 @@ public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
 	}
 
 	@Override
-	protected CartId fetchKey(CartBase object) {
+	protected CartId fetchID(CartBase object) {
 		CartId cartId = object.getCartId();
 		return cartId;
 	}

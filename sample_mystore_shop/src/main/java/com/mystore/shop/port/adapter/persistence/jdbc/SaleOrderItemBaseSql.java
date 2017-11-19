@@ -17,7 +17,7 @@ public class SaleOrderItemBaseSql extends JdbcEntityDao<SaleOrderItemBase, SaleO
 	}
 
 	@Override
-	protected SaleOrderItemId fetchKey(SaleOrderItemBase object) {
+	protected SaleOrderItemId fetchID(SaleOrderItemBase object) {
 		return object.getSaleOrderItemId();
 	}
 

@@ -2,8 +2,6 @@ package com.mystore.common.persistence;
 
 public abstract class Table<T> extends TableBase<T> {
 
-	private static final long serialVersionUID = 1L;
-
 	public Table() {
 		super();
 		init();

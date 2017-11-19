@@ -36,7 +36,7 @@ public class ProductBaseSql extends JdbcEntityDao<ProductBase, ProductId> {
 	}
 
 	@Override
-	protected ProductId fetchKey(ProductBase object) {
+	protected ProductId fetchID(ProductBase object) {
 		ProductId productId = object.getProductId();
 		return productId;
 	}

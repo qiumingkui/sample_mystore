@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryRepository;
+import com.mystore.shop.domain.model.category.Page;
 
 @Component
 public class CategoryRepositorySql implements CategoryRepository {
@@ -34,7 +35,15 @@ public class CategoryRepositorySql implements CategoryRepository {
 	}
 
 	@Override
-	public List<Category> getList() throws Exception {
+	public Category get(CategoryId categoryId) throws Exception {
+
+		Category category = categorySql.findOneById(categoryId);
+
+		return category;
+	}
+
+	@Override
+	public List<Category> list() throws Exception {
 
 		List<Category> categoryList = categorySql.findAll();
 
@@ -42,10 +51,13 @@ public class CategoryRepositorySql implements CategoryRepository {
 	}
 
 	@Override
-	public Category get(CategoryId categoryId) throws Exception {
-
-		Category category = categorySql.findOneById(categoryId);
-
-		return category;
+	public Page<Category> page(int index, int size) {
+		
+		List<Category> categorys = categorySql.page(index, size);
+		Page<Category> page = new Page<Category>(index, size, 0);
+		page.addAll(categorys);
+		
+		return page;
 	}
+
 }

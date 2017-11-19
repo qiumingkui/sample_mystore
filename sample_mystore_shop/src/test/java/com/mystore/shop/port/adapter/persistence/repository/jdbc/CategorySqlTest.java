@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryFactory;
 import com.mystore.shop.domain.model.category.CategoryId;
+import com.mystore.shop.domain.model.category.Page;
 import com.mystore.shop.port.adapter.persistence.jdbc.CategorySql;
 
 @RunWith(SpringRunner.class)
@@ -54,6 +55,9 @@ public class CategorySqlTest {
 		Category firstObj = list.get(0);
 		assertFalse(firstObj == null);
 		assertFalse(!updatedObj.description().equals(CHANGED_DES));
+		
+		Page<Category> page = _categorySql.page(0, 10);
+		assertFalse(page.size() <= 0);
 
 		_categorySql.deleteById(retrievedObj.categoryId());
 		Category deletedObj = _categorySql.findOneById(retrievedObj.categoryId());

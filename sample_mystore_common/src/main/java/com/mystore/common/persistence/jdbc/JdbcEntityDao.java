@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mystore.common.persistence.Column;
 
-public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
+public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 
 	public JdbcEntityDao() {
 		super();
@@ -39,44 +39,26 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
 		return list.size() > 0 ? (T) (list.get(0)) : null;
 	}
 
-	public T findOneById(K key) {
-		T object = produceObject(key);
+	public T findOneById(ID id) {
+		T object = produceObject(id);
 		return findOne(object);
 	}
 
 	public List<T> findAll() {
-		List<K> keys = findAllKey();
-		List<T> list = findAll(keys);
+		List<ID> ids = findAllId();
+		List<T> list = findAll(ids);
 		return list;
 	}
 
-	// public List<T> findAll() {
-	// Collection<Column<T>> columns = new ArrayList<Column<T>>();
-	// columns.add(table.primaryKey());
-	//
-	// String SQL = "SELECT #{pk} FROM #{table}";
-	// SQL = replaceSql(SQL, "table", table.name());
-	// SQL = replaceSql(SQL, "pk", table.primaryKey().name());
-	//
-	// List<T> objectWithKeyList = jdbcTemplate.query(SQL,
-	// provideRowMapper(columns));
-	//
-	// List<T> list = new ArrayList<T>();
-	// for (T objectWithKey : objectWithKeyList) {
-	// list.add(findOneById(fetchKey(objectWithKey)));
-	// }
-	// return list;
-	// }
-
-	public List<T> findAll(List<K> keys) {
+	public List<T> findAll(List<ID> ids) {
 		List<T> list = new ArrayList<T>();
-		for (K key : keys) {
-			list.add(findOneById(key));
+		for (ID id : ids) {
+			list.add(findOneById(id));
 		}
 		return list;
 	}
 
-	public List<K> findAllKey() {
+	public List<ID> findAllId() {
 		Collection<Column<T>> columns = new ArrayList<Column<T>>();
 		columns.add(table.primaryKey());
 
@@ -86,11 +68,11 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
 
 		List<T> list = jdbcTemplate.query(SQL, provideRowMapper(columns));
 
-		List<K> keyList = new ArrayList<K>();
+		List<ID> idList = new ArrayList<ID>();
 		for (T object : list) {
-			keyList.add(fetchKey(object));
+			idList.add(fetchID(object));
 		}
-		return keyList;
+		return idList;
 	}
 
 	public void update(T object) {
@@ -122,21 +104,21 @@ public abstract class JdbcEntityDao<T, K> extends JdbcBaseDao<T> {
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}
 
-	public void deleteById(K key) {
-		T object = produceObject(key);
+	public void deleteById(ID id) {
+		T object = produceObject(id);
 		delete(object);
 	}
 
-	abstract protected T produceObject(K key);
+	abstract protected T produceObject(ID id);
 
-	abstract protected K fetchKey(T object);
+	abstract protected ID fetchID(T object);
 
-	protected List<K> fetchKeyList(List<T> objects) {
-		List<K> keys = new ArrayList<K>();
+	protected List<ID> fetchIdList(List<T> objects) {
+		List<ID> idList = new ArrayList<ID>();
 		for (T object : objects) {
-			keys.add(fetchKey(object));
+			idList.add(fetchID(object));
 		}
-		return keys;
+		return idList;
 	}
 
 }

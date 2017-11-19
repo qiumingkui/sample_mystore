@@ -28,15 +28,15 @@ public class CategoryTable extends Table<Category> {
 			setPrimaryKay(ID);
 
 			add(NAME,
-					(PreparedStatement ps, int index, Category category) -> ps.setString(index,
-							(String) getProperty(category, "name")),
-					(Category category, ResultSet rs) -> setProperty(category, "name", rs.getString(NAME)));
+					(PreparedStatement ps, int index, Category category) -> ps.setObject(index,
+							getProperty(category, "name")),
+					(Category category, ResultSet rs) -> setProperty(category, "name", rs.getObject(NAME)));
 
 			add(DESCRIPTION,
-					(PreparedStatement ps, int index, Category category) -> ps.setString(index,
-							(String) getProperty(category, "description")),
+					(PreparedStatement ps, int index, Category category) -> ps.setObject(index,
+							getProperty(category, "description")),
 					(Category category, ResultSet rs) -> setProperty(category, "description",
-							rs.getString(DESCRIPTION)));
+							rs.getObject(DESCRIPTION)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,7 +47,6 @@ public class CategoryTable extends Table<Category> {
 		Field field = object.getClass().getDeclaredField(name);
 		field.setAccessible(true);
 		field.set(object, value);
-		// PropertyUtils.setProperty(object, name, value);
 	}
 
 	protected Object getProperty(Category object, String name) throws IllegalAccessException, InvocationTargetException,
@@ -55,34 +54,5 @@ public class CategoryTable extends Table<Category> {
 		Field field = Category.class.getDeclaredField(name);
 		field.setAccessible(true);
 		return field.get(object);
-		// return PropertyUtils.getProperty(object, name);
 	}
-
-	// @Override
-	// protected void init() {
-	// try {
-	// setTableName(TABLENAME);
-	//
-	// add(ID, (PreparedStatement ps, int index, Category category) ->
-	// ps.setLong(index,
-	// category.getCategoryId().getId()),
-	// (Category category, ResultSet rs) -> category.setCategoryId(new
-	// CategoryId(rs.getLong(ID))));
-	// setPrimaryKay(ID);
-	//
-	// add(NAME, (PreparedStatement ps, int index, Category category) ->
-	// ps.setString(index, category.getName()),
-	// (Category category, ResultSet rs) ->
-	// category.setName(rs.getString(NAME)));
-	//
-	// add(DESCRIPTION,
-	// (PreparedStatement ps, int index, Category category) ->
-	// ps.setString(index,
-	// category.getDescription()),
-	// (Category category, ResultSet rs) ->
-	// category.setDescription(rs.getString(DESCRIPTION)));
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
 }

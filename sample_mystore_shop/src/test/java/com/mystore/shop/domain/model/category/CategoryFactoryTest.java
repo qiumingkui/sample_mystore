@@ -1,4 +1,4 @@
-package com.mystore.shop.domain.model;
+package com.mystore.shop.domain.model.category;
 
 import static org.junit.Assert.assertTrue;
 
