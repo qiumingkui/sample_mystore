@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;
 import com.mystore.common.persistence.jdbc.sql.SqlFragment;
+import com.mystore.common.util.SimpleBeanUtil;
 
 public abstract class JdbcBaseDao<T> {
 
@@ -27,34 +28,9 @@ public abstract class JdbcBaseDao<T> {
 
 	// abstract protected T produceObject();
 
+	@SuppressWarnings("unchecked")
 	protected T produceObject() {
-
-		try {
-			Class<T> clazz = table.getClazz();
-			Constructor<T> declaredConstructor = clazz.getDeclaredConstructor(null);
-			declaredConstructor.setAccessible(true);
-			T obj = declaredConstructor.newInstance(null);
-
-			return obj;
-
-		} catch (NoSuchMethodException e) {
-
-			e.printStackTrace();
-
-		} catch (IllegalAccessException e) {
-
-			e.printStackTrace();
-
-		} catch (InvocationTargetException e) {
-
-			e.printStackTrace();
-
-		} catch (InstantiationException e) {
-
-			e.printStackTrace();
-		}
-
-		return null;
+		return (T) SimpleBeanUtil.newInstance(table.getClazz());
 	}
 
 	protected Collection<Column<T>> filtColumns(Collection<Column<T>> source, ColumnsFilter<T> filter) {

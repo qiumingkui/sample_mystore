@@ -1,6 +1,6 @@
 package com.mystore.common.util;
 
-public class User {
+public class User extends Person{
 
 	private UserId userId = null;
 

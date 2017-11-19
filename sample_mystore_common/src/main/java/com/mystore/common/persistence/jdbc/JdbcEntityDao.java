@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.mystore.common.persistence.Column;
+import com.mystore.common.util.SimpleBeanUtil;
 
 public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 
@@ -113,31 +114,21 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 	// abstract protected T produceObject(ID id);
 
 	protected T produceObject(ID id) {
-
 		try {
-			T obj = produceObject();
-			Field field;
-			field = obj.getClass().getDeclaredField(table.primaryKey().getFieldName());
+			T object = produceObject();
+			Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), table.primaryKey().getFieldName());
 			field.setAccessible(true);
-
 			try {
-				field.set(obj, id);
-				return obj;
-
+				field.set(object, id);
+				return object;
 			} catch (IllegalArgumentException e) {
-
 				e.printStackTrace();
-
 			} catch (IllegalAccessException e) {
-
 				e.printStackTrace();
 			}
-
-		} catch (NoSuchFieldException | SecurityException e) {
-
+		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 
@@ -148,10 +139,10 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		ID id = null;
 		try {
 			try {
-				Field field = object.getClass().getDeclaredField(table.primaryKey().getFieldName());
+				Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), table.primaryKey().getFieldName());
 				field.setAccessible(true);
 				id = (ID) field.get(object);
-			} catch (NoSuchFieldException | SecurityException e) {
+			} catch (SecurityException e) {
 				e.printStackTrace();
 			}
 		} catch (IllegalAccessException e) {

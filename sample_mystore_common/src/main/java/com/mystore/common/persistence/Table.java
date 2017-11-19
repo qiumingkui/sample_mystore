@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.mystore.common.util.SimpleBeanUtil;
+
 public abstract class Table<T> extends TableBase<T> {
 
 	public Table() {
@@ -64,14 +66,16 @@ public abstract class Table<T> extends TableBase<T> {
 
 	public static void setFieldValue(Object object, String fieldName, Object value) throws IllegalAccessException,
 			InvocationTargetException, NoSuchMethodException, NoSuchFieldException, SecurityException {
-		Field field = object.getClass().getDeclaredField(fieldName);
+		// Field field = object.getClass().getDeclaredField(fieldName);
+		Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), fieldName);
 		field.setAccessible(true);
 		field.set(object, value);
 	}
 
 	public static Object getFieldValue(Object object, String fieldName) throws IllegalAccessException,
 			InvocationTargetException, NoSuchMethodException, NoSuchFieldException, SecurityException {
-		Field field = object.getClass().getDeclaredField(fieldName);
+		// Field field = object.getClass().getDeclaredField(fieldName);
+		Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), fieldName);
 		field.setAccessible(true);
 		return field.get(object);
 	}
