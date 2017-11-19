@@ -18,7 +18,7 @@ public class ProductBaseSql extends JdbcEntityDao<ProductBase, ProductId> {
 	}
 
 	@Override
-	protected void init() {
+	protected void initTable() {
 		this.table=new ProductTable();
 	}
 
@@ -36,7 +36,7 @@ public class ProductBaseSql extends JdbcEntityDao<ProductBase, ProductId> {
 	}
 
 	@Override
-	protected ProductId fetchID(ProductBase object) {
+	protected ProductId fetchId(ProductBase object) {
 		ProductId productId = object.getProductId();
 		return productId;
 	}

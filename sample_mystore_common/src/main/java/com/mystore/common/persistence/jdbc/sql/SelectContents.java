@@ -15,7 +15,7 @@ public class SelectContents<T> extends SqlFragment {
 
 		String columnNames = "";
 		for (Column<T> column : collection) {
-			columnNames += (column.name() + ",");
+			columnNames += (column.getColumnName() + ",");
 		}
 		columnNames = columnNames.substring(0, columnNames.length() - 1);
 		this.sql = columnNames;

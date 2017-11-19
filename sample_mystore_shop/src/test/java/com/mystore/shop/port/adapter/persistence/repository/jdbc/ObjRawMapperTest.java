@@ -7,9 +7,9 @@ public class ObjRawMapperTest {
 	public static void main(String[] args) throws Exception {
 		CategoryTable categoryTable = new CategoryTable();
 		out(categoryTable.name());
-		out(categoryTable.column("id").name());
-		out(categoryTable.column("name").name());
-		out(categoryTable.column("description").name());
+		out(categoryTable.column("id").getColumnName());
+		out(categoryTable.column("name").getColumnName());
+		out(categoryTable.column("description").getColumnName());
 		// out(categoryTable.keySet().toString());
 	}
 

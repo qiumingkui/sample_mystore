@@ -5,28 +5,13 @@ import java.sql.ResultSet;
 
 public class Column<T> {
 
-	private String name;
+	private String columnName;
+	private String fieldName;
 	private Column2PsValueSetter<T> psSetter;
 	private Rs2ColumnValueSetter<T> rsSetter;
 	private boolean isPrimaryKay;
 	private boolean isForeignKey;
 	private boolean isVersion;
-
-	public Column() {
-		super();
-	}
-
-	protected void setName(String name) {
-		this.name = name;
-	}
-
-	protected void setPsSetter(Column2PsValueSetter<T> psSetter) {
-		this.psSetter = psSetter;
-	}
-
-	protected void setRsSetter(Rs2ColumnValueSetter<T> rsSetter) {
-		this.rsSetter = rsSetter;
-	}
 
 	public void fillPs(PreparedStatement ps, int index, T object) throws Exception {
 		psSetter.execute(ps, index, object);
@@ -36,8 +21,32 @@ public class Column<T> {
 		rsSetter.execute(object, rs);
 	}
 
-	public String name() {
-		return name;
+	public Column() {
+		super();
+	}
+
+	public String getColumnName() {
+		return columnName;
+	}
+
+	protected void setColumnName(String columnName) {
+		this.columnName = columnName;
+	}
+
+	public String getFieldName() {
+		return fieldName;
+	}
+
+	protected void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
+	}
+
+	protected void setPsSetter(Column2PsValueSetter<T> psSetter) {
+		this.psSetter = psSetter;
+	}
+
+	protected void setRsSetter(Rs2ColumnValueSetter<T> rsSetter) {
+		this.rsSetter = rsSetter;
 	}
 
 	protected void setPrimaryKay() {

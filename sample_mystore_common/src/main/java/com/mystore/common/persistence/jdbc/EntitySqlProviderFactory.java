@@ -48,7 +48,7 @@ public class EntitySqlProviderFactory<T> {
 			SetContents<T> setContents = new SetContents<T>(updateSetCollection);
 
 			String updateSql = ql.UPDATE(t.name()).SET(setContents.toString())
-					.WHERE(ql.EQUALS(t.primaryKey().name(), SQL.QUESTION_MARK)).toString();
+					.WHERE(ql.EQUALS(t.primaryKey().getColumnName(), SQL.QUESTION_MARK)).toString();
 
 			return updateSql;
 		};
@@ -67,7 +67,7 @@ public class EntitySqlProviderFactory<T> {
 	public SqlProviderPair<T> deleteSqlProviderPair() {
 		SqlProvider<T> sqlProvider = (Table<T> t) -> {
 			SQL ql = new SQL();
-			String deleteSql = ql.DELETE_FROM(t.name()).WHERE(ql.EQUALS(t.primaryKey().name(), SQL.QUESTION_MARK))
+			String deleteSql = ql.DELETE_FROM(t.name()).WHERE(ql.EQUALS(t.primaryKey().getColumnName(), SQL.QUESTION_MARK))
 					.toString();
 			return deleteSql;
 		};
@@ -85,7 +85,7 @@ public class EntitySqlProviderFactory<T> {
 			SQL ql = new SQL();
 			SelectContents<T> selectContents = new SelectContents<T>(t.columns());
 			String selectSql = ql.SELECT(selectContents.toString()).FROM(t.name())
-					.WHERE(ql.EQUALS(t.primaryKey().name(), SQL.QUESTION_MARK)).toString();
+					.WHERE(ql.EQUALS(t.primaryKey().getColumnName(), SQL.QUESTION_MARK)).toString();
 			return selectSql;
 		};
 

@@ -6,6 +6,10 @@ public class Category implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String CATEGORYID = "categoryId";
+	public static final String NAME = "name";
+	public static final String DESCRIPTION = "description";
+
 	protected CategoryId categoryId;
 
 	protected String name;

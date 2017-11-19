@@ -17,12 +17,12 @@ public class SaleOrderItemBaseSql extends JdbcEntityDao<SaleOrderItemBase, SaleO
 	}
 
 	@Override
-	protected SaleOrderItemId fetchID(SaleOrderItemBase object) {
+	protected SaleOrderItemId fetchId(SaleOrderItemBase object) {
 		return object.getSaleOrderItemId();
 	}
 
 	@Override
-	protected void init() {
+	protected void initTable() {
 		this.table = new SaleOrderItemTable();
 	}
 

@@ -15,7 +15,7 @@ public class SetContents<T> extends SqlFragment {
 
 		String setString = "";
 		for (Column<T> column : collection) {
-			setString += (column.name() + "=?,");
+			setString += (column.getColumnName() + "=?,");
 		}
 		setString = setString.substring(0, setString.length() - 1);
 		this.sql = setString;

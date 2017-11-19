@@ -1,5 +1,6 @@
 package com.mystore.common.persistence.jdbc;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +11,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 
 	public JdbcEntityDao() {
 		super();
-		init();
+		initTable();
 	}
 
 	public void insert(T object) {
@@ -32,7 +33,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{pk}=?";
 		SQL = sqlSetting(SQL, "table", table.name());
 		SQL = sqlSetting(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
 		List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns, object), new ObjectRowMapper<T>(sqlColumns));
 
@@ -64,13 +65,13 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 
 		String SQL = "SELECT #{pk} FROM #{table}";
 		SQL = sqlSetting(SQL, "table", table.name());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
 		List<T> list = jdbcTemplate.query(SQL, provideRowMapper(columns));
 
 		List<ID> idList = new ArrayList<ID>();
 		for (T object : list) {
-			idList.add(fetchID(object));
+			idList.add(fetchId(object));
 		}
 		return idList;
 	}
@@ -88,7 +89,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		String SQL = "UPDATE #{table} SET #{setContents} WHERE #{pk}=?";
 		SQL = sqlSetting(SQL, "table", table.name());
 		SQL = sqlSetting(SQL, "setContents", new UpdateSetContents<T>(sqlColumns).toString());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}
@@ -99,7 +100,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 
 		String SQL = "DELETE FROM #{table} WHERE #{pk}=?";
 		SQL = sqlSetting(SQL, "table", table.name());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}
@@ -109,14 +110,60 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		delete(object);
 	}
 
-	abstract protected T produceObject(ID id);
+	// abstract protected T produceObject(ID id);
 
-	abstract protected ID fetchID(T object);
+	protected T produceObject(ID id) {
+
+		try {
+			T obj = produceObject();
+			Field field;
+			field = obj.getClass().getDeclaredField(table.primaryKey().getFieldName());
+			field.setAccessible(true);
+
+			try {
+				field.set(obj, id);
+				return obj;
+
+			} catch (IllegalArgumentException e) {
+
+				e.printStackTrace();
+
+			} catch (IllegalAccessException e) {
+
+				e.printStackTrace();
+			}
+
+		} catch (NoSuchFieldException | SecurityException e) {
+
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	// abstract protected ID fetchID(T object);
+
+	@SuppressWarnings("unchecked")
+	protected ID fetchId(T object) {
+		ID id = null;
+		try {
+			try {
+				Field field = object.getClass().getDeclaredField(table.primaryKey().getFieldName());
+				field.setAccessible(true);
+				id = (ID) field.get(object);
+			} catch (NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
 
 	protected List<ID> fetchIdList(List<T> objects) {
 		List<ID> idList = new ArrayList<ID>();
 		for (T object : objects) {
-			idList.add(fetchID(object));
+			idList.add(fetchId(object));
 		}
 		return idList;
 	}

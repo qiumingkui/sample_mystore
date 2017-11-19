@@ -18,7 +18,7 @@ public class CartItemSql extends JdbcValueObjectDao<CartItem, CartId> {
 	}
 
 	@Override
-	protected void init() {
+	protected void initTable() {
 		this.table = new CartItemTable();
 	}
 

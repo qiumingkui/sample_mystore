@@ -29,8 +29,8 @@ public class ProductItemBaseSql extends JdbcEntityDao<ProductItemBase, ProductIt
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{productid}=?";
 		SQL = sqlSetting(SQL, "table", table.name());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
-		SQL = sqlSetting(SQL, "productid", table.column(ProductItemTable.PRODUCTID).name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
+		SQL = sqlSetting(SQL, "productid", table.column(ProductItemTable.PRODUCTID).getColumnName());
 
 		List<ProductItemBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { productId.getId() },
 				provideRowMapper(rsColumns));
@@ -38,7 +38,7 @@ public class ProductItemBaseSql extends JdbcEntityDao<ProductItemBase, ProductIt
 	}
 
 	@Override
-	protected void init() {
+	protected void initTable() {
 		this.table = new ProductItemTable();
 	}
 
@@ -62,7 +62,7 @@ public class ProductItemBaseSql extends JdbcEntityDao<ProductItemBase, ProductIt
 	}
 
 	@Override
-	protected ProductItemId fetchID(ProductItemBase object) {
+	protected ProductItemId fetchId(ProductItemBase object) {
 		ProductItemId productItemId = object.getProductItemId();
 		return productItemId;
 	}

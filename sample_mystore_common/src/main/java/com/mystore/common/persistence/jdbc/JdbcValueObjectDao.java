@@ -10,7 +10,7 @@ public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T> {
 
 	public JdbcValueObjectDao() {
 		super();
-		init();
+		initTable();
 	}
 
 	public List<T> findAll(T object) {
@@ -21,7 +21,7 @@ public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T> {
 		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{fk}=?";
 		SQL = sqlSetting(SQL, "table", table.name());
 		SQL = sqlSetting(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
-		SQL = sqlSetting(SQL, "fk", table.foreignKey().name());
+		SQL = sqlSetting(SQL, "fk", table.foreignKey().getColumnName());
 
 		List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns, object), provideRowMapper(sqlColumns));
 
@@ -53,7 +53,7 @@ public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T> {
 
 		String SQL = "DELETE FROM #{table} WHERE #{fk}=?";
 		SQL = sqlSetting(SQL, "table", table.name());
-		SQL = sqlSetting(SQL, "fk", table.foreignKey().name());
+		SQL = sqlSetting(SQL, "fk", table.foreignKey().getColumnName());
 
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}

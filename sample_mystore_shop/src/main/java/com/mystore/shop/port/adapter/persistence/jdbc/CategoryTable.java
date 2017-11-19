@@ -1,7 +1,5 @@
 package com.mystore.shop.port.adapter.persistence.jdbc;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -19,40 +17,22 @@ public class CategoryTable extends Table<Category> {
 	@Override
 	protected void init() {
 		try {
+			setClazz(Category.class);
+
 			setTableName(TABLENAME);
 
-			add(ID, (PreparedStatement ps, int index, Category category) -> ps.setLong(index,
-					((CategoryId) getProperty(category, "categoryId")).getId()),
-					(Category category, ResultSet rs) -> setProperty(category, "categoryId",
+			add(ID, Category.CATEGORYID,
+					(PreparedStatement ps, int index, Category category) -> ps.setLong(index,
+							((CategoryId) getFieldValue(category, Category.CATEGORYID)).getId()),
+					(Category category, ResultSet rs) -> setFieldValue(category, Category.CATEGORYID,
 							new CategoryId(rs.getLong(ID))));
 			setPrimaryKay(ID);
 
-			add(NAME,
-					(PreparedStatement ps, int index, Category category) -> ps.setObject(index,
-							getProperty(category, "name")),
-					(Category category, ResultSet rs) -> setProperty(category, "name", rs.getObject(NAME)));
+			add(NAME, Category.NAME);
 
-			add(DESCRIPTION,
-					(PreparedStatement ps, int index, Category category) -> ps.setObject(index,
-							getProperty(category, "description")),
-					(Category category, ResultSet rs) -> setProperty(category, "description",
-							rs.getObject(DESCRIPTION)));
+			add(DESCRIPTION, Category.DESCRIPTION);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void setProperty(Category object, String name, Object value) throws IllegalAccessException,
-			InvocationTargetException, NoSuchMethodException, NoSuchFieldException, SecurityException {
-		Field field = object.getClass().getDeclaredField(name);
-		field.setAccessible(true);
-		field.set(object, value);
-	}
-
-	protected Object getProperty(Category object, String name) throws IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException, NoSuchFieldException, SecurityException {
-		Field field = Category.class.getDeclaredField(name);
-		field.setAccessible(true);
-		return field.get(object);
 	}
 }

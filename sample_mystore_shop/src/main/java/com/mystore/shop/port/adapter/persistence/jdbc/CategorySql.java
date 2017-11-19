@@ -1,8 +1,5 @@
 package com.mystore.shop.port.adapter.persistence.jdbc;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,8 +30,8 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{name} LIKE ?";
 		SQL = sqlSetting(SQL, "table", table.name());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
-		SQL = sqlSetting(SQL, "name", table.column(CategoryTable.NAME).name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
+		SQL = sqlSetting(SQL, "name", table.column(CategoryTable.NAME).getColumnName());
 
 		List<Category> objectWithIdList = jdbcTemplate.query(SQL, new Object[] { "%" + name + "%" },
 				provideRowMapper(rsColumns));
@@ -57,13 +54,13 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 
 		String COUNT_SQL = "SELECT COUNT(#{pk}) c FROM #{table} LIMIT ?,?";
 		COUNT_SQL = sqlSetting(COUNT_SQL, "table", table.name());
-		COUNT_SQL = sqlSetting(COUNT_SQL, "pk", table.primaryKey().name());
+		COUNT_SQL = sqlSetting(COUNT_SQL, "pk", table.primaryKey().getColumnName());
 		Map<String, Object> map = jdbcTemplate.queryForMap(COUNT_SQL, new Object[] { start, size });
 		long count = (Long) map.get("c");
 
 		String SQL = "SELECT #{pk} FROM #{table} LIMIT ?,?";
 		SQL = sqlSetting(SQL, "table", table.name());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().name());
+		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
 		List<Category> objectWithIdList = jdbcTemplate.query(SQL, new Object[] { start, size },
 				provideRowMapper(rsColumns));
@@ -83,94 +80,7 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 	}
 
 	@Override
-	protected void init() {
+	protected void initTable() {
 		this.table = new CategoryTable();
-	}
-
-	@Override
-	protected Category produceObject(CategoryId id) {
-
-		// // category.setCategoryId(key);
-		// try {
-		// PropertyUtils.setProperty(category, "categoryId", key);
-		// } catch (IllegalAccessException | InvocationTargetException |
-		// NoSuchMethodException e) {
-		// e.printStackTrace();
-		// }
-
-		try {
-			Category category = produceObject();
-			Field field;
-			field = category.getClass().getDeclaredField("categoryId");
-			field.setAccessible(true);
-
-			try {
-				field.set(category, id);
-				return category;
-
-			} catch (IllegalArgumentException e) {
-
-				e.printStackTrace();
-
-			} catch (IllegalAccessException e) {
-
-				e.printStackTrace();
-			}
-
-		} catch (NoSuchFieldException | SecurityException e) {
-
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	@Override
-	protected Category produceObject() {
-
-		try {
-			Class<Category> clazz = Category.class;
-			Constructor<Category> declaredConstructor = clazz.getDeclaredConstructor(null);
-			declaredConstructor.setAccessible(true);
-			Category category = declaredConstructor.newInstance(null);
-
-			return category;
-
-		} catch (NoSuchMethodException e) {
-
-			e.printStackTrace();
-
-		} catch (IllegalAccessException e) {
-
-			e.printStackTrace();
-
-		} catch (InvocationTargetException e) {
-
-			e.printStackTrace();
-
-		} catch (InstantiationException e) {
-
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	@Override
-	protected CategoryId fetchID(Category object) {
-		CategoryId categoryId = null;
-		try {
-			final String CATEGORYID = "categoryId";
-			try {
-				Field field = object.getClass().getDeclaredField(CATEGORYID);
-				field.setAccessible(true);
-				categoryId = (CategoryId) field.get(object);
-			} catch (NoSuchFieldException | SecurityException e) {
-				e.printStackTrace();
-			}
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		return categoryId;
 	}
 }
