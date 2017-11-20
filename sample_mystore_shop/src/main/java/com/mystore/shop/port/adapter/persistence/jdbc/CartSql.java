@@ -10,21 +10,21 @@ import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.jdbc.JdbcEntityDao;
-import com.mystore.shop.domain.model.cart.CartBase;
+import com.mystore.shop.domain.model.cart.Cart;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.customer.CustomerId;
 
 @Component
-public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
+public class CartSql extends JdbcEntityDao<Cart, CartId> {
 
-	public List<CartBase> findAllByCustomerId(CustomerId customerId) {
+	public List<Cart> findAllByCustomerId(CustomerId customerId) {
 		List<CartId> cartIds = findAllIdByCustomerId(customerId);
-		List<CartBase> cartBases = findAll(cartIds);
-		return cartBases;
+		List<Cart> carts = findAll(cartIds);
+		return carts;
 	}
 
 	public List<CartId> findAllIdByCustomerId(CustomerId customerId) {
-		Collection<Column<CartBase>> rsColumns = new ArrayList<Column<CartBase>>();
+		Collection<Column<Cart>> rsColumns = new ArrayList<Column<Cart>>();
 		rsColumns.add(table.primaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{customerid}=?";
@@ -32,7 +32,7 @@ public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 		SQL = sqlSetting(SQL, "customerid", table.column(CartTable.CUSTOMERID).getColumnName());
 
-		List<CartBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { customerId.getId() },
+		List<Cart> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { customerId.getId() },
 				provideRowMapper(rsColumns));
 
 		return fetchIdList(objectWithKeyList);
@@ -49,23 +49,23 @@ public class CartBaseSql extends JdbcEntityDao<CartBase, CartId> {
 		this.table = new CartTable();
 	}
 
-	@Override
-	protected CartBase produceObject(CartId key) {
-		CartBase cartBase = produceObject();
-		cartBase.setCartId(key);
-		return cartBase;
-	}
-
-	@Override
-	protected CartBase produceObject() {
-		CartBase cartBase = new CartBase();
-		return cartBase;
-	}
-
-	@Override
-	protected CartId fetchId(CartBase object) {
-		CartId cartId = object.getCartId();
-		return cartId;
-	}
+//	@Override
+//	protected Cart produceObject(CartId key) {
+//		Cart cart = produceObject();
+//		cart.setCartId(key);
+//		return cart;
+//	}
+//
+//	@Override
+//	protected Cart produceObject() {
+//		Cart cart = new Cart();
+//		return cart;
+//	}
+//
+//	@Override
+//	protected CartId fetchId(Cart object) {
+//		CartId cartId = object.getCartId();
+//		return cartId;
+//	}
 
 }

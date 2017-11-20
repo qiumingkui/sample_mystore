@@ -13,15 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.cart.Cart;
-import com.mystore.shop.domain.model.cart.CartBase;
 import com.mystore.shop.domain.model.cart.CartFactory;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.customer.CustomerId;
-import com.mystore.shop.port.adapter.persistence.jdbc.CartBaseSql;
+import com.mystore.shop.port.adapter.persistence.jdbc.CartSql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CartBaseSqlTest {
+public class CartSqlTest {
 
 	private static final BigDecimal CHANGED_TOTAL = new BigDecimal(99);
 
@@ -29,41 +28,41 @@ public class CartBaseSqlTest {
 	private CartFactory _cartFactory;
 
 	@Autowired
-	private CartBaseSql _cartBaseSql;
+	private CartSql _cartSql;
 
 	@Test
 	public void test() throws Exception {
-		CartBase newObj = newCart();
-		_cartBaseSql.insert(newObj);
-		CartBase retrievedObj = _cartBaseSql.findOneById(newObj.getCartId());
+		Cart newObj = newCart();
+		_cartSql.insert(newObj);
+		Cart retrievedObj = _cartSql.findOneById(newObj.getCartId());
 		assertFalse(retrievedObj == null);
 
 		retrievedObj.setTotal(CHANGED_TOTAL);
-		_cartBaseSql.update(retrievedObj);
-		CartBase updatedObj = _cartBaseSql.findOneById(retrievedObj.getCartId());
+		_cartSql.update(retrievedObj);
+		Cart updatedObj = _cartSql.findOneById(retrievedObj.getCartId());
 		assertFalse(updatedObj == null);
 		assertFalse(!(updatedObj.getTotal().equals(CHANGED_TOTAL)));
 
-		List<CartBase> list = _cartBaseSql.findAll();
+		List<Cart> list = _cartSql.findAll();
 		assertFalse(list.size() <= 0);
-		CartBase firstObj = list.get(0);
+		Cart firstObj = list.get(0);
 		assertFalse(firstObj == null);
 		assertFalse(!(updatedObj.getTotal().equals(CHANGED_TOTAL)));
 
-		List<CartBase> customerIdList=_cartBaseSql.findAllByCustomerId(retrievedObj.getCustomerId());
+		List<Cart> customerIdList=_cartSql.findAllByCustomerId(retrievedObj.getCustomerId());
 		assertFalse(customerIdList.size() <= 0);
 		
-		_cartBaseSql.deleteById(retrievedObj.getCartId());
-		CartBase deletedObj = _cartBaseSql.findOneById(retrievedObj.getCartId());
+		_cartSql.deleteById(retrievedObj.getCartId());
+		Cart deletedObj = _cartSql.findOneById(retrievedObj.getCartId());
 		assertFalse(deletedObj != null);
 	}
 
-	private CartBase newCart() {
+	private Cart newCart() {
 		Random random = new Random();
 		Long id = random.nextLong();
 		Long customerId = random.nextLong();
 		Cart cart = _cartFactory.cart(new CustomerId(customerId), new CartId(id),null,
 				new BigDecimal(15));
-		return (CartBase) cart;
+		return cart;
 	}
 }

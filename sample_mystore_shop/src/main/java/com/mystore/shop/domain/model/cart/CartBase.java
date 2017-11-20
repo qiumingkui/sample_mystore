@@ -10,6 +10,10 @@ public class CartBase implements Serializable {
 
 	private static final long serialVersionUID = -1;
 
+	public static final String CUSTOMERID="customerId";
+	public static final String CARTID="cartId";
+	public static final String TOTAL ="total";
+	
 	private CustomerId customerId;
 
 	private CartId cartId;

@@ -7,11 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mystore.shop.domain.model.cart.Cart;
-import com.mystore.shop.domain.model.cart.CartBase;
-import com.mystore.shop.domain.model.cart.CartFactory;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.cart.CartItem;
-import com.mystore.shop.domain.model.cart.CartModel;
 import com.mystore.shop.domain.model.cart.CartRepository;
 import com.mystore.shop.domain.model.customer.CustomerId;
 
@@ -19,10 +16,7 @@ import com.mystore.shop.domain.model.customer.CustomerId;
 public class CartRepositorySql implements CartRepository {
 
 	@Autowired
-	private CartFactory cartFactory;
-
-	@Autowired
-	private CartBaseSql cartBaseSql;
+	private CartSql cartSql;
 
 	@Autowired
 	private CartItemSql cartItemSql;
@@ -30,20 +24,20 @@ public class CartRepositorySql implements CartRepository {
 	@Override
 	public Cart get(CartId cartId) {
 
-		CartBase cartBase = cartBaseSql.findOneById(cartId);
-		if (cartBase == null)
+		Cart cart = cartSql.findOneById(cartId);
+		if (cart == null)
 			return null;
 
 		List<CartItem> cartItems = cartItemSql.findAllByFK(cartId);
-		cartBase.setCartItems(cartItems);
+		cart.setCartItems(cartItems);
 
-		return cartFactory.cart(cartBase);
+		return cart;
 	}
 
 	@Override
 	public Cart getByCustomerId(CustomerId customerId) {
 
-		List<CartId> list = cartBaseSql.findAllIdByCustomerId(customerId);
+		List<CartId> list = cartSql.findAllIdByCustomerId(customerId);
 
 		if (list.size() > 0 && list.get(0) != null)
 			return get(list.get(0));
@@ -54,8 +48,7 @@ public class CartRepositorySql implements CartRepository {
 	@Override
 	public void create(Cart cart) {
 
-		cartBaseSql.insert((CartModel) cart);
-
+		cartSql.insert(cart);
 		Collection<CartItem> cartItems = cart.cartItems();
 		for (CartItem cartItem : cartItems) {
 			cartItemSql.insert(cartItem);
@@ -65,10 +58,8 @@ public class CartRepositorySql implements CartRepository {
 	@Override
 	public void update(Cart cart) {
 
-		cartBaseSql.update((CartModel) cart);
-
+		cartSql.update(cart);
 		cartItemSql.deleteByFK(cart.cartId());
-
 		Collection<CartItem> cartItems = cart.cartItems();
 		for (CartItem cartItem : cartItems) {
 			cartItemSql.insert(cartItem);
@@ -78,17 +69,15 @@ public class CartRepositorySql implements CartRepository {
 	@Override
 	public void delete(CartId cartId) {
 
-		cartBaseSql.deleteById(cartId);
-
+		cartSql.deleteById(cartId);
 		cartItemSql.deleteByFK(cartId);
 	}
 
 	@Override
 	public List<Cart> getList() {
 
-		List<CartBase> cartBaseList = cartBaseSql.findAll();
-
-		return cartFactory.cartList(cartBaseList);
+		List<Cart> cartList = cartSql.findAll();
+		return cartList;
 	}
 
 }
