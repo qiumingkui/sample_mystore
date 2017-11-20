@@ -4,6 +4,13 @@ public class UserId {
 
 	private long id;
 
+	
+	
+	private UserId() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public UserId(long id) {
 		super();
 		this.id = id;

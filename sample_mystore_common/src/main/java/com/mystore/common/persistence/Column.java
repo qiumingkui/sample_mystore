@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 public class Column<T> {
 
 	private String columnName;
-	private String fieldName;
+	private String fieldPath;
 	private Column2PsValueSetter<T> psSetter;
 	private Rs2ColumnValueSetter<T> rsSetter;
 	private boolean isPrimaryKay;
@@ -33,12 +33,12 @@ public class Column<T> {
 		this.columnName = columnName;
 	}
 
-	public String getFieldName() {
-		return fieldName;
+	public String getFieldPath() {
+		return fieldPath;
 	}
 
-	protected void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
+	protected void setFieldPath(String fieldPath) {
+		this.fieldPath = fieldPath;
 	}
 
 	protected void setPsSetter(Column2PsValueSetter<T> psSetter) {

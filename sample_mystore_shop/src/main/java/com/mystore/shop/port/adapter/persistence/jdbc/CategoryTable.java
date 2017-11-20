@@ -21,11 +21,17 @@ public class CategoryTable extends Table<Category> {
 
 			setTableName(TABLENAME);
 
-			add(ID, Category.CATEGORYID,
-					(PreparedStatement ps, int index, Category category) -> ps.setLong(index,
-							((CategoryId) getFieldValue(category, Category.CATEGORYID)).getId()),
-					(Category category, ResultSet rs) -> setFieldValue(category, Category.CATEGORYID,
-							new CategoryId(rs.getLong(ID))));
+			// add(ID, Category.CATEGORYID,
+			// (PreparedStatement ps, int index, Category category) ->
+			// ps.setLong(index,
+			// ((CategoryId) getFieldPathValue(category,
+			// Category.CATEGORYID)).getId()),
+			// (Category category, ResultSet rs) -> setFieldPathValue(category,
+			// Category.CATEGORYID,
+			// new CategoryId(rs.getLong(ID))));
+			// setPrimaryKay(ID);
+
+			add(ID, Category.CATEGORYID + "." + CategoryId.ID);
 			setPrimaryKay(ID);
 
 			add(NAME, Category.NAME);

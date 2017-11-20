@@ -38,6 +38,15 @@ public abstract class TableBase<T> {
 		this.name = name;
 	}
 
+	public String getIdClassName(){
+		if(primaryKey()!=null){
+			String fieldPath=primaryKey().getFieldPath();
+			String[] fields = fieldPath.split("\\.");
+			return fields[0];
+		}
+		return null;
+	}
+	
 	public Column<T> primaryKey() {
 		for (Column<T> column : map.values()) {
 			if (column.isPrimaryKay())

@@ -6,7 +6,9 @@ public class CategoryId  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private long _id;
+	public static final String ID="id";
+	
+	private long id;
 
 	public CategoryId() {
 		super();
@@ -14,19 +16,19 @@ public class CategoryId  implements Serializable{
 
 	public CategoryId(long id) {
 		super();
-		this._id = id;
+		this.id = id;
 	}
 
 	public long id() {
-		return this._id;
+		return this.id;
 	}
 
 	public long getId() {
-		return this._id;
+		return this.id;
 	}
 
 	protected void setId(long id) {
-		this._id = id;
+		this.id = id;
 	}
 
 }

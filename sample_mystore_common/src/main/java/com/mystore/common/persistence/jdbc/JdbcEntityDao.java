@@ -116,7 +116,10 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 	protected T produceObject(ID id) {
 		try {
 			T object = produceObject();
-			Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), table.primaryKey().getFieldName());
+			// Field field =
+			// SimpleBeanUtil.getFieldWithSupper(object.getClass(),
+			// table.primaryKey().getFieldPath());
+			Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), table.getIdClassName());
 			field.setAccessible(true);
 			try {
 				field.set(object, id);
@@ -139,7 +142,10 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		ID id = null;
 		try {
 			try {
-				Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), table.primaryKey().getFieldName());
+				// Field field =
+				// SimpleBeanUtil.getFieldWithSupper(object.getClass(),
+				// table.primaryKey().getFieldPath());
+				Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), table.getIdClassName());
 				field.setAccessible(true);
 				id = (ID) field.get(object);
 			} catch (SecurityException e) {
