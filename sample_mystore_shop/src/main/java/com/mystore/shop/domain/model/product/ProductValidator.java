@@ -1,6 +1,6 @@
 package com.mystore.shop.domain.model.product;
 
-import com.mystore.common.util.AssertionConcern;
+import com.mystore.common.utils.AssertionConcern;
 
 public class ProductValidator extends AssertionConcern {
 	

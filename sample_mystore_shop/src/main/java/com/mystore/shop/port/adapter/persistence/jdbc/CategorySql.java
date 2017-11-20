@@ -21,6 +21,7 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 	public List<Category> findAllByNameLike(String nameValue) {
 		List<CategoryId> categoryIds = findAllIdByNameLike(nameValue);
 		List<Category> categorys = findAll(categoryIds);
+		
 		return categorys;
 	}
 
@@ -32,7 +33,6 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 		SQL = sqlSetting(SQL, "table", table.name());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 		SQL = sqlSetting(SQL, "name", table.column(CategoryTable.NAME).getColumnName());
-
 		List<Category> objectWithIdList = jdbcTemplate.query(SQL, new Object[] { "%" + name + "%" },
 				provideRowMapper(rsColumns));
 
@@ -45,6 +45,7 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 		Page<Category> page = new Page<Category>(categoryIdPage.getStart(), categoryIdPage.getSize(),
 				categoryIdPage.getCount());
 		page.addAll(categoryList);
+		
 		return page;
 	}
 
@@ -61,12 +62,10 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 		String SQL = "SELECT #{pk} FROM #{table} LIMIT ?,?";
 		SQL = sqlSetting(SQL, "table", table.name());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
-
 		List<Category> objectWithIdList = jdbcTemplate.query(SQL, new Object[] { start, size },
 				provideRowMapper(rsColumns));
 
 		List<CategoryId> idList = fetchIdList(objectWithIdList);
-
 		Page<CategoryId> page = new Page<CategoryId>(start, size, count);
 		page.addAll(idList);
 

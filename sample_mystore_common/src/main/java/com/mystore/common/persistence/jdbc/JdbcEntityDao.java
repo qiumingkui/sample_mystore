@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.mystore.common.persistence.Column;
-import com.mystore.common.util.SimpleBeanUtil;
+import com.mystore.common.utils.SimpleBeanUtil;
 
 public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 

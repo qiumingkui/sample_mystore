@@ -1,4 +1,4 @@
-package com.mystore.common.util;
+package com.mystore.common.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

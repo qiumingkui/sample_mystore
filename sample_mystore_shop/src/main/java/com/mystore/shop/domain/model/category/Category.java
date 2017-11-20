@@ -6,31 +6,13 @@ public class Category extends CategoryBase implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	// public static CategoryValidator validator = new CategoryValidator();
-	//
-	// public static final String CATEGORYID = "categoryId";
-	// public static final String NAME = "name";
-	// public static final String DESCRIPTION = "description";
-	//
-	// protected CategoryId categoryId;
-	//
-	// protected String name;
-	//
-	// protected String description;
-
 	protected Category() {
 		super();
 	}
 
 	protected Category(CategoryId categoryId, String name, String description) {
 
-		super();
-
-		this.setCategoryId(categoryId);
-
-		this.setName(name);
-
-		this.setDescription(description);
+		super(categoryId, name, description);
 	}
 
 	public CategoryId categoryId() {
@@ -53,6 +35,5 @@ public class Category extends CategoryBase implements Serializable {
 	public void changeDescription(String description) {
 		this.setDescription(description);
 	}
-	
-	
+
 }

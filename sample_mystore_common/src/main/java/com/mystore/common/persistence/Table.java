@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.mystore.common.util.SimpleBeanUtil;
+import com.mystore.common.utils.SimpleBeanUtil;
 
 public abstract class Table<T> extends TableBase<T> {
 
