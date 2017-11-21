@@ -7,6 +7,10 @@ public class EntityMeta<T> extends ClassMeta<T> {
 
 	protected String identityObjectName;
 	
+	public EntityMeta(Class<T> clazz) {
+		super(clazz);
+	}
+
 	public FieldMeta<T> getIdentityObjectMeta(){
 		return getFieldMeta(identityObjectName);
 	}

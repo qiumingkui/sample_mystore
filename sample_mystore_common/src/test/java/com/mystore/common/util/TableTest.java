@@ -5,7 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.Test;
 import org.springframework.util.Assert;
 
+import com.mystore.common.User;
+import com.mystore.common.UserId;
 import com.mystore.common.persistence.Table;
+import com.mystore.common.utils.SimpleBeanUtil;
 
 public class TableTest {
 
@@ -15,24 +18,26 @@ public class TableTest {
 	public void getFieldPathValue() {
 
 		try {
-			User user = new User();
+			// User user = new User();
+			User user = (User) SimpleBeanUtil.newInstance(User.class);
 			UserId userId = new UserId(USERID);
 			user.setUserId(userId);
 			Object object = Table.getFieldPathValue(user, "userId.id");
 			Assert.isTrue(object != null);
 			Assert.isTrue(object.equals(USERID));
 
-			User user1 = new User();
+			// User user1 = new User();
+			User user1 = (User) SimpleBeanUtil.newInstance(User.class);
 			Object object1 = Table.getFieldPathValue(user1, "userId.id");
 			Assert.isTrue(object1 == null);
 
-			User user2 = new User();
+			// User user2 = new User();
+			User user2 = (User) SimpleBeanUtil.newInstance(User.class);
 			Object object2 = Table.getFieldPathValue(user2, "userId");
 			Assert.isTrue(object2 == null);
 			user2.setUserId(new UserId(USERID));
 			Assert.isTrue(object != null);
 			Assert.isTrue(object.equals(USERID));
-		
 
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
@@ -51,18 +56,24 @@ public class TableTest {
 	public void setFieldPathValue() {
 
 		try {
-			User user = new User();
+			// User user = new User();
+			User user = (User) SimpleBeanUtil.newInstance(User.class);
+
 			Table.setFieldPathValue(user, "userId.id", USERID);
 			Assert.isTrue(user.getUserId() != null);
 			Assert.isTrue(user.getUserId().getId() == USERID);
 
-			User user1 = new User();
-			user1.setUserId(new UserId(USERID-1));
+			// User user1 = new User();
+			User user1 = (User) SimpleBeanUtil.newInstance(User.class);
+
+			user1.setUserId(new UserId(USERID - 1));
 			Table.setFieldPathValue(user1, "userId.id", USERID);
 			Assert.isTrue(user1.getUserId() != null);
 			Assert.isTrue(user1.getUserId().getId() == USERID);
 
-			User user2 = new User();
+			// User user2 = new User();
+			User user2 = (User) SimpleBeanUtil.newInstance(User.class);
+
 			Table.setFieldPathValue(user2, "userId", new UserId(USERID));
 			Assert.isTrue(user2.getUserId() != null);
 			Assert.isTrue(user2.getUserId().getId() == USERID);

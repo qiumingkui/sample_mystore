@@ -15,6 +15,6 @@ public class EntityMetaRegister {
 
 	@SuppressWarnings("rawtypes")
 	protected void register(EntityMeta classMeta) {
-		entityMetaMap.put(classMeta.getClassName(), classMeta);
+		entityMetaMap.put(classMeta.getSimpleName(), classMeta);
 	}
 }

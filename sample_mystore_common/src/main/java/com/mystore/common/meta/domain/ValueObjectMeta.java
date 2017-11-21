@@ -7,6 +7,10 @@ public class ValueObjectMeta<T> extends ClassMeta<T> {
 
 	protected String supIdentityObjectName;
 
+	public ValueObjectMeta(Class<T> clazz) {
+		super(clazz);
+	}
+
 	public FieldMeta<T> getSupIdentityObject() {
 		return this.getFieldMeta(supIdentityObjectName);
 	}

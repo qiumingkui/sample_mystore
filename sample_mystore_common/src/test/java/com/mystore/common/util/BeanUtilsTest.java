@@ -9,6 +9,9 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.Test;
 import org.springframework.util.Assert;
 
+import com.mystore.common.User;
+import com.mystore.common.UserId;
+
 public class BeanUtilsTest {
 
 	private static final long ID = 1;

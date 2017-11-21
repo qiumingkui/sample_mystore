@@ -11,12 +11,21 @@ public class ClassMeta<T> {
 
 	protected Map<String, MethodMeta<T>> methodMetadataMap = new HashMap<String, MethodMeta<T>>();
 
+	public ClassMeta(Class<T> clazz) {
+		super();
+		this.clazz = clazz;
+	}
+
 	public Class<T> getClazz() {
 		return clazz;
 	}
 
-	public String getClassName() {
+	public String getName() {
 		return clazz.getName();
+	}
+
+	public String getSimpleName() {
+		return clazz.getSimpleName();
 	}
 
 	public FieldMeta<T> getFieldMeta(String fieldName) {

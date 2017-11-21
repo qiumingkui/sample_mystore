@@ -1,4 +1,4 @@
-package com.mystore.common.util;
+package com.mystore.common;
 
 public class Person {
 
