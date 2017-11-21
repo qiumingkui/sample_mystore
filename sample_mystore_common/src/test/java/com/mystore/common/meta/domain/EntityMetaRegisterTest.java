@@ -17,7 +17,7 @@ public class EntityMetaRegisterTest {
 
 	@Test
 	public void register01() {
-		RegisterCenter registerCenter = RegisterCenter.newInstance();
+		RegisterCenter registerCenter = RegisterCenter.instance();
 		EntityMetaRegister classMetaRegister = registerCenter.getEntityMetaRegister();
 
 		EntityMeta<User> userMeta = new EntityMeta<User>(User.class, "userId");
@@ -31,7 +31,7 @@ public class EntityMetaRegisterTest {
 
 	@Test
 	public void register02() {
-		RegisterCenter registerCenter = RegisterCenter.newInstance();
+		RegisterCenter registerCenter = RegisterCenter.instance();
 		EntityMetaRegister classMetaRegister = registerCenter.getEntityMetaRegister();
 
 		EntityMeta<User> userMeta = new EntityMeta<User>(User.class, USERID_FIELDNAME);

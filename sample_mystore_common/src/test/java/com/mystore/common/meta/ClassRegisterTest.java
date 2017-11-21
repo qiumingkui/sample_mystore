@@ -11,7 +11,7 @@ public class ClassRegisterTest {
 
 	@Test
 	public void register() {
-		RegisterCenter registerCenter = RegisterCenter.newInstance();
+		RegisterCenter registerCenter = RegisterCenter.instance();
 		ClassMetaRegister classMetaRegister = registerCenter.getClassMetaRegister();
 
 		ClassMeta<User> userMeta = new ClassMeta<User>(User.class);

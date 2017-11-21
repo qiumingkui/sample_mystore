@@ -22,7 +22,7 @@ public class RegisterCenter {
 		super();
 	}
 
-	public static RegisterCenter newInstance() {
+	public static RegisterCenter instance() {
 
 		synchronized (lock) {
 			if (single == null) {
