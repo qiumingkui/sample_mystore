@@ -1,8 +1,6 @@
-package com.mystore.common.meta.domain;
+package com.mystore.common.meta;
 
 import java.lang.reflect.Field;
-
-import com.mystore.common.meta.ClassMeta;
 
 public class EntityMeta<T> extends ClassMeta<T> {
 

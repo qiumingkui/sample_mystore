@@ -1,9 +1,5 @@
 package com.mystore.common.meta;
 
-import com.mystore.common.meta.domain.AggregateRootMetaRegister;
-import com.mystore.common.meta.domain.EntityMetaRegister;
-import com.mystore.common.meta.domain.ValueObjectMetaRegister;
-
 public class RegisterCenter {
 
 	private static Object lock = new Object();

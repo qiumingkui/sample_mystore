@@ -1,4 +1,4 @@
-package com.mystore.common.meta.domain;
+package com.mystore.common.meta;
 
 public class AggregateRootMeta<T> extends EntityMeta<T> {
 

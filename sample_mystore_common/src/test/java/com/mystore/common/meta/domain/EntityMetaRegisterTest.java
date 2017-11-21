@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import com.mystore.common.User;
 import com.mystore.common.UserId;
+import com.mystore.common.meta.EntityMeta;
+import com.mystore.common.meta.EntityMetaRegister;
 import com.mystore.common.meta.RegisterCenter;
 import com.mystore.common.utils.BeanStringUtil;
 

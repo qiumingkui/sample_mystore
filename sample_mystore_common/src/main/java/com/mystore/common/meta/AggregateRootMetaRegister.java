@@ -1,4 +1,4 @@
-package com.mystore.common.meta.domain;
+package com.mystore.common.meta;
 
 import java.util.HashMap;
 import java.util.Map;
