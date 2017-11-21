@@ -5,6 +5,12 @@ import java.math.BigDecimal;
 import com.mystore.shop.domain.model.productitem.ProductItemId;
 
 public class CartItem {
+	
+	public static final String CARTID="cartId";
+	public static final String PRODUCTITEMID="productItemId";
+	public static final String QUANTITY="quantity";
+	public static final String UNITPRICE="unitPrice";
+	public static final String TOTAL="total";
 
 	private CartId cartId;
 

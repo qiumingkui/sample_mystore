@@ -5,6 +5,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ProductItemId {
 
+	public static final String ID = "id";
+
 	private long id;
 
 	protected ProductItemId() {

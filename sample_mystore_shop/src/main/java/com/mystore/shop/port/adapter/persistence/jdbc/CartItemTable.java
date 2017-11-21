@@ -1,7 +1,5 @@
 package com.mystore.shop.port.adapter.persistence.jdbc;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import com.mystore.common.persistence.Table;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.cart.CartItem;
@@ -15,36 +13,23 @@ public class CartItemTable extends Table<CartItem> {
 	public static final String QUANTITY = "quantity";
 	public static final String UNITPRICE = "unitprice";
 	public static final String TOTAL = "total";
+
 	@Override
 	protected void init() {
 		try {
+			setClazz(CartItem.class);
 			setTableName(TABLENAME);
 
-			add(CARTID,
-					(PreparedStatement ps, int index, CartItem cartItem) -> ps.setLong(index,
-							cartItem.getCartId().getId()),
-					(CartItem cartItem, ResultSet rs) -> cartItem.setCartId(new CartId(rs.getLong(CARTID))));
+			add(CARTID, CartItem.CARTID + "." + CartId.ID);
 			setForeignKey(CARTID);
 
-			add(PRODUCTITEMID,
-					(PreparedStatement ps, int index, CartItem cartItem) -> ps.setLong(index,
-							cartItem.getProductItemId().getId()),
-					(CartItem cartItem, ResultSet rs) -> cartItem
-							.setProductItemId(new ProductItemId(rs.getLong(PRODUCTITEMID))));
+			add(PRODUCTITEMID, CartItem.PRODUCTITEMID + "." + ProductItemId.ID);
 
-			add(QUANTITY,
-					(PreparedStatement ps, int index, CartItem cartItem) -> ps.setInt(index, cartItem.getQuantity()),
-					(CartItem cartItem, ResultSet rs) -> cartItem.setQuantity(rs.getInt(QUANTITY)));
+			add(QUANTITY, CartItem.QUANTITY);
 
-			add(UNITPRICE,
-					(PreparedStatement ps, int index, CartItem cartItem) -> ps.setBigDecimal(index,
-							cartItem.getUnitPrice()),
-					(CartItem cartItem, ResultSet rs) -> cartItem.setUnitPrice(rs.getBigDecimal(UNITPRICE)));
+			add(UNITPRICE, CartItem.UNITPRICE);
 
-			add(TOTAL,
-					(PreparedStatement ps, int index, CartItem cartItem) -> ps.setBigDecimal(index,
-							cartItem.getTotal()),
-					(CartItem cartItem, ResultSet rs) -> cartItem.setTotal(rs.getBigDecimal(TOTAL)));
+			add(TOTAL, CartItem.TOTAL);
 
 		} catch (Exception e) {
 			e.printStackTrace();

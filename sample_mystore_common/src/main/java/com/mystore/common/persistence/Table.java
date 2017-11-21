@@ -115,24 +115,4 @@ public abstract class Table<T> extends TableBase<T> {
 		field.setAccessible(true);
 		return field.get(object);
 	}
-
-	// public static void setFieldValue(Object object, String fieldName, Object
-	// value) throws IllegalAccessException,
-	// InvocationTargetException, NoSuchMethodException, NoSuchFieldException,
-	// SecurityException {
-	// Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(),
-	// fieldName);
-	// field.setAccessible(true);
-	// field.set(object, value);
-	// }
-	//
-	// public static Object getFieldValue(Object object, String fieldName)
-	// throws IllegalAccessException,
-	// InvocationTargetException, NoSuchMethodException, NoSuchFieldException,
-	// SecurityException {
-	// Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(),
-	// fieldName);
-	// field.setAccessible(true);
-	// return field.get(object);
-	// }
 }

@@ -1,4 +1,4 @@
-package com.mystore.common.meta;
+package com.mystore.common.aop;
 
 public interface Interceptor {
 

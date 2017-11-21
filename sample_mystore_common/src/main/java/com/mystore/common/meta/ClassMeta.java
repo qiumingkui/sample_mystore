@@ -1,59 +1,29 @@
 package com.mystore.common.meta;
 
-import java.util.Collection;
-
-import com.mystore.common.persistence.Table;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClassMeta<T> {
 
-	private DomainElementType domainElementType = DomainElementType.NOT_DOMAIN;
+	protected Class<T> clazz;
 
-	private String className;
+	protected Map<String, FieldMeta<T>> fieldMetadataMap = new HashMap<String, FieldMeta<T>>();
 
-	private Table<T> table;
+	protected Map<String, MethodMeta<T>> methodMetadataMap = new HashMap<String, MethodMeta<T>>();
 
-	private Collection<FieldMeta<T>> fieldMetadatas;
-
-	private Collection<MethodMeta<T>> MethodMetadatas;
-
-	protected DomainElementType getDomainElementType() {
-		return domainElementType;
+	public Class<T> getClazz() {
+		return clazz;
 	}
 
-	protected void setDomainElementType(DomainElementType domainElementType) {
-		this.domainElementType = domainElementType;
+	public String getClassName() {
+		return clazz.getName();
 	}
 
-	protected String getClassName() {
-		return className;
+	public FieldMeta<T> getFieldMeta(String fieldName) {
+		return this.fieldMetadataMap.get(fieldName);
 	}
 
-	protected void setClassName(String className) {
-		this.className = className;
+	public MethodMeta<T> getMethodMeta(String methodName) {
+		return this.methodMetadataMap.get(methodName);
 	}
-
-	protected Table<T> getTable() {
-		return table;
-	}
-
-	protected void setTable(Table<T> table) {
-		this.table = table;
-	}
-
-	protected Collection<FieldMeta<T>> getFieldMetadatas() {
-		return fieldMetadatas;
-	}
-
-	protected void setFieldMetadatas(Collection<FieldMeta<T>> fieldMetadatas) {
-		this.fieldMetadatas = fieldMetadatas;
-	}
-
-	protected Collection<MethodMeta<T>> getMethodMetadatas() {
-		return MethodMetadatas;
-	}
-
-	protected void setMethodMetadatas(Collection<MethodMeta<T>> methodMetadatas) {
-		MethodMetadatas = methodMetadatas;
-	}
-
 }
