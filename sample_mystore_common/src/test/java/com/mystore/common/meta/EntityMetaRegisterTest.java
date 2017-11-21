@@ -1,4 +1,4 @@
-package com.mystore.common.meta.domain;
+package com.mystore.common.meta;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.mystore.common.User;
 
-public class ClassRegisterTest {
+public class ClassMetaRegisterTest {
 	final String USER_NAME = User.class.getName();
 	final String USER_SIMPLE_NAME = User.class.getSimpleName();
 
