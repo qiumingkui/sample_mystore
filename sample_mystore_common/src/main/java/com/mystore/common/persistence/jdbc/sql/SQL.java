@@ -62,6 +62,7 @@ public class SQL {
 		return and.toString();
 	}
 
+	@Override
 	public String toString() {
 		return sql.trim();
 	}

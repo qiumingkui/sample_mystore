@@ -1,7 +1,8 @@
 package com.mystore.common.meta.domain;
 
+import java.lang.reflect.Field;
+
 import com.mystore.common.meta.ClassMeta;
-import com.mystore.common.meta.FieldMeta;
 
 public class ValueObjectMeta<T> extends ClassMeta<T> {
 
@@ -11,7 +12,7 @@ public class ValueObjectMeta<T> extends ClassMeta<T> {
 		super(clazz);
 	}
 
-	public FieldMeta<T> getSupIdentityObject() {
-		return this.getFieldMeta(supIdentityObjectName);
+	public Field getSupIdentityObject() {
+		return this.getField(supIdentityObjectName);
 	}
 }
