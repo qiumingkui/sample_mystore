@@ -1,16 +1,24 @@
 package com.mystore.shop.meta;
 
-import org.springframework.stereotype.Component;
-
 import com.mystore.common.meta.MetaFactory;
 
-@Component
 public class SysMetaFactory extends MetaFactory {
+
+	private static SysMetaFactory self;
+	private static Object lock = new Object();
+
+	public static SysMetaFactory instance() {
+		synchronized (lock) {
+			if (self == null)
+				self = new SysMetaFactory();
+		}
+		return self;
+	}
 
 	@Override
 	protected void init() {
 		new CategoryMetaLoader().loading(registerCenter);
-		
+
 		new CartMetaLoader().loading(registerCenter);
 		new CartItemMetaLoader().loading(registerCenter);
 	}

@@ -9,7 +9,7 @@ public abstract class MetaFactory {
 
 	protected RegisterCenter registerCenter = RegisterCenter.instance();
 
-	public MetaFactory() {
+	protected MetaFactory() {
 		init();
 	}
 
