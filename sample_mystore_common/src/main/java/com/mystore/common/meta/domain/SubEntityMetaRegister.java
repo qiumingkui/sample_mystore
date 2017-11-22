@@ -14,7 +14,7 @@ public class SubEntityMetaRegister {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void register(SubEntityMeta classMeta) {
-		subEntityMetaMap.put(classMeta.getName(), classMeta);
+	public void register(SubEntityMeta subEntityMeta) {
+		subEntityMetaMap.put(subEntityMeta.getClassName(), subEntityMeta);
 	}
 }

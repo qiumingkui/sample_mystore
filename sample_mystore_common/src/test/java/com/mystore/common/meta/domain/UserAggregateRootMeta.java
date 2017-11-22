@@ -4,8 +4,8 @@ import com.mystore.common.User;
 
 public class UserAggregateRootMeta extends AggregateRootMeta<User> {
 
-	public UserAggregateRootMeta(Class<User> clazz, String identityObjectName) {
-		super(clazz, identityObjectName);
+	public UserAggregateRootMeta(String className, String identityObjectFieldName) {
+		super(className, identityObjectFieldName);
 	}
 
 }

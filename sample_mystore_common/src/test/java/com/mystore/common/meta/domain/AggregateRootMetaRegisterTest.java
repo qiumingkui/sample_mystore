@@ -10,38 +10,33 @@ import com.mystore.common.utils.BeanStringUtil;
 
 public class AggregateRootMetaRegisterTest {
 	final String NAME = "name";
-	final String USER_NAME = User.class.getName();
-	final String USER_SIMPLENAME = User.class.getSimpleName();
-	final String USERID_NAME = UserId.class.getName();
-	final String USERID_FIELDNAME = BeanStringUtil.convertClassNameToFieldName(UserId.class.getSimpleName());
+	final String USER_CLASS_NAME = User.class.getName();
+	final String USER_CLASSS_IMPLENAME = User.class.getSimpleName();
+	final String USERID_CLASS_NAME = UserId.class.getName();
+	final String USERID_FIELD_NAME = BeanStringUtil.convertClassNameToFieldName(UserId.class.getSimpleName());
 
 	final RegisterCenterFactory registerCenterFactory = new RegisterCenterFactory() {
 		@Override
 		protected void init() {
 			registerCenter.getAggregateRootMetaRegister()
-					.register(new UserAggregateRootMeta(User.class, USERID_FIELDNAME));
+					.register(new UserAggregateRootMeta(USER_CLASS_NAME, USERID_FIELD_NAME));
+			registerCenter.getClassMetaRegister().register(new UserClassMeta(User.class));
+			;
 		}
 	};
 
 	@Test
-	public void register01() {
+	public void checkRegister() {
 		UserAggregateRootMeta userAggregateRootMeta = (UserAggregateRootMeta) registerCenterFactory.getRegisterCenter()
-				.getAggregateRootMetaRegister().getAggregateRootMeta(USER_NAME);
+				.getAggregateRootMetaRegister().getAggregateRootMeta(USER_CLASS_NAME);
+		UserClassMeta userClassMeta = (UserClassMeta) registerCenterFactory.getRegisterCenter().getClassMetaRegister()
+				.getClassMeta(USER_CLASS_NAME);
 
-		Assert.assertTrue(userAggregateRootMeta.getName().equals(USER_NAME));
-		Assert.assertTrue(userAggregateRootMeta.getClazz().getSimpleName().equals("User"));
-		Assert.assertTrue(userAggregateRootMeta.getField("name").getName().equals("name"));
-		Assert.assertTrue(userAggregateRootMeta.getIdentityObject().getName().equals("userId"));
-	}
+		Assert.assertTrue(userClassMeta.getName().equals(USER_CLASS_NAME));
+		Assert.assertTrue(userClassMeta.getClazz().getSimpleName().equals(USER_CLASSS_IMPLENAME));
+		Assert.assertTrue(userClassMeta.getField(NAME).getName().equals(NAME));
+		Assert.assertTrue(userClassMeta.getField(userAggregateRootMeta.getIdentityObjectFieldName()).getName()
+				.equals(USERID_FIELD_NAME));
 
-	@Test
-	public void register02() {
-		UserAggregateRootMeta userAggregateRootMeta = (UserAggregateRootMeta) registerCenterFactory.getRegisterCenter()
-				.getAggregateRootMetaRegister().getAggregateRootMeta(USER_NAME);
-
-		Assert.assertTrue(userAggregateRootMeta.getName().equals(USER_NAME));
-		Assert.assertTrue(userAggregateRootMeta.getClazz().getSimpleName().equals(USER_SIMPLENAME));
-		Assert.assertTrue(userAggregateRootMeta.getField(NAME).getName().equals(NAME));
-		Assert.assertTrue(userAggregateRootMeta.getIdentityObject().getName().equals(USERID_FIELDNAME));
 	}
 }

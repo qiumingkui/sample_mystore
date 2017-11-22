@@ -1,18 +1,16 @@
 package com.mystore.common.meta.domain;
 
-import java.lang.reflect.Field;
+public class SubEntityMeta<T> extends EntityMeta implements DomainMeta {
 
-public class SubEntityMeta<T> extends EntityMeta<T> implements DomainMeta<T> {
+	protected String supIdentityObjectFieldName;
 
-	protected String supIdentityObjectName;
-
-	public SubEntityMeta(Class<T> clazz, String identityObjectName, String supIdentityObjectName) {
-		super(clazz, identityObjectName);
-		this.supIdentityObjectName = supIdentityObjectName;
+	public SubEntityMeta(String className, String identityObjectFieldName, String supIdentityObjectFieldName) {
+		super(className, identityObjectFieldName);
+		this.supIdentityObjectFieldName = supIdentityObjectFieldName;
 	}
 
-	public Field getSupIdentityObject() {
-		return this.getField(supIdentityObjectName);
+	public String getSupIdentityObjectFieldName() {
+		return supIdentityObjectFieldName;
 	}
 
 }

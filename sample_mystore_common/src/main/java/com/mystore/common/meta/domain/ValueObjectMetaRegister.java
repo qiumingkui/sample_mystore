@@ -14,7 +14,7 @@ public class ValueObjectMetaRegister {
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected void register(ValueObjectMeta classMeta) {
-		valueObjectMetaMap.put(classMeta.getName(), classMeta);
+	protected void register(ValueObjectMeta valueObjectMeta) {
+		valueObjectMetaMap.put(valueObjectMeta.getClassName(), valueObjectMeta);
 	}
 }

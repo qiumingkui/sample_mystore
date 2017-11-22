@@ -1,30 +1,22 @@
 package com.mystore.common.meta.domain;
 
-import java.lang.reflect.Field;
+public class ValueObjectMeta<T> implements DomainMeta {
 
-import com.mystore.common.meta.ClassMeta;
-import com.mystore.common.persistence.Table;
+	protected String className;
+	protected String supIdentityObjectFieldName;
 
-public class ValueObjectMeta<T> extends ClassMeta<T> implements DomainMeta<T> {
-
-	protected String supIdentityObjectName;
-
-	// protected Table<T> table;
-
-	public ValueObjectMeta(Class<T> clazz, String supIdentityObjectName) {
-		super(clazz);
-		this.supIdentityObjectName = supIdentityObjectName;
+	public ValueObjectMeta(String className, String supIdentityObjectFieldName) {
+		super();
+		this.className = className;
+		this.supIdentityObjectFieldName = supIdentityObjectFieldName;
 	}
 
-	public Field getSupIdentityObject() {
-		return this.getField(supIdentityObjectName);
+	public String getClassName() {
+		return className;
 	}
 
-	// public Table<T> getTable() {
-	// return table;
-	// }
-	//
-	// protected void setTable(Table<T> table) {
-	// this.table = table;
-	// }
+	public String getSupIdentityObjectFieldName() {
+		return supIdentityObjectFieldName;
+	}
+
 }
