@@ -2,22 +2,29 @@ package com.mystore.common.meta;
 
 import java.lang.reflect.Field;
 
+import com.mystore.common.persistence.Table;
+
 public class EntityMeta<T> extends ClassMeta<T> {
 
 	protected String identityObjectName;
-	
-	public EntityMeta(Class<T> clazz,String identityObjectName) {
+
+	protected Table<T> table;
+
+	public EntityMeta(Class<T> clazz, String identityObjectName) {
 		super(clazz);
-		setIdentityObjectName(identityObjectName);
+		this.identityObjectName = identityObjectName;
 	}
 
-	public Field getIdentityObject(){
+	public Field getIdentityObject() {
 		return getField(identityObjectName);
 	}
 
-	protected void setIdentityObjectName(String identityObjectName) {
-		this.identityObjectName = identityObjectName;
+	public Table<T> getTable() {
+		return table;
 	}
-	
-	
+
+	protected void setTable(Table<T> table) {
+		this.table = table;
+	}
+
 }
