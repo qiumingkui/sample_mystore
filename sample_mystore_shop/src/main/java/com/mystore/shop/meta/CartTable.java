@@ -1,9 +1,8 @@
-package com.mystore.shop.port.adapter.persistence.jdbc;
+package com.mystore.shop.meta;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import com.mystore.common.persistence.Table;
 import com.mystore.shop.domain.model.cart.Cart;
+import com.mystore.shop.domain.model.cart.CartBase;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.customer.CustomerId;
 
@@ -17,15 +16,15 @@ public class CartTable extends Table<Cart> {
 	@Override
 	protected void init() {
 		try {
-			// setClazz(Cart.class);
+			setClassName(Cart.class.getName());
 			setTableName(TABLENAME);
 
-			add(ID, Cart.CARTID + "." + CartId.ID);
+			add(ID, CartBase.CARTID + "." + CartId.ID);
 			setPrimaryKay(ID);
 
-			add(CUSTOMERID, Cart.CUSTOMERID + "." + CustomerId.ID);
+			add(CUSTOMERID, CartBase.CUSTOMERID + "." + CustomerId.ID);
 
-			add(TOTAL, Cart.TOTAL);
+			add(TOTAL, CartBase.TOTAL);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

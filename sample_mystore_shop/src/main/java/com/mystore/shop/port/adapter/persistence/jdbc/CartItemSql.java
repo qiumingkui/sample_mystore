@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.mystore.common.persistence.jdbc.JdbcValueObjectDao;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.cart.CartItem;
+import com.mystore.shop.meta.CartItemTable;
 
 @Component
 public class CartItemSql extends JdbcValueObjectDao<CartItem, CartId> {

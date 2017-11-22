@@ -10,6 +10,9 @@ public class SysMetaFactory extends MetaFactory {
 	@Override
 	protected void init() {
 		new CategoryMetaLoader().loading(registerCenter);
+		
+		new CartMetaLoader().loading(registerCenter);
+		new CartItemMetaLoader().loading(registerCenter);
 	}
 
 }

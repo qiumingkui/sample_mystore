@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.RowMapper;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;
 import com.mystore.common.persistence.jdbc.sql.SqlFragment;
-import com.mystore.common.utils.SimpleBeanUtil;
 
 public abstract class JdbcBaseDao<T> {
 

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.jdbc.JdbcEntityDao;
 import com.mystore.common.utils.SimpleBeanUtil;
-import com.mystore.shop.domain.model.cart.Cart;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.Page;

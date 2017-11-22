@@ -1,4 +1,4 @@
-package com.mystore.shop.port.adapter.persistence.jdbc;
+package com.mystore.shop.meta;
 
 import com.mystore.common.persistence.Table;
 import com.mystore.shop.domain.model.cart.CartId;
@@ -17,7 +17,7 @@ public class CartItemTable extends Table<CartItem> {
 	@Override
 	protected void init() {
 		try {
-			// setClazz(CartItem.class);
+			setClassName(CartItem.class.getName());
 			setTableName(TABLENAME);
 
 			add(CARTID, CartItem.CARTID + "." + CartId.ID);
