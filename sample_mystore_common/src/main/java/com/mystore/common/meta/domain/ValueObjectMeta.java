@@ -1,14 +1,15 @@
-package com.mystore.common.meta;
+package com.mystore.common.meta.domain;
 
 import java.lang.reflect.Field;
 
+import com.mystore.common.meta.ClassMeta;
 import com.mystore.common.persistence.Table;
 
-public class ValueObjectMeta<T> extends ClassMeta<T> {
+public class ValueObjectMeta<T> extends ClassMeta<T> implements DomainMeta<T> {
 
 	protected String supIdentityObjectName;
 
-	protected Table<T> table;
+	// protected Table<T> table;
 
 	public ValueObjectMeta(Class<T> clazz, String supIdentityObjectName) {
 		super(clazz);
@@ -19,11 +20,11 @@ public class ValueObjectMeta<T> extends ClassMeta<T> {
 		return this.getField(supIdentityObjectName);
 	}
 
-	public Table<T> getTable() {
-		return table;
-	}
-
-	protected void setTable(Table<T> table) {
-		this.table = table;
-	}
+	// public Table<T> getTable() {
+	// return table;
+	// }
+	//
+	// protected void setTable(Table<T> table) {
+	// this.table = table;
+	// }
 }

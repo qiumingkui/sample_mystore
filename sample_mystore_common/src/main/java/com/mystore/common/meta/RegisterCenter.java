@@ -1,5 +1,9 @@
 package com.mystore.common.meta;
 
+import com.mystore.common.meta.domain.AggregateRootMetaRegister;
+import com.mystore.common.meta.domain.SubEntityMetaRegister;
+import com.mystore.common.meta.domain.ValueObjectMetaRegister;
+
 public class RegisterCenter {
 
 	private static Object lock = new Object();
@@ -8,17 +12,19 @@ public class RegisterCenter {
 
 	private ClassMetaRegister classMetaRegister = new ClassMetaRegister();
 
-	private EntityMetaRegister entityMetaRegister = new EntityMetaRegister();
+	// private EntityMetaRegister entityMetaRegister = new EntityMetaRegister();
 
 	private AggregateRootMetaRegister aggregateRootMetaRegister = new AggregateRootMetaRegister();
 
+	private SubEntityMetaRegister subEntityMetaRegister = new SubEntityMetaRegister();
+
 	private ValueObjectMetaRegister valueObjectMetaRegister = new ValueObjectMetaRegister();
 
-	protected RegisterCenter() {
+	private RegisterCenter() {
 		super();
 	}
 
-	public static RegisterCenter instance() {
+	protected static RegisterCenter instance() {
 
 		synchronized (lock) {
 			if (single == null) {
@@ -33,12 +39,16 @@ public class RegisterCenter {
 		return classMetaRegister;
 	}
 
-	public EntityMetaRegister getEntityMetaRegister() {
-		return entityMetaRegister;
-	}
+	// public EntityMetaRegister getEntityMetaRegister() {
+	// return entityMetaRegister;
+	// }
 
 	public AggregateRootMetaRegister getAggregateRootMetaRegister() {
 		return aggregateRootMetaRegister;
+	}
+
+	public SubEntityMetaRegister getSubEntityMetaRegister() {
+		return subEntityMetaRegister;
 	}
 
 	public ValueObjectMetaRegister getValueObjectMetaRegister() {

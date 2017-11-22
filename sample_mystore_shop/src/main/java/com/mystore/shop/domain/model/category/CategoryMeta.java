@@ -1,6 +1,6 @@
 package com.mystore.shop.domain.model.category;
 
-import com.mystore.common.meta.AggregateRootMeta;
+import com.mystore.common.meta.domain.AggregateRootMeta;
 import com.mystore.shop.port.adapter.persistence.jdbc.CategoryTable;
 
 public class CategoryMeta extends AggregateRootMeta<Category> {
