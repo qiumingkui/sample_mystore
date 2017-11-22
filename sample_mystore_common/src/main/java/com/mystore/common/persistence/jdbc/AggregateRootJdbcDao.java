@@ -5,14 +5,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.mystore.common.meta.ClassMeta;
+import com.mystore.common.meta.domain.AggregateRootMeta;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.utils.SimpleBeanUtil;
 
-public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
+public abstract class AggregateRootJdbcDao<T, ID> extends JdbcBaseDao<T> {
 
-	public JdbcEntityDao() {
+	@SuppressWarnings("unchecked")
+	public AggregateRootJdbcDao() {
 		super();
-		initTable();
+		initClass();
+		initMetaFactory();
+		if (metaFactory != null && clazz != null) {
+			this.table = metaFactory.getTable(clazz.getName());
+		} else {
+			initTable();
+		}
 	}
 
 	public void insert(T object) {
@@ -118,8 +127,8 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 			T object = produceObject();
 			// Field field =
 			// SimpleBeanUtil.getFieldWithSupper(object.getClass(),
-			// table.primaryKey().getFieldPath());
-			Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), table.getIdClassName());
+			// table.getIdClassName());
+			Field field = getIdField();
 			field.setAccessible(true);
 			try {
 				field.set(object, id);
@@ -144,8 +153,8 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 			try {
 				// Field field =
 				// SimpleBeanUtil.getFieldWithSupper(object.getClass(),
-				// table.primaryKey().getFieldPath());
-				Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), table.getIdClassName());
+				// table.getIdClassName());
+				Field field = getIdField();
 				field.setAccessible(true);
 				id = (ID) field.get(object);
 			} catch (SecurityException e) {
@@ -165,4 +174,11 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		return idList;
 	}
 
+	private Field getIdField() {
+		String className = clazz.getName();
+		String idFieldName = metaFactory.getAggregateRootMeta(className).getIdentityObjectFieldName();
+		Field idField = metaFactory.getClassMeta(className).getField(idFieldName);
+		return idField;
+
+	}
 }

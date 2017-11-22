@@ -6,11 +6,17 @@ import java.util.List;
 
 import com.mystore.common.persistence.Column;
 
-public abstract class JdbcValueObjectDao<T, FK> extends JdbcBaseDao<T> {
+public abstract class ValueObjectJdbcDao<T, FK> extends JdbcBaseDao<T> {
 
-	public JdbcValueObjectDao() {
+	public ValueObjectJdbcDao() {
 		super();
-		initTable();
+		initClass();
+		initMetaFactory();
+		if (metaFactory != null && clazz != null) {
+			this.table = metaFactory.getTable(clazz.getName());
+		} else {
+			initTable();
+		}
 	}
 
 	public List<T> findAll(T object) {

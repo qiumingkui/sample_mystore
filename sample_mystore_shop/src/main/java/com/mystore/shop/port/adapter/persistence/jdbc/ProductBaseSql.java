@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.mystore.common.persistence.jdbc.JdbcEntityDao;
+import com.mystore.common.persistence.jdbc.AggregateRootJdbcDao;
 import com.mystore.shop.domain.model.product.ProductBase;
 import com.mystore.shop.domain.model.product.ProductId;
 
 @Component
-public class ProductBaseSql extends JdbcEntityDao<ProductBase, ProductId> {
+public class ProductBaseSql extends AggregateRootJdbcDao<ProductBase, ProductId> {
 
 	@Override
 	@Autowired
@@ -39,6 +39,18 @@ public class ProductBaseSql extends JdbcEntityDao<ProductBase, ProductId> {
 	protected ProductId fetchId(ProductBase object) {
 		ProductId productId = object.getProductId();
 		return productId;
+	}
+
+	@Override
+	protected void initClass() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initMetaFactory() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

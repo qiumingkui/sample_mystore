@@ -10,24 +10,34 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.mystore.common.meta.ClassMeta;
+import com.mystore.common.meta.MetaFactory;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;
 import com.mystore.common.persistence.jdbc.sql.SqlFragment;
+import com.mystore.common.utils.SimpleBeanUtil;
 
 public abstract class JdbcBaseDao<T> {
 
+	protected Class<T> clazz;
 	protected Table<T> table;
+	protected MetaFactory metaFactory;
 	protected JdbcTemplate jdbcTemplate;
+
+	abstract protected void initClass();
 
 	abstract protected void initTable();
 
+	abstract protected void initMetaFactory();
+
 	abstract protected void setJdbcTemplate(JdbcTemplate jdbcTemplate);
 
-	abstract protected T produceObject();
+	// abstract protected T produceObject();
 
-	// protected T produceObject() {
-	// return (T) SimpleBeanUtil.newInstance(table.getClazz());
-	// }
+	@SuppressWarnings("unchecked")
+	protected T produceObject() {
+		return (T) SimpleBeanUtil.newInstance(clazz);
+	}
 
 	protected Collection<Column<T>> filtColumns(Collection<Column<T>> source, ColumnsFilter<T> filter) {
 		Collection<Column<T>> target = new ArrayList<Column<T>>();

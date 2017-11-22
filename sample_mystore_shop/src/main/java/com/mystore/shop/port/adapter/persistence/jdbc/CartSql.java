@@ -9,15 +9,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
-import com.mystore.common.persistence.jdbc.JdbcEntityDao;
+import com.mystore.common.persistence.jdbc.AggregateRootJdbcDao;
 import com.mystore.common.utils.SimpleBeanUtil;
 import com.mystore.shop.domain.model.cart.Cart;
 import com.mystore.shop.domain.model.cart.CartId;
+import com.mystore.shop.domain.model.cart.CartItem;
 import com.mystore.shop.domain.model.customer.CustomerId;
 import com.mystore.shop.meta.CartTable;
+import com.mystore.shop.meta.SysMetaFactory;
 
 @Component
-public class CartSql extends JdbcEntityDao<Cart, CartId> {
+public class CartSql extends AggregateRootJdbcDao<Cart, CartId> {
 
 	public List<Cart> findAllByCustomerId(CustomerId customerId) {
 		List<CartId> cartIds = findAllIdByCustomerId(customerId);
@@ -63,6 +65,17 @@ public class CartSql extends JdbcEntityDao<Cart, CartId> {
 		// Cart cart = new Cart();
 		Cart cart = (Cart) SimpleBeanUtil.newInstance(Cart.class);
 		return cart;
+	}
+
+	@Override
+	protected void initClass() {
+		this.clazz = Cart.class;
+
+	}
+
+	@Override
+	protected void initMetaFactory() {
+		this.metaFactory = SysMetaFactory.instance();
 	}
 
 	// @Override

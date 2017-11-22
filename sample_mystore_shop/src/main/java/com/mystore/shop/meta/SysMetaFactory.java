@@ -22,5 +22,4 @@ public class SysMetaFactory extends MetaFactory {
 		new CartMetaLoader().loading(registerCenter);
 		new CartItemMetaLoader().loading(registerCenter);
 	}
-
 }

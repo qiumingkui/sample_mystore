@@ -3,11 +3,11 @@ package com.mystore.shop.port.adapter.persistence.jdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.mystore.common.persistence.jdbc.JdbcEntityDao;
+import com.mystore.common.persistence.jdbc.AggregateRootJdbcDao;
 import com.mystore.shop.domain.model.order.SaleOrderItemBase;
 import com.mystore.shop.domain.model.order.SaleOrderItemId;
 
-public class SaleOrderItemBaseSql extends JdbcEntityDao<SaleOrderItemBase, SaleOrderItemId> {
+public class SaleOrderItemBaseSql extends AggregateRootJdbcDao<SaleOrderItemBase, SaleOrderItemId> {
 
 	@Override
 	protected SaleOrderItemBase produceObject(SaleOrderItemId key) {
@@ -36,6 +36,18 @@ public class SaleOrderItemBaseSql extends JdbcEntityDao<SaleOrderItemBase, SaleO
 	protected SaleOrderItemBase produceObject() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected void initClass() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initMetaFactory() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

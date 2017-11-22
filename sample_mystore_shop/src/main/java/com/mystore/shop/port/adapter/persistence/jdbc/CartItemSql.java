@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.mystore.common.persistence.jdbc.JdbcValueObjectDao;
+import com.mystore.common.persistence.jdbc.ValueObjectJdbcDao;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.cart.CartItem;
 import com.mystore.shop.meta.CartItemTable;
+import com.mystore.shop.meta.SysMetaFactory;
 
 @Component
-public class CartItemSql extends JdbcValueObjectDao<CartItem, CartId> {
+public class CartItemSql extends ValueObjectJdbcDao<CartItem, CartId> {
 
 	@Autowired
 	@Override
@@ -35,4 +36,13 @@ public class CartItemSql extends JdbcValueObjectDao<CartItem, CartId> {
 		return cartItem;
 	}
 
+	@Override
+	protected void initClass() {
+		this.clazz = CartItem.class;
+	}
+
+	@Override
+	protected void initMetaFactory() {
+		this.metaFactory = SysMetaFactory.instance();
+	}
 }

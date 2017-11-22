@@ -15,8 +15,9 @@ import org.springframework.stereotype.Service;
 
 import com.mystore.common.meta.MetaFactory;
 import com.mystore.common.persistence.Column;
-import com.mystore.common.persistence.jdbc.JdbcEntityDao;
+import com.mystore.common.persistence.jdbc.AggregateRootJdbcDao;
 import com.mystore.common.utils.SimpleBeanUtil;
+import com.mystore.shop.domain.model.cart.CartItem;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.Page;
@@ -24,7 +25,7 @@ import com.mystore.shop.meta.CategoryTable;
 import com.mystore.shop.meta.SysMetaFactory;
 
 @Service
-public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
+public class CategorySql extends AggregateRootJdbcDao<Category, CategoryId> {
 
 	public List<Category> findAllByNameLike(String nameValue) {
 		List<CategoryId> categoryIds = findAllIdByNameLike(nameValue);
@@ -97,5 +98,16 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 	protected Category produceObject() {
 		Category category = (Category) SimpleBeanUtil.newInstance(Category.class);
 		return category;
+	}
+
+	@Override
+	protected void initClass() {
+		this.clazz = Category.class;
+
+	}
+
+	@Override
+	protected void initMetaFactory() {
+		this.metaFactory = SysMetaFactory.instance();
 	}
 }

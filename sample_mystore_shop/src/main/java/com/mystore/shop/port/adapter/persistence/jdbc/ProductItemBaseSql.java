@@ -9,13 +9,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
-import com.mystore.common.persistence.jdbc.JdbcEntityDao;
+import com.mystore.common.persistence.jdbc.AggregateRootJdbcDao;
 import com.mystore.shop.domain.model.product.ProductId;
 import com.mystore.shop.domain.model.productitem.ProductItemBase;
 import com.mystore.shop.domain.model.productitem.ProductItemId;
 
 @Component
-public class ProductItemBaseSql extends JdbcEntityDao<ProductItemBase, ProductItemId> {
+public class ProductItemBaseSql extends AggregateRootJdbcDao<ProductItemBase, ProductItemId> {
 
 	public List<ProductItemBase> findAllByProductId(ProductId productId) {
 		List<ProductItemId> productItemIds = findAllIdByProductId(productId);
@@ -65,6 +65,18 @@ public class ProductItemBaseSql extends JdbcEntityDao<ProductItemBase, ProductIt
 	protected ProductItemId fetchId(ProductItemBase object) {
 		ProductItemId productItemId = object.getProductItemId();
 		return productItemId;
+	}
+
+	@Override
+	protected void initClass() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initMetaFactory() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
