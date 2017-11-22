@@ -28,7 +28,7 @@ public class ProductItemBaseSql extends JdbcEntityDao<ProductItemBase, ProductIt
 		rsColumns.add(table.primaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{productid}=?";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 		SQL = sqlSetting(SQL, "productid", table.column(ProductItemTable.PRODUCTID).getColumnName());
 

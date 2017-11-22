@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.mystore.common.User;
 import com.mystore.common.UserId;
-import com.mystore.common.meta.RegisterCenterFactory;
+import com.mystore.common.meta.MetaFactory;
 import com.mystore.common.utils.BeanStringUtil;
 
 public class AggregateRootMetaRegisterTest {
@@ -15,22 +15,20 @@ public class AggregateRootMetaRegisterTest {
 	final String USERID_CLASS_NAME = UserId.class.getName();
 	final String USERID_FIELD_NAME = BeanStringUtil.convertClassNameToFieldName(UserId.class.getSimpleName());
 
-	final RegisterCenterFactory registerCenterFactory = new RegisterCenterFactory() {
+	final MetaFactory registerCenterFactory = new MetaFactory() {
 		@Override
 		protected void init() {
 			registerCenter.getAggregateRootMetaRegister()
 					.register(new UserAggregateRootMeta(USER_CLASS_NAME, USERID_FIELD_NAME));
 			registerCenter.getClassMetaRegister().register(new UserClassMeta(User.class));
-			;
 		}
 	};
 
 	@Test
 	public void checkRegister() {
-		UserAggregateRootMeta userAggregateRootMeta = (UserAggregateRootMeta) registerCenterFactory.getRegisterCenter()
-				.getAggregateRootMetaRegister().getAggregateRootMeta(USER_CLASS_NAME);
-		UserClassMeta userClassMeta = (UserClassMeta) registerCenterFactory.getRegisterCenter().getClassMetaRegister()
-				.getClassMeta(USER_CLASS_NAME);
+		UserAggregateRootMeta userAggregateRootMeta = (UserAggregateRootMeta) registerCenterFactory
+				.getAggregateRootMeta(USER_CLASS_NAME);
+		UserClassMeta userClassMeta = (UserClassMeta) registerCenterFactory.getClassMeta(USER_CLASS_NAME);
 
 		Assert.assertTrue(userClassMeta.getName().equals(USER_CLASS_NAME));
 		Assert.assertTrue(userClassMeta.getClazz().getSimpleName().equals(USER_CLASSS_IMPLENAME));

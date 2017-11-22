@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.jdbc.JdbcEntityDao;
+import com.mystore.common.utils.SimpleBeanUtil;
 import com.mystore.shop.domain.model.cart.Cart;
 import com.mystore.shop.domain.model.cart.CartId;
 import com.mystore.shop.domain.model.customer.CustomerId;
@@ -28,7 +29,7 @@ public class CartSql extends JdbcEntityDao<Cart, CartId> {
 		rsColumns.add(table.primaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{customerid}=?";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 		SQL = sqlSetting(SQL, "customerid", table.column(CartTable.CUSTOMERID).getColumnName());
 
@@ -49,23 +50,24 @@ public class CartSql extends JdbcEntityDao<Cart, CartId> {
 		this.table = new CartTable();
 	}
 
-//	@Override
-//	protected Cart produceObject(CartId key) {
-//		Cart cart = produceObject();
-//		cart.setCartId(key);
-//		return cart;
-//	}
-//
-//	@Override
-//	protected Cart produceObject() {
-//		Cart cart = new Cart();
-//		return cart;
-//	}
-//
-//	@Override
-//	protected CartId fetchId(Cart object) {
-//		CartId cartId = object.getCartId();
-//		return cartId;
-//	}
+	// @Override
+	// protected Cart produceObject(CartId key) {
+	// Cart cart = produceObject();
+	// cart.setCartId(key);
+	// return cart;
+	// }
+
+	@Override
+	protected Cart produceObject() {
+		// Cart cart = new Cart();
+		Cart cart = (Cart) SimpleBeanUtil.newInstance(Cart.class);
+		return cart;
+	}
+
+	// @Override
+	// protected CartId fetchId(Cart object) {
+	// CartId cartId = object.getCartId();
+	// return cartId;
+	// }
 
 }

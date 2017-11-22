@@ -3,7 +3,7 @@ package com.mystore.shop.port.adapter.persistence.repository.jdbc;
 import com.mystore.common.persistence.Table;
 import com.mystore.common.persistence.jdbc.EntitySqlProviderFactory;
 import com.mystore.shop.domain.model.category.Category;
-import com.mystore.shop.port.adapter.persistence.jdbc.CategoryTable;
+import com.mystore.shop.meta.CategoryTable;
 
 public class SqlProviderTest {
 

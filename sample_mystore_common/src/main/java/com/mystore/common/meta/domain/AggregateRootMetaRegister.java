@@ -14,7 +14,7 @@ public class AggregateRootMetaRegister {
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected void register(AggregateRootMeta aggregateRootMeta) {
+	public void register(AggregateRootMeta aggregateRootMeta) {
 		aggregateRootMetaMap.put(aggregateRootMeta.getClassName(), aggregateRootMeta);
 	}
 }

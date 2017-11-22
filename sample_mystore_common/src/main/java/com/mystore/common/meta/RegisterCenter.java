@@ -12,6 +12,8 @@ public class RegisterCenter {
 
 	private ClassMetaRegister classMetaRegister = new ClassMetaRegister();
 
+	private TableRegister tableRegister = new TableRegister();
+
 	// private EntityMetaRegister entityMetaRegister = new EntityMetaRegister();
 
 	private AggregateRootMetaRegister aggregateRootMetaRegister = new AggregateRootMetaRegister();
@@ -37,6 +39,10 @@ public class RegisterCenter {
 
 	public ClassMetaRegister getClassMetaRegister() {
 		return classMetaRegister;
+	}
+
+	public TableRegister getTableRegister() {
+		return tableRegister;
 	}
 
 	// public EntityMetaRegister getEntityMetaRegister() {

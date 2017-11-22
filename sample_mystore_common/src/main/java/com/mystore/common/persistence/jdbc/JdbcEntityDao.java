@@ -19,7 +19,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		Collection<Column<T>> columns = table.columns();
 
 		String SQL = "INSERT INTO #{table} (#{columnNames}) VALUES(#{columnValues})";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "columnNames", new InsertIntoContents<T>(columns).toString());
 		SQL = sqlSetting(SQL, "columnValues", new ValuesContents<T>(columns).toString());
 
@@ -32,7 +32,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		pssColumns.add(table.primaryKey());
 
 		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{pk}=?";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
@@ -65,7 +65,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		columns.add(table.primaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table}";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
 		List<T> list = jdbcTemplate.query(SQL, provideRowMapper(columns));
@@ -88,7 +88,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		pssColumns.add(table.primaryKey());
 
 		String SQL = "UPDATE #{table} SET #{setContents} WHERE #{pk}=?";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "setContents", new UpdateSetContents<T>(sqlColumns).toString());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
@@ -100,7 +100,7 @@ public abstract class JdbcEntityDao<T, ID> extends JdbcBaseDao<T> {
 		pssColumns.add(table.primaryKey());
 
 		String SQL = "DELETE FROM #{table} WHERE #{pk}=?";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));

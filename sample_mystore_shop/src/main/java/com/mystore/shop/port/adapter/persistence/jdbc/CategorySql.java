@@ -11,9 +11,12 @@ import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.jdbc.JdbcEntityDao;
+import com.mystore.common.utils.SimpleBeanUtil;
+import com.mystore.shop.domain.model.cart.Cart;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.Page;
+import com.mystore.shop.meta.CategoryTable;
 
 @Component
 public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
@@ -30,7 +33,7 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 		rsColumns.add(table.primaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{name} LIKE ?";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 		SQL = sqlSetting(SQL, "name", table.column(CategoryTable.NAME).getColumnName());
 		List<Category> objectWithIdList = jdbcTemplate.query(SQL, new Object[] { "%" + name + "%" },
@@ -54,13 +57,13 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 		rsColumns.add(table.primaryKey());
 
 		String COUNT_SQL = "SELECT COUNT(#{pk}) c FROM #{table} LIMIT ?,?";
-		COUNT_SQL = sqlSetting(COUNT_SQL, "table", table.name());
+		COUNT_SQL = sqlSetting(COUNT_SQL, "table", table.getTableName());
 		COUNT_SQL = sqlSetting(COUNT_SQL, "pk", table.primaryKey().getColumnName());
 		Map<String, Object> map = jdbcTemplate.queryForMap(COUNT_SQL, new Object[] { start, size });
 		long count = (Long) map.get("c");
 
 		String SQL = "SELECT #{pk} FROM #{table} LIMIT ?,?";
-		SQL = sqlSetting(SQL, "table", table.name());
+		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
 		List<Category> objectWithIdList = jdbcTemplate.query(SQL, new Object[] { start, size },
 				provideRowMapper(rsColumns));
@@ -81,5 +84,11 @@ public class CategorySql extends JdbcEntityDao<Category, CategoryId> {
 	@Override
 	protected void initTable() {
 		this.table = new CategoryTable();
+	}
+
+	@Override
+	protected Category produceObject() {
+		Category category = (Category) SimpleBeanUtil.newInstance(Category.class);
+		return category;
 	}
 }

@@ -24,12 +24,11 @@ public abstract class JdbcBaseDao<T> {
 
 	abstract protected void setJdbcTemplate(JdbcTemplate jdbcTemplate);
 
-	// abstract protected T produceObject();
+	abstract protected T produceObject();
 
-	@SuppressWarnings("unchecked")
-	protected T produceObject() {
-		return (T) SimpleBeanUtil.newInstance(table.getClazz());
-	}
+	// protected T produceObject() {
+	// return (T) SimpleBeanUtil.newInstance(table.getClazz());
+	// }
 
 	protected Collection<Column<T>> filtColumns(Collection<Column<T>> source, ColumnsFilter<T> filter) {
 		Collection<Column<T>> target = new ArrayList<Column<T>>();

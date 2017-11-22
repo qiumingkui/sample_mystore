@@ -17,7 +17,7 @@ public class CartItemTable extends Table<CartItem> {
 	@Override
 	protected void init() {
 		try {
-			setClazz(CartItem.class);
+			// setClazz(CartItem.class);
 			setTableName(TABLENAME);
 
 			add(CARTID, CartItem.CARTID + "." + CartId.ID);

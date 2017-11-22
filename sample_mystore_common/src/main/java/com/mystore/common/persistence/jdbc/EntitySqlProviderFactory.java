@@ -18,7 +18,7 @@ public class EntitySqlProviderFactory<T> {
 			Collection<Column<T>> collection = new ArrayList<Column<T>>();
 			collection.addAll(t.columns());
 
-			InsertIntoContents<T> insertIntoContents = new InsertIntoContents<T>(t.name(), collection);
+			InsertIntoContents<T> insertIntoContents = new InsertIntoContents<T>(t.getTableName(), collection);
 			ValuesContents<T> valuesContents = new ValuesContents<T>(collection);
 			String insertSql = new SQL().INSERT_INTO(insertIntoContents.toString()).VALUES(valuesContents.toString())
 					.toString();
@@ -47,7 +47,7 @@ public class EntitySqlProviderFactory<T> {
 			Collection<Column<T>> updateSetCollection = filt(t.columns(), updateSetFilter);
 			SetContents<T> setContents = new SetContents<T>(updateSetCollection);
 
-			String updateSql = ql.UPDATE(t.name()).SET(setContents.toString())
+			String updateSql = ql.UPDATE(t.getTableName()).SET(setContents.toString())
 					.WHERE(ql.EQUALS(t.primaryKey().getColumnName(), SQL.QUESTION_MARK)).toString();
 
 			return updateSql;
@@ -67,7 +67,7 @@ public class EntitySqlProviderFactory<T> {
 	public SqlProviderPair<T> deleteSqlProviderPair() {
 		SqlProvider<T> sqlProvider = (Table<T> t) -> {
 			SQL ql = new SQL();
-			String deleteSql = ql.DELETE_FROM(t.name()).WHERE(ql.EQUALS(t.primaryKey().getColumnName(), SQL.QUESTION_MARK))
+			String deleteSql = ql.DELETE_FROM(t.getTableName()).WHERE(ql.EQUALS(t.primaryKey().getColumnName(), SQL.QUESTION_MARK))
 					.toString();
 			return deleteSql;
 		};
@@ -84,7 +84,7 @@ public class EntitySqlProviderFactory<T> {
 		SqlProvider<T> sqlProvider = (Table<T> t) -> {
 			SQL ql = new SQL();
 			SelectContents<T> selectContents = new SelectContents<T>(t.columns());
-			String selectSql = ql.SELECT(selectContents.toString()).FROM(t.name())
+			String selectSql = ql.SELECT(selectContents.toString()).FROM(t.getTableName())
 					.WHERE(ql.EQUALS(t.primaryKey().getColumnName(), SQL.QUESTION_MARK)).toString();
 			return selectSql;
 		};
