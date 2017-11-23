@@ -3,20 +3,49 @@ package com.mystore.shop.domain.model.order;
 import java.io.Serializable;
 import java.util.Date;
 
-public interface SaleOrder extends Serializable {
+public class SaleOrder extends SaleOrderBase implements Serializable {
 
-	public SaleOrderId saleOrderId();
+	private static final long serialVersionUID = 1L;
 
-	public String username();
+	public SaleOrder() {
+		super();
+	}
 
-	public Date orderDate();
+	public SaleOrder(SaleOrderId saleOrderId, String username, Date orderDate) {
+		super();
+		this.setSaleOrderId(saleOrderId);
+		this.setUsername(username);
+		this.setOrderDate(orderDate);
+	}
 
-	public void changeUsername(String username);
+	
+	public SaleOrderId saleOrderId() {
+		return getSaleOrderId();
+	}
 
-	public void changeOrderDate(Date orderDate);
+	
+	public String username() {
+		return getUsername();
+	}
 
-	public void addSaleOrderItem(SaleOrderItem saleOrderItem);
+	
+	public Date orderDate() {
+		return getOrderDate();
+	}
 
-	// public void removeSaleOrderItem()
+	
+	public void changeUsername(String username) {
+		setUsername(username);
+	}
+
+	
+	public void changeOrderDate(Date orderDate) {
+		setOrderDate(orderDate);
+	}
+
+	
+	public void addSaleOrderItem(SaleOrderItem saleOrderItem) {
+		getSaleOrderItems().add(saleOrderItem);
+	}
 
 }

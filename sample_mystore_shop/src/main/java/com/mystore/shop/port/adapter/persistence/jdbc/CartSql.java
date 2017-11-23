@@ -13,7 +13,6 @@ import com.mystore.common.persistence.jdbc.AggregateRootJdbcDao;
 import com.mystore.common.utils.SimpleBeanUtil;
 import com.mystore.shop.domain.model.cart.Cart;
 import com.mystore.shop.domain.model.cart.CartId;
-import com.mystore.shop.domain.model.cart.CartItem;
 import com.mystore.shop.domain.model.customer.CustomerId;
 import com.mystore.shop.meta.CartTable;
 import com.mystore.shop.meta.SysMetaFactory;

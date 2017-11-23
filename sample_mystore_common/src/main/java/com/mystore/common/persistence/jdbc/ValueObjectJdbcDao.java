@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.mystore.common.persistence.Column;
-import com.mystore.common.persistence.jdbc.JdbcBaseDao.SelectContents;
 import com.mystore.common.persistence.jdbc.sql.SQL;
 
 public abstract class ValueObjectJdbcDao<T, SUPID> extends JdbcBaseDao<T> {
@@ -22,31 +21,6 @@ public abstract class ValueObjectJdbcDao<T, SUPID> extends JdbcBaseDao<T> {
 		}
 	}
 
-	// public List<T> findAll(T object) {
-	// Collection<Column<T>> sqlColumns = table.values();
-	// Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
-	// pssColumns.add(table.getForeignKey());
-	//
-	// String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{fk}=?";
-	// SQL = sqlSetting(SQL, "table", table.getTableName());
-	// SQL = sqlSetting(SQL, "columnNames", new
-	// SelectContents<T>(sqlColumns).toString());
-	// SQL = sqlSetting(SQL, "fk", table.getForeignKey().getColumnName());
-	//
-	// List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns,
-	// object), provideRowMapper(sqlColumns));
-	//
-	// return list;
-	// }
-
-	// public List<T> findAllById(SUPID supId) {
-	//
-	// T object = produceObject(supId);
-	// List<T> list = findAll(object);
-	//
-	// return list;
-	// }
-
 	public void insert(T object) {
 		Collection<Column<T>> columns = table.values();
 
@@ -58,27 +32,7 @@ public abstract class ValueObjectJdbcDao<T, SUPID> extends JdbcBaseDao<T> {
 		jdbcTemplate.update(SQL, providePsSetter(columns, object));
 	}
 
-	// public void delete(T object) {
-	// Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
-	// pssColumns.add(table.getForeignKey());
-	//
-	// String SQL = "DELETE FROM #{table} WHERE #{fk}=?";
-	// SQL = sqlSetting(SQL, "table", table.getTableName());
-	// SQL = sqlSetting(SQL, "fk", table.getForeignKey().getColumnName());
-	//
-	// jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
-	// }
-
-	// public void deleteById(SUPID supId) {
-	// T object = produceObjectBySupId(supId);
-	// delete(object);
-	// }
-	//
-
 	public void deleteBySupId(SUPID supId) {
-		// Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
-		// pssColumns.add(table.getForeignKey());
-
 		Collection<Column<T>> supIdColumns = getColumnsByFieldName(getSupIdFieldName());
 		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>(supIdColumns);
 
@@ -90,46 +44,19 @@ public abstract class ValueObjectJdbcDao<T, SUPID> extends JdbcBaseDao<T> {
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}
 
-	// abstract protected T produceObject(SUPID supId);
-
-	// public List<T> findAll(T object) {
-	// Collection<Column<T>> sqlColumns = table.values();
-	// Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
-	// pssColumns.add(table.getForeignKey());
-	//
-	// String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{fk}=?";
-	// SQL = sqlSetting(SQL, "table", table.getTableName());
-	// SQL = sqlSetting(SQL, "columnNames", new
-	// SelectContents<T>(sqlColumns).toString());
-	// SQL = sqlSetting(SQL, "fk", table.getForeignKey().getColumnName());
-	//
-	// List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns,
-	// object), provideRowMapper(sqlColumns));
-	//
-	// return list;
-	// }
-	
-	// public List<T> findAllById(SUPID supId) {
-	//
-	// T object = produceObject(supId);
-	// List<T> list = findAll(object);
-	//
-	// return list;
-	// }
-	
 	public List<T> findAllBySupId(SUPID supId) {
 		Collection<Column<T>> supIdColumns = getColumnsByFieldName(getSupIdFieldName());
 		Collection<Column<T>> sqlColumns = table.values();
 		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>(supIdColumns);
-	
+
 		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{whereContents}";
 		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
 		SQL = sqlSetting(SQL, "whereContents", getWhereContentsForSupId(supIdColumns));
-	
+
 		T object = produceObjectBySupId(supId);
 		List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns, object), provideRowMapper(sqlColumns));
-	
+
 		return list;
 	}
 

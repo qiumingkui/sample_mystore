@@ -6,6 +6,10 @@ import java.util.Date;
 
 public class SaleOrderBase {
 
+	public static final String SALEORDERID = "saleOrderId";
+	public static final String USERNAME = "username";
+	public static final String ORDERDATE = "orderDate";
+
 	private SaleOrderId saleOrderId;
 
 	private String username;
@@ -16,43 +20,43 @@ public class SaleOrderBase {
 
 	private int concurrencyVersion;
 
-	public SaleOrderId getSaleOrderId() {
+	protected SaleOrderId getSaleOrderId() {
 		return saleOrderId;
 	}
 
-	public String getUsername() {
+	protected String getUsername() {
 		return username;
 	}
 
-	public Date getOrderDate() {
+	protected Date getOrderDate() {
 		return orderDate;
 	}
 
-	public int getConcurrencyVersion() {
+	protected int getConcurrencyVersion() {
 		return concurrencyVersion;
 	}
 
-	public Collection<SaleOrderItem> getSaleOrderItems() {
+	protected Collection<SaleOrderItem> getSaleOrderItems() {
 		return saleOrderItems;
 	}
 
-	public void setSaleOrderId(SaleOrderId saleOrderId) {
+	protected void setSaleOrderId(SaleOrderId saleOrderId) {
 		this.saleOrderId = saleOrderId;
 	}
 
-	public void setUsername(String username) {
+	protected void setUsername(String username) {
 		this.username = username;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	protected void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
-	public void setConcurrencyVersion(int concurrencyVersion) {
+	protected void setConcurrencyVersion(int concurrencyVersion) {
 		this.concurrencyVersion = concurrencyVersion;
 	}
 
-	public void setSaleOrderItems(Collection<SaleOrderItem> saleOrderItems) {
+	protected void setSaleOrderItems(Collection<SaleOrderItem> saleOrderItems) {
 		this.saleOrderItems = saleOrderItems;
 	}
 

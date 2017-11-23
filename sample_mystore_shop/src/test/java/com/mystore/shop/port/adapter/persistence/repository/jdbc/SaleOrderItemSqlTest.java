@@ -13,10 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mystore.shop.domain.model.order.SaleOrderFactory;
 import com.mystore.shop.domain.model.order.SaleOrderId;
-import com.mystore.shop.domain.model.order.SaleOrderItemBase;
+import com.mystore.shop.domain.model.order.SaleOrderItem;
 import com.mystore.shop.domain.model.order.SaleOrderItemId;
 import com.mystore.shop.domain.model.productitem.ProductItemId;
-import com.mystore.shop.port.adapter.persistence.jdbc.SaleOrderItemBaseSql;
+import com.mystore.shop.port.adapter.persistence.jdbc.SaleOrderItemSql;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,46 +25,46 @@ public class SaleOrderItemSqlTest {
 	private static final int CHANGED_QUANTITY = 9999;
 
 	@Autowired
-	private SaleOrderItemBaseSql saleOrderItemBaseSql;
+	private SaleOrderItemSql saleOrderItemBaseSql;
 
 	@Autowired
 	private SaleOrderFactory saleOrderFactory;
 
 	@Test
 	public void test() throws Exception {
-		SaleOrderItemBase newObj = newSaleOrderItemBase();
+		SaleOrderItem newObj = newSaleOrderItem();
 		saleOrderItemBaseSql.insert(newObj);
-		SaleOrderItemBase retrievedObj = saleOrderItemBaseSql.findOneById(newObj.getSaleOrderItemId());
+		SaleOrderItem retrievedObj = saleOrderItemBaseSql.findOneById(newObj.getSaleOrderItemId());
 		assertFalse(retrievedObj == null);
 
 		retrievedObj.setQuantity(CHANGED_QUANTITY);
 		saleOrderItemBaseSql.update(retrievedObj);
-		SaleOrderItemBase updatedObj = saleOrderItemBaseSql.findOneById(retrievedObj.getSaleOrderItemId());
+		SaleOrderItem updatedObj = saleOrderItemBaseSql.findOneById(retrievedObj.getSaleOrderItemId());
 		assertFalse(updatedObj == null);
-		assertFalse(!(updatedObj.getQuantity()==CHANGED_QUANTITY));
+		assertFalse(!(updatedObj.getQuantity() == CHANGED_QUANTITY));
 
-		// List<SaleOrderItemBase> list = saleOrderItemBaseSql.findAll();
+		// List<SaleOrderItem> list = saleOrderItemBaseSql.findAll();
 		// assertFalse(list.size() <= 0);
-		// SaleOrderItemBase firstObj = list.get(0);
+		// SaleOrderItem firstObj = list.get(0);
 		// assertFalse(firstObj == null);
 		// assertFalse(!(updatedObj.getQuantity()==CHANGED_QUANTITY));
 		//
-		// List<SaleOrderItemBase>
+		// List<SaleOrderItem>
 		// equelsProductIdList=saleOrderItemBaseSql.findAllByProductId(retrievedObj.getProductId());
 		// assertFalse(equelsProductIdList.size() <= 0);
-		
+
 		saleOrderItemBaseSql.deleteById(retrievedObj.getSaleOrderItemId());
-		SaleOrderItemBase deletedObj = saleOrderItemBaseSql.findOneById(retrievedObj.getSaleOrderItemId());
+		SaleOrderItem deletedObj = saleOrderItemBaseSql.findOneById(retrievedObj.getSaleOrderItemId());
 		assertFalse(deletedObj != null);
 
 	}
 
-	private SaleOrderItemBase newSaleOrderItemBase() {
+	private SaleOrderItem newSaleOrderItem() {
 		Random random = new Random();
 		Long saleOrderItemId = random.nextLong();
 		Long saleOrderId = random.nextLong();
 		Long productItemId = random.nextLong();
-		SaleOrderItemBase cartItem = (SaleOrderItemBase) saleOrderFactory.saleOrderItem(new SaleOrderItemId(saleOrderItemId),
+		SaleOrderItem cartItem = saleOrderFactory.saleOrderItem(new SaleOrderItemId(saleOrderItemId),
 				new SaleOrderId(saleOrderId), new ProductItemId(productItemId), 5, new BigDecimal(2),
 				new BigDecimal(10));
 		return cartItem;

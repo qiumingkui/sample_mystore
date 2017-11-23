@@ -5,6 +5,14 @@ import java.math.BigDecimal;
 import com.mystore.shop.domain.model.productitem.ProductItemId;
 
 public class SaleOrderItemBase {
+
+	public static final String SALEORDERITEMID = "saleOrderItemId";
+	public static final String SALEORDERID = "saleOrderId";
+	public static final String PRODUCTITEMID = "productItemId";
+	public static final String QUANTITY = "quantity";
+	public static final String UNITPRICE = "unitPrice";
+	public static final String TOTAL = "total";
+
 	private SaleOrderItemId saleOrderItemId;
 
 	private SaleOrderId saleOrderId;

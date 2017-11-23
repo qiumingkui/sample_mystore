@@ -17,11 +17,11 @@ public class SaleOrderFactory {
 	// }
 
 	public SaleOrder saleOrder(SaleOrderId saleOrderId, String username, Date orderDate) {
-		return new SaleOrderModel(saleOrderId, username, orderDate);
+		return new SaleOrder(saleOrderId, username, orderDate);
 	}
 
 	public SaleOrderItem saleOrderItem(SaleOrderItemId saleOrderItemId, SaleOrderId saleOrderId,
 			ProductItemId productItemId, int quantity, BigDecimal unitPrice, BigDecimal total) {
-		return new SaleOrderItemModel(saleOrderItemId, saleOrderId, productItemId, quantity, unitPrice, total);
+		return new SaleOrderItem(saleOrderItemId, saleOrderId, productItemId, quantity, unitPrice, total);
 	}
 }

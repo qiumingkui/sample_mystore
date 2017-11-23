@@ -20,16 +20,36 @@ import java.math.BigDecimal;
 
 import com.mystore.shop.domain.model.productitem.ProductItemId;
 
-public interface SaleOrderItem extends  Serializable {
+public class SaleOrderItem extends SaleOrderItemBase implements Serializable {
+	private static final long serialVersionUID = -1L;
 
-	public SaleOrderItemId saleOrderItemId();
+	public SaleOrderItem() {
+		super();
+	}
 
-	public int quantity();
+	public SaleOrderItem(SaleOrderItemId saleOrderItemId, SaleOrderId saleOrderId, ProductItemId productItemId,
+			int quantity, BigDecimal unitPrice, BigDecimal total) {
+		super(saleOrderItemId, saleOrderId, productItemId, quantity, unitPrice, total);
+	}
 
-	public BigDecimal unitPrice() ;
+	public SaleOrderItemId saleOrderItemId() {
+		return getSaleOrderItemId();
+	}
 
-	public BigDecimal total() ;
+	public int quantity() {
+		return getQuantity();
+	}
 
-	public ProductItemId productItemId() ;
+	public BigDecimal unitPrice() {
+		return getUnitPrice();
+	}
+
+	public BigDecimal total() {
+		return getTotal();
+	}
+
+	public ProductItemId productItemId() {
+		return getProductItemId();
+	}
 
 }
