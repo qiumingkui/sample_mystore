@@ -174,7 +174,7 @@ public abstract class SubEntityJdbcDao<T, ID, SUPID> extends JdbcBaseDao<T> {
 	}
 
 	private String getIdFieldName() {
-		String idFieldName = metaFactory.getAggregateRootMeta(clazz.getName()).getIdentityObjectFieldName();
+		String idFieldName = metaFactory.getSubEntityMeta(clazz.getName()).getIdentityObjectFieldName();
 		return idFieldName;
 	}
 

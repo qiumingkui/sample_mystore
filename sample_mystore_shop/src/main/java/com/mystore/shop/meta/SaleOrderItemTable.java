@@ -1,7 +1,10 @@
 package com.mystore.shop.meta;
 
 import com.mystore.common.persistence.Table;
+import com.mystore.shop.domain.model.order.SaleOrderId;
 import com.mystore.shop.domain.model.order.SaleOrderItem;
+import com.mystore.shop.domain.model.order.SaleOrderItemId;
+import com.mystore.shop.domain.model.productitem.ProductItemId;
 
 public class SaleOrderItemTable extends Table<SaleOrderItem> {
 
@@ -15,14 +18,15 @@ public class SaleOrderItemTable extends Table<SaleOrderItem> {
 
 	@Override
 	protected void init() {
+		this.setClassName(SaleOrderItem.class.getName());
 		this.setTableName(TABLENAME);
 
-		this.add(ID, SaleOrderItem.SALEORDERITEMID);
+		this.add(ID, SaleOrderItem.SALEORDERITEMID+"."+SaleOrderItemId.ID);
 		this.setPrimaryKay(ID);
 
-		this.add(SALEORDERID, SaleOrderItem.SALEORDERID);
+		this.add(SALEORDERID, SaleOrderItem.SALEORDERID+"."+SaleOrderId.ID);
 
-		this.add(PRODUCTITEMID, SaleOrderItem.PRODUCTITEMID);
+		this.add(PRODUCTITEMID, SaleOrderItem.PRODUCTITEMID+"."+ProductItemId.ID);
 
 		this.add(QUANTITY, SaleOrderItem.QUANTITY);
 

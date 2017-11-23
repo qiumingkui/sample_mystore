@@ -12,6 +12,7 @@ public class SaleOrderTable extends Table<SaleOrder> {
 
 	@Override
 	protected void init() {
+		this.setClassName(SaleOrder.class.getName());
 		this.setTableName(TABLENAME);
 
 		this.add(ID, SaleOrder.SALEORDERID);
