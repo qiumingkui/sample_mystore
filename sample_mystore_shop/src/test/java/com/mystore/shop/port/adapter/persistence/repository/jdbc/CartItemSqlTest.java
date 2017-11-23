@@ -29,14 +29,14 @@ public class CartItemSqlTest {
 		CartItem newObj = newCartItem();
 		_cartItemSql.insert(newObj);
 
-		List<CartItem> list = _cartItemSql.findAllByFK(newObj.getCartId());
+		List<CartItem> list = _cartItemSql.findAllBySupId(newObj.getCartId());
 		assertFalse(list.size() <= 0);
 		CartItem firstObj = list.get(0);
 		assertFalse(firstObj == null);
 		assertFalse(!(newObj.getTotal().equals(firstObj.getTotal())));
 
-		_cartItemSql.deleteByFK(newObj.getCartId());
-		List<CartItem> deletedList = _cartItemSql.findAllByFK(newObj.getCartId());
+		_cartItemSql.deleteBySupId(newObj.getCartId());
+		List<CartItem> deletedList = _cartItemSql.findAllBySupId(newObj.getCartId());
 		assertFalse(deletedList.size() > 0);
 	}
 

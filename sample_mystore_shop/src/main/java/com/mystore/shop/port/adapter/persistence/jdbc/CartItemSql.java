@@ -30,7 +30,7 @@ public class CartItemSql extends ValueObjectJdbcDao<CartItem, CartId> {
 	}
 
 	@Override
-	protected CartItem produceObject(CartId fk) {
+	protected CartItem produceObjectBySupId(CartId fk) {
 		CartItem cartItem = new CartItem();
 		cartItem.setCartId(fk);
 		return cartItem;

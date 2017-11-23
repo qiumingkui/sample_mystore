@@ -28,7 +28,7 @@ public class CartRepositorySql implements CartRepository {
 		if (cart == null)
 			return null;
 
-		List<CartItem> cartItems = cartItemSql.findAllByFK(cartId);
+		List<CartItem> cartItems = cartItemSql.findAllBySupId(cartId);
 		cart.setCartItems(cartItems);
 
 		return cart;
@@ -59,7 +59,7 @@ public class CartRepositorySql implements CartRepository {
 	public void update(Cart cart) {
 
 		cartSql.update(cart);
-		cartItemSql.deleteByFK(cart.cartId());
+		cartItemSql.deleteBySupId(cart.cartId());
 		Collection<CartItem> cartItems = cart.cartItems();
 		for (CartItem cartItem : cartItems) {
 			cartItemSql.insert(cartItem);
@@ -70,7 +70,7 @@ public class CartRepositorySql implements CartRepository {
 	public void delete(CartId cartId) {
 
 		cartSql.deleteById(cartId);
-		cartItemSql.deleteByFK(cartId);
+		cartItemSql.deleteBySupId(cartId);
 	}
 
 	@Override

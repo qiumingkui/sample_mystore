@@ -173,11 +173,6 @@ public abstract class AggregateRootJdbcDao<T, ID> extends JdbcBaseDao<T> {
 		return idList;
 	}
 
-	private Collection<Column<T>> getColumnsByFieldName(String idFieldName) {
-		Collection<Column<T>> idColumns = table.getColumnsByFieldName(idFieldName);
-		return idColumns;
-	}
-
 	private String getIdFieldName() {
 		String idFieldName = metaFactory.getAggregateRootMeta(clazz.getName()).getIdentityObjectFieldName();
 		return idFieldName;
@@ -186,12 +181,6 @@ public abstract class AggregateRootJdbcDao<T, ID> extends JdbcBaseDao<T> {
 	private Field getIdField() {
 		String idFieldName = getIdFieldName();
 		Field idField = getField(idFieldName);
-		return idField;
-	}
-
-	private Field getField(String fieldName) {
-		String className = clazz.getName();
-		Field idField = metaFactory.getClassMeta(className).getField(fieldName);
 		return idField;
 	}
 
@@ -211,19 +200,11 @@ public abstract class AggregateRootJdbcDao<T, ID> extends JdbcBaseDao<T> {
 		return whereContents;
 	}
 
-	private void attachColumns(Collection<Column<T>> subject, Collection<Column<T>> attached) {
-		for (Column<T> column : attached) {
-			subject.add(column);
-		}
-	}
-
 	private Collection<Column<T>> getUpdateColumns(Collection<Column<T>> source) {
 		Collection<Column<T>> idColumns = getColumnsByFieldName(getIdFieldName());
 		Column<T> versionColumn = table.getVersion();
 
 		Collection<Column<T>> columns = filtColumns(source, (Collection<Column<T>> target, Column<T> column) -> {
-			// if ((!column.isPrimaryKay()) && (!column.isVersion()))
-			// target.add(column);
 
 			for (Column<T> idColumn : idColumns) {
 				if (column.getColumnName().equals(idColumn.getColumnName())) {
@@ -231,7 +212,7 @@ public abstract class AggregateRootJdbcDao<T, ID> extends JdbcBaseDao<T> {
 				}
 			}
 
-			if (column.getColumnName().equals(versionColumn.getColumnName())) {
+			if (versionColumn != null && column.getColumnName().equals(versionColumn.getColumnName())) {
 				return;
 			}
 

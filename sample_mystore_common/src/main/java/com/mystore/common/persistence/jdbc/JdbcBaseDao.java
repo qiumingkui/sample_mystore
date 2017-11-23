@@ -1,5 +1,6 @@
 package com.mystore.common.persistence.jdbc;
 
+import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,6 +61,23 @@ public abstract class JdbcBaseDao<T> {
 	protected RowMapper<T> provideRowMapper(Collection<Column<T>> columns) {
 		RowMapper<T> rowMapper = new ObjectRowMapper<T>(columns);
 		return rowMapper;
+	}
+
+	protected Collection<Column<T>> getColumnsByFieldName(String idFieldName) {
+		Collection<Column<T>> idColumns = table.getColumnsByFieldName(idFieldName);
+		return idColumns;
+	}
+
+	protected Field getField(String fieldName) {
+		String className = clazz.getName();
+		Field idField = metaFactory.getClassMeta(className).getField(fieldName);
+		return idField;
+	}
+
+	protected void attachColumns(Collection<Column<T>> subject, Collection<Column<T>> attached) {
+		for (Column<T> column : attached) {
+			subject.add(column);
+		}
 	}
 
 	interface ColumnsFilter<T> {
