@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.mystore.common.meta.ClassMeta;
 import com.mystore.common.meta.MetaFactory;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.Table;

@@ -13,8 +13,6 @@ public abstract class TableBase<T> {
 
 	private String className;
 
-	// private Class<T> clazz;
-
 	private String tableName;
 
 	protected Map<String, Column<T>> map = new HashMap<String, Column<T>>();
@@ -27,14 +25,6 @@ public abstract class TableBase<T> {
 		this.className = className;
 	}
 
-	// public Class<T> getClazz() {
-	// return clazz;
-	// }
-	//
-	// protected void setClazz(Class<T> clazz) {
-	// this.clazz = clazz;
-	// }
-
 	public String getTableName() {
 		return tableName;
 	}
@@ -43,25 +33,40 @@ public abstract class TableBase<T> {
 		this.tableName = tableName;
 	}
 
-	public Column<T> column(Object key) {
+	public Column<T> getColumn(Object key) {
 		return map.get(key);
 	}
 
-	public Collection<Column<T>> columns() {
+	public Collection<Column<T>> values() {
 		Collection<Column<T>> values = new ArrayList<Column<T>>(map.values());
 		return values;
 	}
 
-	public String getIdClassName() {
-		if (primaryKey() != null) {
-			String fieldPath = primaryKey().getFieldPath();
-			String[] fields = fieldPath.split("\\.");
-			return fields[0];
+	public Collection<Column<T>> getColumnsByFieldName(String fieldName) {
+		Collection<Column<T>> collection = new ArrayList<Column<T>>();
+
+		Collection<Column<T>> values = values();
+		for (Column<T> column : values) {
+			String fieldPath = column.getFieldPath();
+			String[] fields = splitFieldPath(fieldPath);
+			if (fields[0].equals(fieldName)) {
+				collection.add(column);
+			}
 		}
-		return null;
+
+		return collection;
 	}
 
-	public Column<T> primaryKey() {
+	// public String getIdFieldName() {
+	// if (getPrimaryKey() != null) {
+	// String fieldPath = getPrimaryKey().getFieldPath();
+	// String[] fields = splitFieldPath(fieldPath);
+	// return fields[0];
+	// }
+	// return null;
+	// }
+
+	public Column<T> getPrimaryKey() {
 		for (Column<T> column : map.values()) {
 			if (column.isPrimaryKay())
 				return column;
@@ -69,7 +74,11 @@ public abstract class TableBase<T> {
 		return null;
 	}
 
-	public Column<T> foreignKey() {
+	protected void setPrimaryKay(String columnName) {
+		map.get(columnName).setPrimaryKay();
+	}
+
+	public Column<T> getForeignKey() {
 		for (Column<T> column : map.values()) {
 			if (column.isForeignKey())
 				return column;
@@ -77,25 +86,16 @@ public abstract class TableBase<T> {
 		return null;
 	}
 
-	public Column<T> version() {
+	protected void setForeignKey(String columnName) {
+		map.get(columnName).setForeignKey();
+	}
+
+	public Column<T> getVersion() {
 		for (Column<T> column : map.values()) {
 			if (column.isVersion())
 				return column;
 		}
 		return null;
-	}
-
-	// protected Column<T> add(String columnAndFieldName) {
-	// add(columnAndFieldName, columnAndFieldName);
-	// return this.column(columnAndFieldName);
-	// }
-
-	protected void setPrimaryKay(String columnName) {
-		map.get(columnName).setPrimaryKay();
-	}
-
-	protected void setForeignKey(String columnName) {
-		map.get(columnName).setForeignKey();
 	}
 
 	protected void setVersion(String columnName) {
@@ -152,6 +152,11 @@ public abstract class TableBase<T> {
 		Field field = SimpleBeanUtil.getFieldWithSupper(object.getClass(), fieldName);
 		field.setAccessible(true);
 		return field.get(object);
+	}
+
+	private String[] splitFieldPath(String fieldPath) {
+		String[] fields = fieldPath.split("\\.");
+		return fields;
 	}
 
 }

@@ -20,14 +20,14 @@ public abstract class ValueObjectJdbcDao<T, FK> extends JdbcBaseDao<T> {
 	}
 
 	public List<T> findAll(T object) {
-		Collection<Column<T>> sqlColumns = table.columns();
+		Collection<Column<T>> sqlColumns = table.values();
 		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
-		pssColumns.add(table.foreignKey());
+		pssColumns.add(table.getForeignKey());
 
 		String SQL = "SELECT #{columnNames} FROM #{table} WHERE #{fk}=?";
 		SQL = sqlSetting(SQL, "table", table.getTableName());
 		SQL = sqlSetting(SQL, "columnNames", new SelectContents<T>(sqlColumns).toString());
-		SQL = sqlSetting(SQL, "fk", table.foreignKey().getColumnName());
+		SQL = sqlSetting(SQL, "fk", table.getForeignKey().getColumnName());
 
 		List<T> list = jdbcTemplate.query(SQL, providePsSetter(pssColumns, object), provideRowMapper(sqlColumns));
 
@@ -43,7 +43,7 @@ public abstract class ValueObjectJdbcDao<T, FK> extends JdbcBaseDao<T> {
 	}
 
 	public void insert(T object) {
-		Collection<Column<T>> columns = table.columns();
+		Collection<Column<T>> columns = table.values();
 
 		String SQL = "INSERT INTO #{table} (#{columnNames}) VALUES(#{columnValues})";
 		SQL = sqlSetting(SQL, "table", table.getTableName());
@@ -55,11 +55,11 @@ public abstract class ValueObjectJdbcDao<T, FK> extends JdbcBaseDao<T> {
 
 	public void delete(T object) {
 		Collection<Column<T>> pssColumns = new ArrayList<Column<T>>();
-		pssColumns.add(table.foreignKey());
+		pssColumns.add(table.getForeignKey());
 
 		String SQL = "DELETE FROM #{table} WHERE #{fk}=?";
 		SQL = sqlSetting(SQL, "table", table.getTableName());
-		SQL = sqlSetting(SQL, "fk", table.foreignKey().getColumnName());
+		SQL = sqlSetting(SQL, "fk", table.getForeignKey().getColumnName());
 
 		jdbcTemplate.update(SQL, providePsSetter(pssColumns, object));
 	}

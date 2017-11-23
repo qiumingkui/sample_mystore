@@ -29,12 +29,12 @@ public class CartSql extends AggregateRootJdbcDao<Cart, CartId> {
 
 	public List<CartId> findAllIdByCustomerId(CustomerId customerId) {
 		Collection<Column<Cart>> rsColumns = new ArrayList<Column<Cart>>();
-		rsColumns.add(table.primaryKey());
+		rsColumns.add(table.getPrimaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{customerid}=?";
 		SQL = sqlSetting(SQL, "table", table.getTableName());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
-		SQL = sqlSetting(SQL, "customerid", table.column(CartTable.CUSTOMERID).getColumnName());
+		SQL = sqlSetting(SQL, "pk", table.getPrimaryKey().getColumnName());
+		SQL = sqlSetting(SQL, "customerid", table.getColumn(CartTable.CUSTOMERID).getColumnName());
 
 		List<Cart> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { customerId.getId() },
 				provideRowMapper(rsColumns));

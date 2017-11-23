@@ -55,7 +55,7 @@ public class CategorySqlTest {
 		Category firstObj = list.get(0);
 		assertFalse(firstObj == null);
 		assertFalse(!updatedObj.description().equals(CHANGED_DES));
-		
+
 		Page<Category> page = _categorySql.page(0, 10);
 		assertFalse(page.size() <= 0);
 

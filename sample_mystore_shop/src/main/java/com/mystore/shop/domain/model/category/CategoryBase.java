@@ -11,12 +11,15 @@ public class CategoryBase implements Serializable {
 	public static final String CATEGORYID = "categoryId";
 	public static final String NAME = "name";
 	public static final String DESCRIPTION = "description";
+	public static final String CURRENTVERSION = "currentVersion";
 
 	protected CategoryId categoryId;
 
 	protected String name;
 
 	protected String description;
+
+	protected int currentVersion;
 
 	protected CategoryBase(CategoryId categoryId, String name, String description) {
 		super();
@@ -51,6 +54,14 @@ public class CategoryBase implements Serializable {
 
 	protected void setDescription(String description) {
 		this.description = description;
+	}
+
+	protected int getCurrentVersion() {
+		return currentVersion;
+	}
+
+	protected void setCurrentVersion(int currentVersion) {
+		this.currentVersion = currentVersion;
 	}
 
 }

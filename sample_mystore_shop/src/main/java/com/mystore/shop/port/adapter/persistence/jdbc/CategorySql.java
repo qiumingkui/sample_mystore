@@ -31,12 +31,12 @@ public class CategorySql extends AggregateRootJdbcDao<Category, CategoryId> {
 
 	public List<CategoryId> findAllIdByNameLike(String name) {
 		Collection<Column<Category>> rsColumns = new ArrayList<Column<Category>>();
-		rsColumns.add(table.primaryKey());
+		rsColumns.add(table.getPrimaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{name} LIKE ?";
 		SQL = sqlSetting(SQL, "table", table.getTableName());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
-		SQL = sqlSetting(SQL, "name", table.column(CategoryTable.NAME).getColumnName());
+		SQL = sqlSetting(SQL, "pk", table.getPrimaryKey().getColumnName());
+		SQL = sqlSetting(SQL, "name", table.getColumn(CategoryTable.NAME).getColumnName());
 		List<Category> objectWithIdList = jdbcTemplate.query(SQL, new Object[] { "%" + name + "%" },
 				provideRowMapper(rsColumns));
 
@@ -55,17 +55,17 @@ public class CategorySql extends AggregateRootJdbcDao<Category, CategoryId> {
 
 	public Page<CategoryId> pageId(int start, int size) {
 		Collection<Column<Category>> rsColumns = new ArrayList<Column<Category>>();
-		rsColumns.add(table.primaryKey());
+		rsColumns.add(table.getPrimaryKey());
 
 		String COUNT_SQL = "SELECT COUNT(#{pk}) c FROM #{table} LIMIT ?,?";
 		COUNT_SQL = sqlSetting(COUNT_SQL, "table", table.getTableName());
-		COUNT_SQL = sqlSetting(COUNT_SQL, "pk", table.primaryKey().getColumnName());
+		COUNT_SQL = sqlSetting(COUNT_SQL, "pk", table.getPrimaryKey().getColumnName());
 		Map<String, Object> map = jdbcTemplate.queryForMap(COUNT_SQL, new Object[] { start, size });
 		long count = (Long) map.get("c");
 
 		String SQL = "SELECT #{pk} FROM #{table} LIMIT ?,?";
 		SQL = sqlSetting(SQL, "table", table.getTableName());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
+		SQL = sqlSetting(SQL, "pk", table.getPrimaryKey().getColumnName());
 		List<Category> objectWithIdList = jdbcTemplate.query(SQL, new Object[] { start, size },
 				provideRowMapper(rsColumns));
 

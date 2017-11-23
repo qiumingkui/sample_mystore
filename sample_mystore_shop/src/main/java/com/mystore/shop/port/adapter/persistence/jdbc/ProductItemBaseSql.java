@@ -25,12 +25,12 @@ public class ProductItemBaseSql extends AggregateRootJdbcDao<ProductItemBase, Pr
 
 	public List<ProductItemId> findAllIdByProductId(ProductId productId) {
 		Collection<Column<ProductItemBase>> rsColumns = new ArrayList<Column<ProductItemBase>>();
-		rsColumns.add(table.primaryKey());
+		rsColumns.add(table.getPrimaryKey());
 
 		String SQL = "SELECT #{pk} FROM #{table} WHERE #{productid}=?";
 		SQL = sqlSetting(SQL, "table", table.getTableName());
-		SQL = sqlSetting(SQL, "pk", table.primaryKey().getColumnName());
-		SQL = sqlSetting(SQL, "productid", table.column(ProductItemTable.PRODUCTID).getColumnName());
+		SQL = sqlSetting(SQL, "pk", table.getPrimaryKey().getColumnName());
+		SQL = sqlSetting(SQL, "productid", table.getColumn(ProductItemTable.PRODUCTID).getColumnName());
 
 		List<ProductItemBase> objectWithKeyList = jdbcTemplate.query(SQL, new Object[] { productId.getId() },
 				provideRowMapper(rsColumns));
