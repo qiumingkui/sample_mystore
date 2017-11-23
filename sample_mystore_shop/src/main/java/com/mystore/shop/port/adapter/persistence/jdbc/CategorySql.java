@@ -5,19 +5,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.mystore.common.meta.MetaFactory;
 import com.mystore.common.persistence.Column;
 import com.mystore.common.persistence.jdbc.AggregateRootJdbcDao;
 import com.mystore.common.utils.SimpleBeanUtil;
-import com.mystore.shop.domain.model.cart.CartItem;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.Page;

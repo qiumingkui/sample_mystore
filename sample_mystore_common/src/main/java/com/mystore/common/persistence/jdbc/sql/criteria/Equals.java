@@ -1,4 +1,4 @@
-package com.mystore.common.persistence.jdbc.sql.condition;
+package com.mystore.common.persistence.jdbc.sql.criteria;
 
 import com.mystore.common.persistence.jdbc.sql.SqlFragment;
 

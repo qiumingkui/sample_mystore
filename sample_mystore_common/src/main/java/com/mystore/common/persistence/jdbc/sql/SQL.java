@@ -1,8 +1,8 @@
 package com.mystore.common.persistence.jdbc.sql;
 
-import com.mystore.common.persistence.jdbc.sql.condition.And;
-import com.mystore.common.persistence.jdbc.sql.condition.Equals;
-import com.mystore.common.persistence.jdbc.sql.condition.RoundBracket;
+import com.mystore.common.persistence.jdbc.sql.criteria.And;
+import com.mystore.common.persistence.jdbc.sql.criteria.Equals;
+import com.mystore.common.persistence.jdbc.sql.criteria.RoundBracket;
 
 public class SQL {
 
