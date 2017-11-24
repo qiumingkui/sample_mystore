@@ -10,6 +10,7 @@ import java.util.Map;
 import com.mystore.common.utils.SimpleBeanUtil;
 
 public abstract class TableBase<T> {
+	protected static final String DOT_MARK = ".";
 
 	private String className;
 

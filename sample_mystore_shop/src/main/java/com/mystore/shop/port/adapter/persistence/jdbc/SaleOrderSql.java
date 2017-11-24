@@ -2,6 +2,7 @@ package com.mystore.shop.port.adapter.persistence.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import com.mystore.common.persistence.jdbc.AggregateRootJdbcDao;
 import com.mystore.shop.domain.model.order.SaleOrder;
@@ -9,6 +10,7 @@ import com.mystore.shop.domain.model.order.SaleOrderId;
 import com.mystore.shop.meta.SaleOrderTable;
 import com.mystore.shop.meta.SysMetaFactory;
 
+@Component
 public class SaleOrderSql extends AggregateRootJdbcDao<SaleOrder, SaleOrderId> {
 
 	// @Override

@@ -37,7 +37,7 @@ public class JdbcEventStore implements EventStore {
 	public StoredEvent append(DomainEvent aDomainEvent) {
 		String eventSerialization = EventSerializer.instance().serialize(aDomainEvent);
 
-		StoredEvent storedEvent = new StoredEvent(aDomainEvent.getClass().getName(), aDomainEvent.occurredOn(),
+		StoredEvent storedEvent = new StoredEvent(aDomainEvent.getClass().getName(), aDomainEvent.getOccurredOn(),
 				eventSerialization);
 
 		final String SQL = "INSERT INTO storedevent(typename,eventbody,occurredon) VALUES(?,?,?)";
