@@ -7,12 +7,18 @@ import org.springframework.stereotype.Service;
 import com.mystore.shop.domain.model.category.Category;
 import com.mystore.shop.domain.model.category.CategoryId;
 import com.mystore.shop.domain.model.category.CategoryRepository;
+import com.mystore.shop.domain.model.order.SaleOrder;
+import com.mystore.shop.domain.model.order.SaleOrderId;
+import com.mystore.shop.domain.model.order.SaleOrderRepository;
 
 @Service
 public class CatalogService {
 
 	@Autowired
 	private CategoryRepository _categoryRepository;
+
+	@Autowired
+	private SaleOrderRepository _saleOrderRepository;
 
 	public List<Category> getCategoryList() throws Exception {
 		return _categoryRepository.list();
@@ -21,6 +27,17 @@ public class CatalogService {
 	public Category getCategory(long categoryId) throws Exception {
 		CategoryId _categoryId = new CategoryId(categoryId);
 		return _categoryRepository.get(_categoryId);
+	}
+
+	// public List<SaleOrder> listSaleOrder(){
+	// return _saleOrderRepository.
+	// }
+	
+	public void requestPeyout(long saleOrderId) {
+		SaleOrder saleOrder = _saleOrderRepository.get(new SaleOrderId(saleOrderId));
+		saleOrder.requestPayout();
+		_saleOrderRepository.update(saleOrder);
+
 	}
 
 	// public Product getProduct(String productId) {
