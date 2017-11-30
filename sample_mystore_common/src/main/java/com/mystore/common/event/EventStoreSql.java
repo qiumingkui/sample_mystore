@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import com.mystore.common.domain.model.DomainEvent;
 
 @Service
-public class JdbcEventStore implements EventStore {
+public class EventStoreSql implements EventStore {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -29,8 +29,14 @@ public class JdbcEventStore implements EventStore {
 
 	@Override
 	public List<StoredEvent> allStoredEventsSince(long aStoredEventId) {
-		List<StoredEvent> storedEventList = allStoredEventsBetween(aStoredEventId, aStoredEventId);
+		// List<StoredEvent> storedEventList =
+		// allStoredEventsBetween(aStoredEventId, aStoredEventId);
+		// return storedEventList;
+		final String SQL = "SELECT * FROM storedevent WHERE eventid>? ORDER BY eventid";
+		List<StoredEvent> storedEventList = jdbcTemplate.query(SQL, new Object[] { aStoredEventId, },
+				new StoredEventRowMapper());
 		return storedEventList;
+
 	}
 
 	@Override
